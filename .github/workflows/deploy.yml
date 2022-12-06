@@ -3,9 +3,9 @@ name: Deploy
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request: 
-    branches: [ master ]
+    branches: [ main ]
 
 jobs: 
   build:
@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: |
         npm i
-        cd client
+        cd frontend
         npm i
         npm run build
         cd ..

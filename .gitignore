@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+dev.js
+package-lock.json
+.cert
+
+# production
+/client/build
+/build
+
+# misc
+INSTRUCTIONS.md

@@ -8,19 +8,25 @@ on:
     branches: [ main ]
 
 jobs: 
+  getCode:
+    runs-on: self-hosted
+    steps:
+    - name: Get code
+      uses: actions/checkout@v3
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - run: |
+        export NODE_OPTIONS="--max-old-space-size=8192"
+        npm ci
+        cd frontend
+        npm i
   build:
     runs-on: self-hosted
     steps: 
-    - name: Get Code
-      uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with: 
-        node-version: ${{ matrix.node-version }}
     - run: |
-        npm i
         cd frontend
-        npm i
         npm run build
         cd ..
         pm2 stop 0

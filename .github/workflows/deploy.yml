@@ -19,7 +19,7 @@ jobs:
         node-version: 18
     - run: |
         export NODE_OPTIONS="--max-old-space-size=8192"
-        npm ci
+        npm i
         cd frontend
         npm i
   build:

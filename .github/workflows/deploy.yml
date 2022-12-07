@@ -23,6 +23,7 @@ jobs:
         cd frontend
         npm i
   build:
+    needs: getCode
     runs-on: self-hosted
     steps: 
     - run: |

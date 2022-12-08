@@ -2,10 +2,6 @@ name: Deploy
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request: 
-    branches: [ main ]
 
 jobs: 
   getCode:
@@ -28,8 +24,3 @@ jobs:
     - run: |
         cd frontend
         npm run build
-        cd ..
-        pm2 stop 0
-        pm2 start 0
-        pm2 save
-        sudo service nginx restart

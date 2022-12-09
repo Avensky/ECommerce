@@ -19,7 +19,7 @@ jobs:
         node-version: 16.18.1
     - run: |
         npm ci
-        cd client
+        cd frontend
         npm ci
   build:
     needs: getCode
@@ -30,7 +30,7 @@ jobs:
       with:
         node-version: 16.18.1
     - run: |
-        cd client
+        cd frontend
         npm run build
   restartNginx:
     needs: build

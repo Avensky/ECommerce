@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from './pages';
 import './App.css';
 
-const  App = () => {
+const  App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>

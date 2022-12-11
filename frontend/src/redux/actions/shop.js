@@ -4,32 +4,32 @@ import axios from 'axios';
 /*******************************************
  * Get Items from database
 *******************************************/
-export const getItemsSuccess = (items) => {
+export const getProductsSuccess = (products) => {
   return {
-      type:  actionTypes.GET_ITEMS_SUCCESS,
-      items
+      type:  actionTypes.GET_PRODUCTS_SUCCESS,
+      products
   }
 }
-export const getItemsFail = (error) => {
+export const getProductsFail = (error) => {
   return {
-      type:  actionTypes.GET_ITEMS_FAIL, 
+      type:  actionTypes.GET_PRODUCTS_FAIL, 
       error
   }
 }
-export const getItemsStart = () => {
+export const getProductsStart = () => {
   return {
-      type:  actionTypes.GET_ITEMS_START
+      type:  actionTypes.GET_PRODUCTS_START
   }
 }
-export const getItems = () => {
+export const getProducts = () => {
   return dispatch => {
-      dispatch(getItemsStart())
-      axios.get( '/api/items')
+      dispatch(getProductsStart())
+      axios.get( '/api/getProducts')
       .then( result => {
-          const items = result.data
-              dispatch(getItemsSuccess(items));
+          const products = result.data
+              dispatch(getProductsSuccess(products));
       })
       .catch( error => {
-          console.log("getItems error = "+JSON.stringify(error))
-          dispatch(getItemsFail(error));
+          console.log("getProducts error = "+JSON.stringify(error))
+          dispatch(getProductsFail(error));
       })}}

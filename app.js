@@ -9,4 +9,10 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(morgan('dev'));
 }
 
+// config
+require('./models/products');
+
+// routes
+require('./routes/shop.js')(app);
+
 module.exports = app;

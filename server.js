@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 mongoose.set('strictQuery', false);
 mongoose.connect(keys.mongoURI, { 
     autoIndex: process.env.NODE_ENV === 'production' 
-        ? true : false,
+        ? false : true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

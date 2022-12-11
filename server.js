@@ -5,10 +5,9 @@ const express = require('express');
 
 //connect to database
 mongoose.Promise = global.Promise;
-mongoose.set('strictQuery', false);
+//mongoose.set('strictQuery', false);
 mongoose.connect(keys.mongoURI, { 
-    autoIndex: process.env.NODE_ENV === 'production' 
-        ? false : true,
+//    autoIndex: process.env.NODE_ENV === 'production' ? false : true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

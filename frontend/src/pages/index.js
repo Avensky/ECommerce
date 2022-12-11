@@ -1,0 +1,1 @@
+export { default as Home } from './public/Home/Home';

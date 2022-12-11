@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import storeReducer from './reducers/store';
+import shopReducer from './reducers/shop';
 
 export default configureStore({
     reducer: {
-        store: storeReducer
+        shop: shopReducer
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

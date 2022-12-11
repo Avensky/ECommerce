@@ -19,12 +19,12 @@ module.exports = {mongoose}
 //serve production files
 if (process.env.NODE_ENV === 'production') {
     //Express will server up production asses
-    app.use(express.static('./client/build'));
+    app.use(express.static('./frontend/build'));
 
     //Express will serve the index.html file
     //if it doesn't recogize the route
     const path = require('path');
-    const filepath = path.join(__dirname, './client/build/index.html');
+    const filepath = path.join(__dirname, './frontend/build/index.html');
 
     app.get('*', (req,res) => {
         res.sendFile(filepath, function(err){

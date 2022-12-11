@@ -18,7 +18,11 @@ jobs:
       with:
         node-version: 19.2.0
     - run: |
+        pm2 stop all
         npm ci
         cd frontend
         npm ci
         npm run build
+        pm2 start all
+        pm2 save
+        sudo service nginx restart

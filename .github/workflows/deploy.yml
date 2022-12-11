@@ -21,22 +21,8 @@ jobs:
         npm ci
         cd frontend
         npm ci
-  build:
-    needs: getCode
-    runs-on: self-hosted
-    steps:
-    - name: Use Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.18.1
-    - run: |
-        cd frontend
         npm run build
-  restartNginx:
-    needs: build
-    runs-on: self-hosted
-    steps:
-    - run: |
+        cd ..
         pm2 stop 0
         pm2 start 0
         pm2 save

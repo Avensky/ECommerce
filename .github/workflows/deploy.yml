@@ -13,6 +13,10 @@ jobs:
     steps:
     - name: Get Code
       uses: actions/checkout@v3
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 19.2.0
     - run: |
         npm ci
         cd frontend

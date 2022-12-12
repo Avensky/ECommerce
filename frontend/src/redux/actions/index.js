@@ -1,3 +1,3 @@
 export {
     getProducts
-} from './shop'
+} from './shop';

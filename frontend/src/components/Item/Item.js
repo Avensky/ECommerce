@@ -5,17 +5,17 @@ import classes from './Item.module.css';
 //{classes.CardThumbnail}
 
 const item = props => {
-    const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/'
+    const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
 
-    let stock
+    let stock;
     if (props.stock>11){
-        stock = <p><b>In Stock:</b> 10+</p>
+        stock = <p><b>In Stock:</b> 10+</p>;
     }
     if  ( props.stock < 11 && props.stock > 0 ) {
-        stock = <p><b>In Stock:</b> {props.stock}</p>
+        stock = <p><b>In Stock:</b> {props.stock}</p>;
     }
     if (props.stock===0){
-        stock = <p><b>Out of stock:</b></p>
+        stock = <p><b>Out of stock:</b></p>;
     }
 
 //    let rating, star_border, star,star_half //, quantity
@@ -26,14 +26,14 @@ const item = props => {
 //
 //    rating = [star,star,star,star_half,star_border]
 
-    let sold 
+    let sold;
         props.sold 
             ? sold = <div className={classes.CardSold}><p>Sold: {props.sold}</p></div>
-            : sold = null
-    let mystock 
+            : sold = null;
+    let mystock ;
         props.stock 
             ? mystock = <div className={classes.CardStock}>{ stock }</div>
-            : mystock = null
+            : mystock = null;
 
 // quantity = (<div className={classes.CardQuantityWrapper}>
 //                 <b><p>Quantity: </p></b>
@@ -96,5 +96,5 @@ const item = props => {
             </div>
         </div>
     </div>
-)}
+);};
 export default item;

@@ -70,10 +70,10 @@
 // 
 
 // Get items
-export const GET_PRODUCTS_START          = 'GET_PRODUCTS_START'
-export const GET_PRODUCTS_SUCCESS        = 'GET_PRODUCTS_SUCCESS'
-export const GET_PRODUCTS_FAIL           = 'GET_PRODUCTS_FAIL'
-export const GET_PRODUCTS                = 'GET_PRODUCTS'
+export const GET_PRODUCTS_START          = 'GET_PRODUCTS_START';
+export const GET_PRODUCTS_SUCCESS        = 'GET_PRODUCTS_SUCCESS';
+export const GET_PRODUCTS_FAIL           = 'GET_PRODUCTS_FAIL';
+export const GET_PRODUCTS                = 'GET_PRODUCTS';
 
 
 // export const GET_ITEM_BY_ID_START     = 'GET_ITEM_BY_ID_START'

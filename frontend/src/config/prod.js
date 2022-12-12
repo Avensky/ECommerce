@@ -3,4 +3,4 @@ module.exports = {
     taxRates                : process.env.TAX_RATES,
 
     proxyTarget: "http://localhost:3000" 
-}
+};

@@ -78,19 +78,23 @@ const initialState = {
 // 
 const getProductsStart = (state, action) => {
     return updateObject( state, { 
-        loading: true })}
+        loading: true 
+    });
+};
     
 const getProductsFail = (state, action) => {
     return updateObject( state, { 
-        loading: false })}
+        loading: false 
+    });
+};
     
 const getProductsSuccess = (state, action) => {
 //    console.log('getProductsSuccess = ' + JSON.stringify(action.products))
     return updateObject( state, {
         products: action.products,
         loading: false
-    })
-}
+    });
+};
 
 // const addToCart = ( state, action ) => {
 //     // Find item in db

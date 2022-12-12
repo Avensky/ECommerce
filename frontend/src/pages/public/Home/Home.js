@@ -5,15 +5,17 @@ import * as actions     from '../../../redux/actions/index';
 import myImg from '../../../assets/images/background.jpg';
 import Item from '../../../components/Item/Item';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 const Home = (props) => {
-    const addToCart             = (id) => {}
+    const addToCart             = (id) => {};
     //const addToCart             = (id) => {props.addToCart(id)}
-    const subtractQuantity      = (id) => {}
+    const subtractQuantity      = (id) => {};
     //const subtractQuantity      = (id) => {props.subtractQuantity(id);}
 
 //    let shop = props.shop.filter(item => item.featured === '1')
-    let shop = props.products.filter(item => item.featured === '1')
+    let shop = props.products.filter(item => item.featured === '1');
     let featured = shop.map( item => {
         return( 
             <Item
@@ -33,18 +35,18 @@ const Home = (props) => {
                 quantity            = {item.amount | 0}
                 add                 = {true}
             />
-        )
-    })
+        );
+    });
 
     useEffect(()=>{
-        console.log('useeffect')
-        const getProducts = async() => props.getProducts()
+        console.log('useeffect');
+        const getProducts = async () => props.getProducts();
         //if (!props.products){
         if (props.products.length === 0){
-            getProducts()
+            getProducts();
         }
-        console.log('products: ', props.products)
-    },[props.products])
+        console.log('products: ', props.products);
+    },[props.products]);
 
     return(
     <div className={[classes.Home].join(' ')}>
@@ -76,8 +78,8 @@ const Home = (props) => {
             </div>
         </div>
     </div>
-    )  
-}
+    );
+};
 
 const mapStateToProps = state => {
     return {
@@ -93,13 +95,18 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 //        addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
-        getProducts            : ()     =>{ dispatch(actions.getProducts())},
+        getProducts            : ()     =>{ dispatch(actions.getProducts());},
 //        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
 //        loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
 //        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
 //        orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
 //        subtractQuantity    : (id)   =>{ dispatch(actions.subtractQuantity(id))}
-    }
-}
+    };
+};
+
+Home.propTypes = {
+    products: PropTypes.array,
+    getProducts: PropTypes.func
+};
 
 export default connect (mapStateToProps, mapDispatchToProps)(Home);

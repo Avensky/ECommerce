@@ -2,21 +2,8 @@
     /* min-height: 84vh; */
 }
 
-.BackgroundWrapper {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    height: 100vh;
-}
-
-.BackgroundWrapper img{
-    /* width: 100%; */
-	/* overflow: hidden; */
-	/* text-align: center; */
-}
-
-/*  */
-.moduleLayer {
+/* Mission statement and shop link */
+.MissionContainer {
     box-sizing: border-box;
     position: absolute;
     width: 100%;
@@ -24,49 +11,77 @@
     padding: 5vh 2vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-.moduleHeading {
+.MissionHeading {
     font-size: 32px;
     font-weight: bold;
-    margin-bottom: 2vh;
+    margin: 1vh 0;
 }
 
-.moduleDescription {
-    font-size: 16px;
-    font-weight: 450;
-    margin-bottom: 2vh;
+.MissionDescription {
+    margin: 1vh 0;
 }
 
-.moduleLink {
-    width: 100%;
-    background-color: white;
+.MissionButton {
+    background-color: rgb(238, 238, 238);
     box-sizing: border-box;
+    margin: 1vh 0;
 }
-.moduleLink a {
+
+.MissionButton a {
+    color: black;
     padding: 1.5vh 0;
     display: block;
     font-size: 18px;
     text-decoration: none;
+    border:2px solid rgb(81, 115, 94);
 }
 
-.moduleLink a:hover {
-    box-shadow: 5px 10px rgba(55, 79, 61, 0.194);
+.MissionButton a:hover {
+    border:2px solid rgb(0, 0, 0);
 }
-/* Centered text */
+
+/* Main Image */
+.ImageContainer {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.ImageContainer img{
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Statement */
+.Statement {
+    background-color: aquamarine;
+    margin: 0 0 3vh;
+    padding: 2vh 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.FeaturedContent {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Centered text /
 .centered { 
     width: 225px;
     position: absolute;
     /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; */
+    justify-content: center; /
     top: 25%;
     left : 50%;
     transform: translate(-50%, -50%);
     font-size: 32px;
-    /*color: rgb(1, 7, 12);*/
+    /*color: rgb(1, 7, 12);/
     padding: 1vh 1vw;
     border-radius: 8px;
     color: white;
@@ -97,19 +112,12 @@
 }
 
 .shop {
-    /* text-align: center; */
+    /* text-align: center; /
     margin: 0vh 0vw 0;
 }
+*/
 
-.statement {
-    text-align: center;
-    background-color: aquamarine;
-    margin: 0 0 3vh;
-    padding: 3vh 0;
-    font-size: 16px;
-
-}
-
+/*
 .PageWrapper{
     min-height: auto;
 }
@@ -117,10 +125,11 @@
     margin: 1vh 0;
     font-size: 12px;
 }
+ */
 
 @media only screen and (min-width: 600px) {
     /* For tablets: */
-    .Home {
+    /* .Home {
 
     }
     .centered {
@@ -137,12 +146,12 @@
     }
     .title {
         font-size: 32px;
-    }
+    } */
 }
 
 @media only screen and (min-width: 1025px) {
     /* For desktop: */
-    .Home {
+    /* .Home {
    
    }
     .centered {
@@ -163,5 +172,5 @@
     }
     .title {
         font-size: 48px;
-    }
+    } */
 }

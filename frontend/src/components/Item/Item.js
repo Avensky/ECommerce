@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Item.module.css';
 
-//{classes.CardThumbnail}
+//{classes.Thumbnail}
 
 const item = props => {
     const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
@@ -28,16 +28,16 @@ const item = props => {
 
     let sold;
         props.sold 
-            ? sold = <div className={classes.CardSold}><p>Sold: {props.sold}</p></div>
+            ? sold = <div className={classes.Sold}><p>Sold: {props.sold}</p></div>
             : sold = null;
     let mystock ;
         props.stock 
-            ? mystock = <div className={classes.CardStock}>{ stock }</div>
+            ? mystock = <div className={classes.Stock}>{ stock }</div>
             : mystock = null;
 
-// quantity = (<div className={classes.CardQuantityWrapper}>
+// quantity = (<div className={classes.QuantityWrapper}>
 //                 <b><p>Quantity: </p></b>
-//                 <div className={classes.CardQuantity}>
+//                 <div className={classes.Quantity}>
 //                     <i className={["material-icons", classes.MaterialIcons, classes.Arrow].join(' ')} 
 //                         onClick={props.subtractQuantity}>arrow_drop_down</i>
 //                     <p>{props.quantity}</p>
@@ -45,36 +45,35 @@ const item = props => {
 //                         onClick={props.addToCart}>arrow_drop_up</i>  
 //                 </div>
 //             </div>)
-//    let reviews = <div className={classes.CardReviews}>
-//        <p className={classes.CardTitle}>{rating} Reviews({props.reviews || 0})</p>
+//    let reviews = <div className={classes.Reviews}>
+//        <p className={classes.Title}>{rating} Reviews({props.reviews || 0})</p>
 //    </div>
 
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
-        <div className={props.myClass}>   
             {/* Image */}
-            <div className={classes.CardThumbnail}>
+            <div className={classes.Thumbnail}>
                 <Link to={'/shop/itemfull/' + props.id}>
                     <img className={props.imgClass} src={url+props.image} alt={props.alt}/>
                 </Link>
             </div>
-        </div>
+
         <div className={props.myClass}> 
             {/* Name */}
-            <div className={[classes.CardName, props.class, 'CardName'].join(' ')}>
+            <div className={[classes.Name, props.class, 'Name'].join(' ')}>
                 <Link to={'/shop/itemfull/' + props.id}>
-                    <b><p>{props.name}</p></b>
+                    {props.name}
                 </Link>
             </div> 
 
             {/* Description */}
-            <div className={[classes.CardDescription, props.class].join(' ')}>
-                <p >{props.desc}</p>
+            <div className={[classes.Description, props.class].join(' ')}>
+                {props.desc}
             </div>
 
             {/* Price */}
-            <div className={classes.Cardprice}>
-                <p ><b>${props.price.toFixed(2)}</b></p>
+            <div className={classes.Price}>
+                ${props.price.toFixed(2)}
             </div>
 
             {/* Reviews */}
@@ -88,10 +87,12 @@ const item = props => {
             {/* Sold */}
             {sold}
 
-            {/* Price */}
-            <div className={[classes.CardPriceWrapper]} /*onClick={props.addToCart}*/>
+            {/* Select */}
+            <div className={[classes.SelectWrapper]} /*onClick={props.addToCart}*/>
                 <Link to={'/shop/itemfull/' + props.id}>
-                    <div className={["text-center noselect", classes.CardPrice].join(' ')}><p><b>Select Options</b></p></div>
+                    <div className={["text-center noselect", classes.Select].join(' ')}>
+                        Select Options
+                    </div>
                 </Link>
             </div>
         </div>

@@ -49,31 +49,35 @@ const Home = (props) => {
     },[props.products]);
 
     return(
-    <div className={[classes.Home].join(' ')}>
-        <div className={classes.moduleLayer}>
-            <div className={classes.moduleHeading}>
+    <div className={classes.Home}>
+        {/* Mission statement and shop link */}
+        <div className={classes.MissionContainer}>
+            <div className={classes.MissionHeading}>
                 FOR PEOPLE WITH CARING HEARTS
             </div>
             <div className={classes.moduleDescription}>
-                With cute stickers and images we hope to spread
+                With cute stickers and products we hope to spread
                 our message of love <span className="fa fa-heart" />
-                and understanding of all beings. Including the furry ones.
+                towards all. Specially those who cannot speak for themselves.
             </div>
-            <div className={classes.moduleLink}>
+            <div className={classes.MissionButton}>
                 <NavLink to="/shop" className={classes.moduleLink}>Shop Now</NavLink>
             </div>
         </div>
-        <div className={classes.BackgroundWrapper}>
-        <img src={myImg} alt="Home page product background"/>
+        {/* Main Image */}
+        <div className={classes.ImageContainer}>
+            <img src={myImg} alt="Main Background"/>
         </div>
-        <div className={classes.statement}>
-            <p>Change the world with caring hearts. <span className="fa fa-heart" /></p>
+        {/* Statement */}
+        <div className={classes.Statement}>
+            Change the world with caring hearts. <span className="fa fa-heart" />
         </div>
-        <div className={['page-wrapper', classes.PageWrapper].join(' ')}> 
-            <div className="text-center">
+        {/* Featured Section */}
+        <div className={classes.Featured}> 
+            <div className={classes.FeaturedTitle}>
                 <h1>Featured Products</h1>
             </div>
-            <div className='page-body'>
+            <div className={classes.FeaturedContent}>
                 {featured}
             </div>
         </div>

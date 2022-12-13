@@ -6,7 +6,7 @@ import myImg from '../../../assets/images/background.jpg';
 import Item from '../../../components/Item/Item';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Home = (props) => {
     const addToCart             = (id) => {};
@@ -53,12 +53,11 @@ const Home = (props) => {
         {/* Mission statement and shop link */}
         <div className={classes.MissionContainer}>
             <div className={classes.MissionHeading}>
-                FOR PEOPLE WITH CARING HEARTS
+                FOR PEOPLE WITH CARING HEARTS <FontAwesomeIcon icon='fa-heart' />
             </div>
-            <div className={classes.moduleDescription}>
-                With cute stickers and products we hope to spread
-                our message of love <span className="fa fa-heart" />
-                towards all. Specially those who cannot speak for themselves.
+            <div className={classes.MissionDescription}>
+                With cute stickers and products we hope to spread our message of 
+                love towards all. Specially those who cannot speak for themselves.
             </div>
             <div className={classes.MissionButton}>
                 <NavLink to="/shop" className={classes.moduleLink}>Shop Now</NavLink>
@@ -70,7 +69,7 @@ const Home = (props) => {
         </div>
         {/* Statement */}
         <div className={classes.Statement}>
-            Change the world with caring hearts. <span className="fa fa-heart" />
+            Change the world with caring hearts <FontAwesomeIcon icon="fa-heart" />
         </div>
         {/* Featured Section */}
         <div className={classes.Featured}> 

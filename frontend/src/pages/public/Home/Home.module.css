@@ -11,22 +11,23 @@
     padding: 5vh 2vw;
     display: flex;
     flex-direction: column;
+    margin-top: 51px;
 }
 
 .MissionHeading {
     font-size: 32px;
     font-weight: bold;
-    margin: 1vh 0;
+    margin: 2vh 0;
 }
 
 .MissionDescription {
-    margin: 1vh 0;
+    margin: 2vh 0;
 }
 
 .MissionButton {
     background-color: rgb(238, 238, 238);
     box-sizing: border-box;
-    margin: 1vh 0;
+    margin: 2vh 0;
 }
 
 .MissionButton a {

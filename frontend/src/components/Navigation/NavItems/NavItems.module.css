@@ -1,0 +1,96 @@
+ .Desktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.NavItems {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.25em;
+}
+
+.LogoLink {
+    /* height: 80%; */
+    display: flex;
+    align-items: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/*
+.NavItems {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-size: 1.25em;
+}
+
+/*logout btn /
+.NavItem {
+    display:flex;
+    padding: 1px 0;
+    margin: 0;
+    width: 100%;
+    height: 51px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.NavItem a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 600px) {
+    .NavItem {
+        padding: 5px 0;
+    }
+}
+
+
+@media only screen and (min-width: 1025px) {
+
+    /*logout btn /
+    .NavItem a {
+        padding: 1.6vh 1vw;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        align-items: center;
+    }
+    
+    .NavItem a:hover,
+    .NavItem a.active {
+        background-color: #060814;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid #afe4f7;
+    }
+
+    .Desktop a{
+        display: flex;
+        align-items: center;
+    }
+    
+    .NavItems {
+        flex-flow: row;
+    }
+
+    .LogoName a {
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+    }
+    .LogoName a:hover{
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid #40A4C8;
+    }
+} */

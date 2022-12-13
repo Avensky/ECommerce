@@ -1,0 +1,96 @@
+.Navbar {
+    height: 51px;
+    width: 100%;
+    position: fixed;
+    /* top: 0; */
+    /* left: 0; */
+    background-color: rgb(4, 0, 10);;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    padding: 0 10vw;
+    box-sizing: border-box;
+    z-index: 90;
+    /* color: white; */
+    white-space: nowrap;
+    /* border-top: 1px solid transparent; */
+    border-bottom: 1px solid #afe4f7;
+}
+/*
+.Navbar i {cursor: pointer}
+
+.user {padding: 0 0vw 0 3vw;}
+*/
+
+.Navbar a {
+    color: white;
+    text-decoration: none;
+    
+    /* height: 100%; */
+    /* margin: 0; */
+    /* align-items: center; */
+}
+
+/*
+.Navbar nav {height: 100%;}
+
+.Navbar .Mobile {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+}
+
+.Mobile a {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 80%;
+    padding: 0;
+}
+*/
+/*
+.Logo {
+    height: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.LogoName {
+    height: 100%;
+    font-size: 1.5em;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SidebarToggle {font-size: 1.5em;}
+*/
+
+
+
+/* Hide Desktop Navbar while on mobile*/
+.Desktop {display: none}
+
+
+
+/*
+@media only screen and (min-width: 600px) {
+    /* For tablets: /
+    .DesktopOnly {display: none;}
+}
+*/
+
+/* For desktop: */
+@media only screen and (min-width: 1025px) {    
+    .Desktop {
+        display: block;
+        height:100%;
+    }
+    .LogoName {height: 100%}
+    .Navbar .MobileLinks, 
+    .Navbar .Logo {display: none;}
+} 

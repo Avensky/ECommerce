@@ -1,13 +1,14 @@
 .Logo {
-    height: 80%;
+    /* padding: 2vh 2vw; */
+    display: block;
     box-sizing: border-box;
-    /* border-radius: 5px; */
   }
 
 
 
 .Logo img {
     height: 100%;
+    box-sizing: border-box;
 }
 
 @media (prefers-reduced-motion: no-preference) {

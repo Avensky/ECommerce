@@ -4,23 +4,24 @@ import classes from './NavItem.module.css';
 import PropTypes from 'prop-types';
 
 const NavItem = ( props ) => (
-    <li className={classes.NavItem}>
+    <div className={classes.NavItem}>
             <NavLink 
                 to={props.to}
                 exact={props.exact}
-                className={navData =>
-                    (navData.isActive ? classes.active : "")
+                className={navData => (navData.isActive 
+                    ? [classes.active, props.className].join(' ') 
+                    : props.className)
                   }
                 >{props.children}
             </NavLink>
-
-    </li>
+    </div>
 );
 
 NavItem.propTypes = {
     to : PropTypes.string,
-    exact : PropTypes.bool,
-    children : PropTypes.any
+    exact : PropTypes.string,
+    children : PropTypes.any,
+    className : PropTypes.string
 };
 
 export default NavItem;

@@ -1,0 +1,29 @@
+.Modal {
+    position: fixed;
+    z-index: 500;
+    background-color: rgb(44, 2, 2);
+    border: 1px solid rgb(255, 255, 255);
+    padding: 2vh 5vw 7vh;
+    margin: 0 auto;
+    left: 0;
+    top: 25%;
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+}
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .Modal {
+        left: calc(50% - 250px);
+        width: 450px;
+        left: 50%;
+    }
+}
+@media only screen and (min-width: 1025px) {
+    /* For tablets: */
+    .Modal {
+        left: calc(50% - 300px);
+        width: 500px;
+        left: 50%;
+    }
+}

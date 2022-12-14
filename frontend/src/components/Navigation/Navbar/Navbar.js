@@ -1,79 +1,84 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Navbar.module.css';
 import Logo from '../../Logo/Logo';
-import NavItems from '../NavItems/NavItems';
 //import SidebarToggle from '../Sidebar/SidebarToggle/SidebarToggle';
 import { NavLink } from 'react-router-dom';
+import NavItem from './NavItem/NavItem';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Navbar = ( props ) => {
+
     return (
-        <div className={classes.Navbar}>
-            {/* <SidebarToggle clicked={props.sidebarToggleClicked} />  */}
-            
-            
-            
-            
-            
-            {/* <div className={[classes.MobileLinks, classes.Mobile].join(' ')}>
-
-                <i className={['fa fa-bars', classes.SidebarToggle,classes.MobileLinks, classes.Mobile].join(' ')} 
-                    onClick={props.sidebarToggleClicked} />
-
-                <div className={[classes.LogoWrapper, classes.Mobile].join(' ')}>
-                        <NavLink  to="/">
-                            <div className={classes.Logo}>
-                                <Logo />
-                                <div className={classes.LogoName}>Uriel Zacarias</div>
-                            </div>  
-                        </NavLink >
+        <div className={classes.NavbarWrapper}>
+            {/* Mobile Sidebar */}
+            <div className={[classes.Navbar, classes.Mobile].join(' ')}>
+                <div className={classes.NavItems}>
+                    <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
+                </div>
+                <div className={classes.NavItems}>
+                    <NavLink to="/home" exact='true' className={classes.LogoWrapper}>
+                            <Logo height='80%' />
+                            <div className={classes.LogoText}>ECOMMERCE</div>
+                    </NavLink >
+                </div>
+                <div className={classes.NavItems}>
+                    <NavItem to="/authentication" exact='true'>
+                        <FontAwesomeIcon icon="fa-solid fa-user" />
+                    </NavItem>
+                    <NavItem to="/cart" exact='true'>
+                        <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+                    </NavItem>
                 </div>
 
-
-
-
-                <NavLink  to="/">
-                    <FontAwesomeIcon icon='fa-user'/>
-                </NavLink>
-                
             </div>
-             */}
-       
-       
-       
-       
-       
-       
-       
-            {/*  /}
-            <div className={[classes.MobileLinks, classes.Mobile].join(' ')}>
-                <h2 className="line">
-                    {/*props.isLogged !== null
-                        ? <div className={classes.NavItem}><a  href="/api/logout">Logout </a></div>
-                    : null/}          
-                    {props.isLogged !== null
-                        ? <NavLink to="/profile">
-                            <h2 className={classes.NavItemLogo}><span className={["fa fa-user", classes.user].join(' ')} /></h2>
-                        </NavLink>
-                        : <NavLink to="/authentication">
-                            <h2 className={classes.NavItemLogo}><span className={["fa fa-sign-in", classes.user].join(' ')} /></h2>
-                        </NavLink>
-                    }                                  
-                </h2>
-            </div> */}
-            
-            {/* Desktop Navbar */}
-            <div className={classes.Desktop}>
-                <NavItems //isLogged={props.isLogged} totalItems={props.totalItems}
-                />
+            {/* Desktop Navbar */}                             
+            <div className={[classes.Navbar, classes.Desktop].join(' ')}>
+                <div className={classes.NavItems}>
+                    <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
+                    <NavLink to="/home"     exact='true'>
+                        <div className={classes.LogoWrapper}>
+                            <Logo height='80%' />
+                            <div className={classes.LogoText}>ECOMMERCE</div>    
+                        </div>
+                    </NavLink >
+                    <NavItem to="/shop"     exact='true'>Shop</NavItem>
+                    <NavItem to="/about"    exact='true'>About</NavItem>
+                    <NavItem to="/recipes"  exact='true'>Recipes</NavItem>
+                </div>
+                <div className={classes.NavItems}>
+                    <NavItem to="/support" exact='true'>Support</NavItem>
+                    {/* {props.isLogged != null 
+                        ? <NavItem to="/profile"          >Profile</NavItem> 
+                        : null}
+                    {props.isLogged != null 
+                        ? <NavItem to="/orders"          >Orders</NavItem> 
+                        : null}
+
+                    {props.isLogged != null 
+                        ? <NavItem to="/profile"          >Profile</NavItem> 
+                        : null} */}
+                    {!props.isLogged
+                        ? <NavItem to="/authentication" exact='true'>
+                            <FontAwesomeIcon icon="fa-solid fa-user"/>
+                        </NavItem>
+                        : <div className={classes.NavItem}><a  href="/api/logout">Logout</a></div>}
+                
+                    <NavItem to="/search" exact='true'>
+                        <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+                    </NavItem>
+                    <NavItem to="/cart" exact='true'>
+                        <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+                    </NavItem>
+                </div>
             </div>
         </div>
     );
 };
 
 Navbar.propTypes = {
-    sidebarToggleClicked : PropTypes.bool
+    sidebarToggleClicked : PropTypes.func,
+    isLogged : PropTypes.any
 };
 
 export default Navbar;

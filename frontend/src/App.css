@@ -5,3 +5,7 @@
 .Fit {
   height: fit-content;
 }
+
+.page-wrapper {
+  padding-top: 51px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home } from './pages';
+import { Home, Shop } from './pages';
 //import Navbar from './components/Navigation/Navbar/Navbar';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
@@ -12,8 +12,9 @@ const  App = (props) => {
         <Navigation />
         <Routes>
           {/* pages */}
-          <Route path="/" element={<Home/>}/>
+          <Route path="/"     element={<Home/>}/>
           <Route path="/home" element={<Home/>}/>
+          <Route path="/shop" element={<Shop />}/>
         </Routes>
       </BrowserRouter>
     </div>

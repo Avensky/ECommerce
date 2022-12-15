@@ -5,26 +5,26 @@ import classes from './ItemDetails.module.css';
 //{classes.CardThumbnail}
 
 const item = props => {
-    const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/'
+    const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
 
-    let stock
+    let stock;
     if (props.stock>11){
-        stock = <p><b>In Stock:</b> 10+</p>
+        stock = <p><b>In Stock:</b> 10+</p>;
     }
     if  ( props.stock < 11 && props.stock > 0 ) {
-        stock = <p><b>In Stock:</b> {props.stock}</p>
+        stock = <p><b>In Stock:</b> {props.stock}</p>;
     }
     if (props.stock===0){
-        stock = <p><b>Out of stock:</b></p>
+        stock = <p><b>Out of stock:</b></p>;
     }
 
-    let rating, star_border, star,star_half, quantity
+    let rating, star_border, star,star_half, quantity;
 
-    star_border = <i className="material-icons">star_border</i>
-    star = <i className="material-icons">star</i>
-    star_half = <i className="material-icons">star_half</i>
+    star_border = <i className="material-icons">star_border</i>;
+    star = <i className="material-icons">star</i>;
+    star_half = <i className="material-icons">star_half</i>;
 
-    rating = [star,star,star,star_half,star_border]
+    rating = [star,star,star,star_half,star_border];
 
     props.quantity >=0
         ? quantity = <div className={classes.CardQuantityWrapper}>
@@ -39,7 +39,7 @@ const item = props => {
                     onClick={props.addToCart} />  
             </div>
         </div>
-        : quantity = null
+        : quantity = null;
 
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
@@ -95,6 +95,7 @@ const item = props => {
                 <div className={["text-center noselect", classes.AddBtn].join(' ')}><p>Add to Cart <b>${props.price.toFixed(2)}</b></p></div>
             </div>
         </div>
-    </div>
-)}
+    </div>);
+};
+
 export default item;

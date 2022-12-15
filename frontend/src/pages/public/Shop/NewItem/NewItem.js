@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //import classes from '../../Pages.module.scss';
-import classes from './NewItem.module.css'
+import classes from './NewItem.module.css';
 import {connect} from 'react-redux';
 import * as actions from '../../../../store/actions/index';
 
@@ -107,7 +107,7 @@ const NewItem = ( props ) => {
         </form>
         </div>     
     );
-}
+};
 
 
 const mapStateToProps = state => {
@@ -116,12 +116,12 @@ const mapStateToProps = state => {
         isLoggedIn  : state.auth.payload !== null,
         payload     : state.auth.payload,
         userId      : state.auth.userId,
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         onNewItem: (values) => dispatch(actions.newItem(values)),
-    }
-}
+    };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(NewItem);

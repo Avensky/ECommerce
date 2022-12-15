@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import classes from './ItemFull.module.css';
 import * as actions from '../../../../store/actions/index';
 //import Details from '../Details/Details';    
-import {useHistory}     from 'react-router-dom'                                                         
-import Item from './ItemDetails/ItemDetails'
-import CheckoutHeader   from '../../Checkout/CheckoutHeader/CheckoutHeader'
-import Review from '../ItemFull/Review/Review'
+import {useHistory}     from 'react-router-dom';                                                         
+import Item from './ItemDetails/ItemDetails';
+import CheckoutHeader   from '../../Checkout/CheckoutHeader/CheckoutHeader';
+import Review from '../ItemFull/Review/Review';
 import Modal from '../../../../components/UI/Modal/Modal';
 import OrderSummary from '../../OrderSummary/OrderSummary';
-import {purchaseContinueHandler} from '../../../../utility/stripe'
+import {purchaseContinueHandler} from '../../../../utility/stripe';
+import PropTypes from 'prop-types';
 
 const ItemFull = props => {
     //const [id, setId]       = useState(null);
@@ -25,29 +26,29 @@ const ItemFull = props => {
             const itemId = props.shop.find(el => el._id === paramId);
             setItem(itemId);
         }
-    }
+    };
 
     useEffect(() => {
         //console.log('params',props.match.params.itemId)
         if (props.cartLoaded===true){
             //console.log('ping')
-            console.log('search for item')
-            loadData(props.match.params.itemId)
-        } 
-    },[props.shop])
+            console.log('search for item');
+            loadData(props.match.params.itemId);
+        }
+    },[props.shop]);
 
     const [purchasing, setPurchasing] = useState(false);
 
-    const history = useHistory()
+    const history = useHistory();
     
-    const handleClick           = (id) => {props.addToCart(id); }
-    const addToCart             = (id) => {props.addToCart(id)}
-    const subtractQuantity      = (id) => {props.subtractQuantity(id);}
-    const purchaseHandler       = ()   => {setPurchasing(true)}
-    const purchaseCancelHandler = ()   => {setPurchasing(false)}
-    const viewCartHandler       = ()   => {history.push('/cart')}
+    const handleClick           = (id) => {props.addToCart(id); };
+    const addToCart             = (id) => {props.addToCart(id);};
+    const subtractQuantity      = (id) => {props.subtractQuantity(id);};
+    const purchaseHandler       = ()   => {setPurchasing(true);};
+    const purchaseCancelHandler = ()   => {setPurchasing(false);};
+    const viewCartHandler       = ()   => {history.push('/cart');};
 
-    let orderSummary = null
+    let orderSummary = null;
     if (props.addedItems) {
         orderSummary = <OrderSummary 
             items={props.addedItems}
@@ -59,7 +60,8 @@ const ItemFull = props => {
  
     let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
     if ( props.match.params.id ) {
-        details = <p style={{ textAlign: 'center' }}>Loading...!</p>;}
+        details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+    }
 
     if (item) {
         details = <Item
@@ -82,11 +84,11 @@ const ItemFull = props => {
             quantity            = {item.amount||0}
             stock               = {item.quantity}
             sold                = {item.sold}
-        />
+        />;
     }
 
-    let reviews 
-    let rating = 4.65
+    let reviews;
+    let rating = 4.65;
     item
         ? reviews = <Review 
                         username    = 'Poly'
@@ -95,12 +97,12 @@ const ItemFull = props => {
                         item        = 'Bee yourself T-shirt'
                         review      = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'                    
                     />
-        : reviews = <p>Be the first to review this product.</p>
+        : reviews = <p>Be the first to review this product.</p>;
 
-    let checkout
+    let checkout;
     props.totalItems > 0
         ? checkout = purchaseHandler
-        : checkout = null
+        : checkout = null;
 
     return(
         <div className={['page-wrapper', classes.ItemFull].join(' ')}>
@@ -133,9 +135,8 @@ const ItemFull = props => {
                 {reviews}
             </div>
         </div>
-    )
-    
-}
+    );
+};
 
 const mapStateToProps = state => {
     return {
@@ -152,10 +153,22 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addToCart: ( id ) => { dispatch( actions.addToCart( id ) ) },
-        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id))}
+        addToCart: ( id ) => { dispatch( actions.addToCart( id ) ); },
+        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id));}
+    };
+};
 
-    }
-}
+ItemFull.propTypes = {
+    shop: PropTypes.array,
+    cartLoaded: PropTypes.array,
+    match: PropTypes.any,
+    addToCart: PropTypes.func,
+    subtractQuantity: PropTypes.func,
+    addedItems: PropTypes.array,
+    total: PropTypes.number,
+    isAuth: PropTypes.any,
+    totalItems: PropTypes.number,
+    review: PropTypes.string
+};
 
 export default connect (mapStateToProps, mapDispatchToProps)(ItemFull);

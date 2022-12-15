@@ -87,9 +87,14 @@
     .Shop{
         margin: 0 5vw;
     }
+
+    .SortWrapper {
+        margin: 2vh 0;
+    }
+
     .ShopContent{
         flex-direction: row;
-        margin: 4vh 0 ;
+        /* margin: 2vh 0 ; */
         flex-wrap: wrap;        
     }
 }

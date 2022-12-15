@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { connect }          from 'react-redux';
 import classes              from './Shop.module.css';
 import Item                 from '../../../components/Item/Item';
@@ -78,6 +78,19 @@ const Shop = props => {
     };
     const viewCartHandler       = ()   => {//history.push('/cart')
     };
+
+
+    useEffect(()=>{
+        console.log('useeffect');
+        const getProducts = async () => props.getProducts();
+        //if (!props.products){
+        if (props.products.length === 0){
+            getProducts();
+        }
+        console.log('products: ', props.products);
+    },[props.products]);
+
+    
 
     let orderSummary = null;
     // if (props.addedItems) {
@@ -212,6 +225,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getProducts            : ()     =>{ dispatch(actions.getProducts());},
         // addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
         // getItems            : ()     =>{ dispatch(actions.getItems())},
         // getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
@@ -229,7 +243,8 @@ Shop.propTypes = {
     getItemByType: PropTypes.func,
     loadShop: PropTypes.func,
     shop: PropTypes.array,
-    products: PropTypes.array
+    products: PropTypes.array,
+    getProducts: PropTypes.func
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(Shop);

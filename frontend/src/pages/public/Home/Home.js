@@ -57,7 +57,7 @@ const Home = (props) => {
             </div>
             <div className={classes.MissionDescription}>
                 With cute stickers and products we hope to spread our message of 
-                love towards all. Specially those who cannot speak for themselves.
+                love towards all. Specially those with furry paws.
             </div>
             <div className={classes.MissionButton}>
                 <NavLink to="/shop" className={classes.moduleLink}>Shop Now</NavLink>

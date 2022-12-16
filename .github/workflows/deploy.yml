@@ -49,9 +49,8 @@ jobs:
     needs: buildProd
     runs-on: self-hosted
     steps:
-    - name: Get Code
     - run: |
-        pm2 stop ECommerce
-        pm2 start ECommerce
+        pm2 stop 0
+        pm2 start 0
         pm2 save
         sudo service nginx restart

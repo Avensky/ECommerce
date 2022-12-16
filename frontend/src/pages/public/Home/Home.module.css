@@ -72,11 +72,15 @@
 
 .FeaturedContent{
     display: flex;
-    flex-direction: column;
     width: 100%;
 }
 @media only screen and (min-width: 600px) {
     /* For tablets: */
+
+    .FeaturedContent {
+        flex-direction: column;
+    }
+
     /* .Home {
 
     }

@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs: 
-  getCode:
+  getBackend:
     runs-on: self-hosted
     steps:
     - name: Get Code
@@ -19,10 +19,39 @@ jobs:
         node-version: 19.2.0
     - run: |
         npm i
+        npm run lint
+  getFrontend:
+    needs: getBackend
+    runs-on: self-hosted
+    steps:
+    - name: Get Code
+      uses: actions/checkout@v3
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 19.2.0
+    - run: |
         cd frontend
         npm i
+        npm run lint
+  buildProd:
+    needs: getFrontend
+    runs-on: self-hosted
+    steps:
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 19.2.0
+    - run: |
+        cd frontend
         npm run build
-        pm2 start 0
-        pm2 start 0
+  restartServer:
+    needs: buildProd
+    runs-on: self-hosted
+    steps:
+    - name: Get Code
+    - run: |
+        pm2 stop ECommerce
+        pm2 start ECommerce
         pm2 save
         sudo service nginx restart

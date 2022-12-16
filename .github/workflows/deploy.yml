@@ -46,6 +46,7 @@ jobs:
         node-version: 19.2.0
     - run: |
         cd frontend
+        npm i
         npm run build
   restartServer:
     needs: buildProd

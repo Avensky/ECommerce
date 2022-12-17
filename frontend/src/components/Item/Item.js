@@ -18,14 +18,6 @@ const item = props => {
         stock = <p><b>Out of stock:</b></p>;
     }
 
-//    let rating, star_border, star,star_half //, quantity
-//
-//    star_border = <i className="material-icons">star_border</i>
-//    star = <i className="material-icons">star</i>
-//    star_half = <i className="material-icons">star_half</i>
-//
-//    rating = [star,star,star,star_half,star_border]
-
     let sold;
         props.sold 
             ? sold = <div className={classes.Sold}><p>Sold: {props.sold}</p></div>
@@ -53,15 +45,16 @@ const item = props => {
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
             {/* Image */}
             <div className={classes.Thumbnail}>
-                <Link to={'/shop/itemfull/' + props.id}>
-                    <img className={props.imgClass} src={url+props.image} alt={props.alt}/>
+                <Link to={props.link + '/' + props.id}>
+                    <img className={props.imgClass} src={url+props.image} 
+                    alt={props.alt}/>
                 </Link>
             </div>
 
         <div className={props.myClass}> 
             {/* Name */}
             <div className={[classes.Name, props.class, 'Name'].join(' ')}>
-                <Link to={'/shop/itemfull/' + props.id}>
+                <Link to={props.link + '/' + props.id}>
                     {props.name}
                 </Link>
             </div> 
@@ -89,7 +82,7 @@ const item = props => {
 
             {/* Select */}
             <div className={[classes.SelectWrapper]} /*onClick={props.addToCart}*/>
-                <Link to={'/shop/itemfull/' + props.id}>
+                <Link to={props.link + '/' + props.id}>
                     <div className={["text-center noselect", classes.Select].join(' ')}>
                         Select Options
                     </div>

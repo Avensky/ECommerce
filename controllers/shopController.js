@@ -16,10 +16,27 @@ exports.getProducts = (req, res) => {
 
 };
 
-// exports.productById = async id => {
-//     const product = await Product.findById(id);
+exports.getProduct = async (req, res) => {
+//     const product = await Products.findById(id);
 //     return product;
-// }
+    //console.log('id = ', req.params.id)
+    try {
+//        console.log('id = ', req.params.id)
+        let id = req.params.id
+      
+        let product = await Products.findById({_id : req.params.id},{})
+
+        res.status(200).json({
+            status: true,
+            data: product,
+        })
+    } catch (err) {
+        res.status(500).json({
+            status: false,
+            error: err
+        })
+    }
+}
 // exports.removeProduct = async id => {
 //     const product = await Product.findByIdAndRemove(id);
 //     return product

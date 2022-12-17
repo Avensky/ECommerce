@@ -185,7 +185,7 @@ const Shop = props => {
                             id                  = {item._id}
                             alt                 = {item.title}
                             title               = {item.title}
-                            link                = {"/shop/"}
+                            link                = {"/product"}
                             to                  = "/"
                             clicked             = {() => addToCart(item._id)}
                             addToCart           = {() => addToCart(item._id)}

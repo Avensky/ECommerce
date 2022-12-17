@@ -14,7 +14,11 @@ import {
   //faBagShopping,
   faMagnifyingGlass,
   faHeart,
-  faBars
+  faBars,
+  faStar,
+  faStarHalf,
+  faStarHalfStroke,
+  
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fab, faCheckSquare, faCoffee, faUser,
@@ -22,7 +26,11 @@ faCartShopping,
 //faBagShopping,
 faMagnifyingGlass,
 faHeart,
-faBars
+faBars,
+faStar,
+faStarHalf,
+faStarHalfStroke,
+
   );
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,3 +1,4 @@
 export {
-    getProducts
+    getProducts,
+    getProduct
 } from './shop';

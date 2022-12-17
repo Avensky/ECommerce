@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 /*******************************************
- * Get Items from database
+ * Get all products from database
 *******************************************/
 export const getProductsSuccess = (products) => {
   return {
@@ -35,3 +35,45 @@ export const getProducts = () => {
       });
   };
 };
+
+/*******************************************
+ * Get product from database
+*******************************************/
+export const getProductSuccess = (product) => {
+  console.log('getProductSuccess = ', product);
+  return {
+      type:  actionTypes.GET_PRODUCT_SUCCESS,
+      product
+  };
+};
+export const getProductFail = (error) => {
+  return {
+      type:  actionTypes.GET_PRODUCT_FAIL, 
+      error
+  };
+};
+export const getProductStart = () => {
+  return {
+      type:  actionTypes.GET_PRODUCT_START
+  };
+};
+export const getProduct = (id) => {
+
+  console.log('id = ', id);
+  return dispatch => {
+      dispatch(getProductStart());
+      const url = '/api/getProduct/'+id;
+      console.log('url = ',url);
+      axios.get( '/api/getProduct/'+id)
+      .then( result => {
+          const product = result.data.data;
+          console.log('product = ', product);
+          dispatch(getProductSuccess(product));
+      })
+      .catch( error => {
+          console.log("getProduct error = "+JSON.stringify(error));
+          dispatch(getProductFail(error));
+      });
+  };
+};
+

@@ -69,11 +69,17 @@
 // export const NEW_ITEM                 = 'NEW_ITEM'
 // 
 
-// Get items
+// Get all products
 export const GET_PRODUCTS_START          = 'GET_PRODUCTS_START';
 export const GET_PRODUCTS_SUCCESS        = 'GET_PRODUCTS_SUCCESS';
 export const GET_PRODUCTS_FAIL           = 'GET_PRODUCTS_FAIL';
 export const GET_PRODUCTS                = 'GET_PRODUCTS';
+
+//Get Product 
+export const GET_PRODUCT_START          = 'GET_PRODUCT_START';
+export const GET_PRODUCT_SUCCESS        = 'GET_PRODUCT_SUCCESS';
+export const GET_PRODUCT_FAIL           = 'GET_PRODUCT_FAIL';
+export const GET_PRODUCT                = 'GET_PRODUCT';
 
 
 // export const GET_ITEM_BY_ID_START     = 'GET_ITEM_BY_ID_START'

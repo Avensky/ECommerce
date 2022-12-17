@@ -1,0 +1,29 @@
+.Review {
+    color: white;
+}
+
+
+.rating {
+    color: #ffb800;
+    margin: 1vh 0;
+}
+
+.data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh 0;
+}
+
+.username {
+    padding: 1vh 1vw;
+    text-transform: uppercase;
+    font-size: .9em;
+}
+
+.date {
+    padding: 1vh 1vw;
+    color: #676969;
+    font-size: 1.1em;
+}
+

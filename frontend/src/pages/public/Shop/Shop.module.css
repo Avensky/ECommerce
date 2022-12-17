@@ -38,8 +38,7 @@
     color: black;
 }
 
-.ShopNavLink:hover,
-.ShopNavLink:active {
+.ShopNavLink:hover {
     background-color: rgb(210, 218, 218);
 }
 

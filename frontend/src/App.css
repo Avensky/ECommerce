@@ -9,3 +9,21 @@
 .page-wrapper {
   padding-top: 51px;
 }
+
+.PageTitle {
+  font-weight: 900;
+  font-size: 3em;
+  margin: 1vh 0;
+  text-transform:uppercase;
+}
+.PageTitle a {
+  text-decoration: none;
+  color: black
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .PageTitle {
+      margin: 3vh 0;
+  }
+}

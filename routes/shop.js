@@ -5,17 +5,14 @@ const Products           = mongoose.model('Products')
 
 module.exports = function(app) {
 
-    app.get('/api/getProducts', shopController.getProducts);
+    app.get('/api/getProducts',     shopController.getProducts);
+    app.get('/api/getProduct/:id',  shopController.getProduct);
 
 
-
-
-
+    
     //    app.post("/api/addImage", 
 //    uploadController.upload.single('avatar'), 
 //    shopController.createProduct);
-
-   // app.post('/api/getProductById:id', shopController.getProduct)
 
 //    app.get("/api/getProducts", shopController.getProducts);
 

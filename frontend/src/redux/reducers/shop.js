@@ -5,8 +5,8 @@ const initialState = {
     products    : [],
     loading     : false,
     error       : null,
-
     product     : null,
+    width       : null,
 //    posted      : false,
 //    itemById    : [],
 //    addedItems  : [],
@@ -389,6 +389,12 @@ const getProductSuccess = (state, action) => {
 //     )
 // }
 
+const resize = (state,action) => {
+    return updateObject(state, {
+        width: action.width
+    });
+};
+
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
@@ -429,6 +435,8 @@ const reducer = ( state = initialState, action ) => {
 //        case actionTypes.CHECKOUT_FAIL              : return checkoutFail(state, action);
 //        case actionTypes.CHECKOUT_SUCCESS           : return checkoutSuccess(state, action);
  
+        case actionTypes.RESIZE                       : return resize(state, action);
+
         default: return state;
     }
 };

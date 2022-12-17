@@ -5,14 +5,14 @@ import Rating from '../../../../components/Rating/Rating';
 
 const Review = props => {
     let review = (
-        <div className={classes.Review}>
+        <div className={classes.ReviewContianer}>
 
 
             <div className={classes.rating}>
                 <Rating rating={props.rating} />
             </div>
 
-            <div className={classes.Title}>
+            <div className={classes.title}>
                 <b>{props.title}</b>
             </div>
             <div className={classes.review}>

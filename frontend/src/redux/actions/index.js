@@ -1,4 +1,5 @@
 export {
     getProducts,
-    getProduct
+    getProduct,
+    resize
 } from './shop';

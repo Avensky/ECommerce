@@ -81,7 +81,7 @@ export const GET_PRODUCT_SUCCESS        = 'GET_PRODUCT_SUCCESS';
 export const GET_PRODUCT_FAIL           = 'GET_PRODUCT_FAIL';
 export const GET_PRODUCT                = 'GET_PRODUCT';
 
-
+export const RESIZE = 'RESIZE';
 // export const GET_ITEM_BY_ID_START     = 'GET_ITEM_BY_ID_START'
 // export const GET_ITEM_BY_ID_SUCCESS   = 'GET_ITEM_BY_ID_SUCCESS'
 // export const GET_ITEM_BY_ID_FAIL      = 'GET_ITEM_BY_ID_FAIL'

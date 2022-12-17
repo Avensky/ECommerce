@@ -27,7 +27,7 @@
 }
 
 .Arrow:hover {
-    /* color: rgb(116, 116, 116); */
+    color: rgb(116, 116, 116);
 }
 
 .LeftArrow {
@@ -71,5 +71,9 @@
     cursor: pointer;
     font-size: 32px;
     user-select: none;
-};
+    transition: color, .2s;
+}
   
+.Dot:hover{
+    color:rgb(151, 149, 149);
+}

@@ -1,4 +1,4 @@
-.Review {
+.ReviewContianer {
     color: white;
 }
 
@@ -6,6 +6,11 @@
 .rating {
     color: #ffb800;
     margin: 1vh 0;
+}
+
+.review {
+    color: white;
+    text-align: start;
 }
 
 .data {
@@ -16,13 +21,15 @@
 }
 
 .username {
-    padding: 1vh 1vw;
+    color: white;
+    padding: 1vh 4px;
     text-transform: uppercase;
     font-size: .9em;
+    font-weight: 600;
 }
 
 .date {
-    padding: 1vh 1vw;
+    padding: 1vh 4px;
     color: #676969;
     font-size: 1.1em;
 }

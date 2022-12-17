@@ -33,7 +33,7 @@
 }
 
 .ImageWrapper img{
-  width: 100%;
+  /* width: 100%; */
   /* box-sizing: border-box; */
 }
 
@@ -43,6 +43,7 @@
 
 
 .Content {
+  
 }
 
 /* Pricing */
@@ -108,8 +109,31 @@
 
 @media only screen and (min-width: 600px) {
     /* For tablets: */
+  .Reviews{
+    padding: 2vh 15vw;
+  }  
+  .ProductDetails{
+    /* width: 30vw; */
+    }
+
+  .ImageWrapper {
+    height: 50vh;
+  }
 }
 
 @media only screen and (min-width: 1025px) {
-    /* For desktop: */
+  /* For desktop: */
+  .Reviews{
+    padding: 4vh 30vw;
+  }  
+  .ProductDetails{
+    width: 30vw;
+    }
+
+  .Content {
+    display: flex;
+  }
+  .ImageWrapper {
+    height: 70vh;
+  }
 }

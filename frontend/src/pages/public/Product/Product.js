@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 //import { Route, Switch } from 'react-router-dom';
@@ -15,13 +15,13 @@ import Modal from '../../../components/UI/Modal/Modal';
 // import {purchaseContinueHandler} from '../../../../utility/stripe';
 import Rating from '../../../components/Rating/Rating';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
+import ImageGallery from '../../../components/ImageGallery/ImageGallery';
 import PropTypes from 'prop-types';
 
 const Product = props => {
     const id = useParams().id;
     const [item, setItem]   = useState(null);
     const [purchasing, setPurchasing] = useState(false);
-    
     const [index, setActiveStep] = useState(0);
 
     const goToNextPicture = () => {
@@ -48,7 +48,13 @@ const Product = props => {
         //get product if not loaded
         !props.product ? getProduct():null;
         
+        //If Product exists reload
         console.log('My product = ', props.product);
+
+        if (props.product){
+            props.product._id !== id ? getProduct(props.product._id) : null;
+        };
+        
         //set Item
         setItem(props.product);
 
@@ -80,29 +86,98 @@ const Product = props => {
     const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
     
     
+    let width = window.innerWidth;
+    console.log('width = ',width);
+    console.log('size = ',props.width);
     // Product Details
+
+    // if (props.loading) {
+    //     details=<div>Loading...</div>;
+    // };
+
     if (props.product) {
-        details = <div className={classes.ProductDetails}>
+        details = <div className={classes.Content}>
+        <div className={classes.Heading}>
+            <div className={classes.Name}>
+                {props.product ? props.product.name : ''}
+            </div>
+            <div className={classes.Rating}>
+                {props.product 
+                    ? <>
+                    <Rating rating={props.product.rating}/> 
+                    ({props.product.reviewCount || 0})
+                    </>
+                    : ''}
+            </div>
+        </div>
+        <div className={classes.ProductDetails}>
             <div className={classes.ImageWrapper}>
                 <ImageSlider collection={props.product.imageData} alt={props.product.name} />
             </div>
-            <div className={classes.Options}>
+            <div className={classes.DetailsWrapper}>
+                <div className={classes.Options}>
 
+                </div>
+                <div className={classes.PriceWrapper}>
+                    <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
+                </div>
+                <div className={classes.Availability}>
+                    <div>In Stock: {props.product.quantity || 0}</div>
+                    <div>Sold: {props.product.sold || 0}</div>
+                </div>
+                <div className={classes.Button} onClick={addToCart}>
+                    Add to cart
+                </div>
+                <div className={classes.Desc}>
+                    {props.product.desc}
+                </div>
             </div>
-            <div className={classes.PriceWrapper}>
-                <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
-            </div>
-            <div className={classes.Availability}>
-                <div>In Stock: {props.product.quantity || 0}</div>
-                <div>Sold: {props.product.sold || 0}</div>
-            </div>
-            <div className={classes.Button} onClick={addToCart}>
-                Add to cart
-            </div>
-            <div className={classes.Desc}>
-                {props.product.desc}
-            </div>
-        </div>;
+        </div>
+    </div>;
+        if ((props.width >= 1025)||(width > 1025)){ 
+            details = <div className={classes.Content}>
+                <div className={classes.ImageWrapper}>
+                    <ImageGallery collection={props.product.imageData} alt={props.product.name} />
+                </div>
+                <div className={classes.ProductDetails}>
+                    
+                    <div className={classes.Heading}>
+                        <div className={classes.Name}>
+                            {props.product ? props.product.name : ''}
+                        </div>
+                     </div>
+                     <div className={classes.Heading}>
+                        <div className={classes.Rating}>
+                            {props.product 
+                                ? <>
+                                <Rating rating={props.product.rating}/> 
+                                ({props.product.reviewCount || 0})
+                                </>
+                                : ''}
+                        </div>
+                    </div>        
+                    
+                    <div className={classes.DetailsWrapper}>
+                        <div className={classes.Options}>
+
+                        </div>
+                        <div className={classes.PriceWrapper}>
+                            <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
+                        </div>
+                        <div className={classes.Availability}>
+                            <div>In Stock: {props.product.quantity || 0}</div>
+                            <div>Sold: {props.product.sold || 0}</div>
+                        </div>
+                        <div className={classes.Button} onClick={addToCart}>
+                            Add to cart
+                        </div>
+                        <div className={classes.Desc}>
+                            {props.product.desc}
+                        </div>
+                    </div>
+                </div>
+            </div>;
+        }      
     }
 
 
@@ -140,6 +215,14 @@ let reviews= [
         : checkout = null;
     console.log('My product = ', props.product);
 
+
+    useLayoutEffect(() => {
+        window.addEventListener('resize', props.resize);
+    
+        // You can also use:
+        // window.onresize = myHandlerFunction;
+      }, []);
+
     return(<>
         <div className={['page-wrapper', classes.Product].join(' ')}>
             <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
@@ -147,20 +230,6 @@ let reviews= [
             </Modal>
             <div className='PageTitle'>
                 <a href='/shop'>Shop</a>
-            </div>
-
-            <div className={classes.Heading}>
-                <div className={classes.Name}>
-                    {props.product ? props.product.name : ''}
-                </div>
-                <div className={classes.Rating}>
-                    {props.product 
-                        ? <>
-                        <Rating rating={props.product.rating}/> 
-                        ({props.product.reviewCount || 0})
-                        </>
-                        : ''}
-                </div>
             </div>
                 
             {/* <CheckoutHeader
@@ -172,21 +241,20 @@ let reviews= [
                 isAuth={props.isAuth}
             />
              */}
-            <div className={classes.Content}>
-                {details}
-            </div>
+            {details}
         </div>
         <div className={classes.Reviews}>
             <div className={classes.ReviewsHeading}>REVIEWS</div>
                 {reviews}
-            </div>
-        </>
-    );
+        </div>
+    </>);
 };
 
 const mapStateToProps = state => {
     return {
         product : state.shop.product,
+        loading: state.shop.loading,
+        width: state.shop.width
         // items       : state.shop.items,
         // addedItems  : state.shop.addedItems,
         // totalItems  : state.shop.totalItems,
@@ -200,13 +268,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProduct : (id) => {dispatch( actions.getProduct(id));}
+        getProduct : (id) => {dispatch( actions.getProduct(id));},
+        resize     : ()   => {dispatch(actions.resize());}
 //        addToCart: ( id ) => { dispatch( actions.addToCart( id ) ); },
 //        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id));}
     };
 };
 
 Product.propTypes = {
+    width       : PropTypes.number,
+    resize      : PropTypes.func,
     product     : PropTypes.object,
     getProduct  : PropTypes.func,
     shop        : PropTypes.array,
@@ -217,8 +288,9 @@ Product.propTypes = {
     total       : PropTypes.number,
     isAuth      : PropTypes.any,
     totalItems  : PropTypes.number,
-    reviews      : PropTypes.array,
-    review      : PropTypes.string
+    reviews     : PropTypes.array,
+    review      : PropTypes.string,
+    loading     : PropTypes.bool
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(Product);

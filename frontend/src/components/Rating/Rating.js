@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Rating = (props) => {
     let rating;
-    const star_border = <FontAwesomeIcon icon="fa-regular fa-star" />;
+    const star_border = <FontAwesomeIcon className={classes.starBorder} icon="fa fa-star" />;
     const star        = <FontAwesomeIcon icon="fa-solid fa-star" />;
     const star_half   = <FontAwesomeIcon icon="fa-solid fa-star-half" />;
 

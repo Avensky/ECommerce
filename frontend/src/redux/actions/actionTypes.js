@@ -1,13 +1,14 @@
 // Types should be in const to avoid typos and duplication
 
-// export const ADD_TO_CART              = 'ADD_TO_CART'
+export const ADD_TO_CART              = 'ADD_TO_CART';
+
 // export const REMOVE_ITEM              = 'REMOVE_ITEM'
 // export const SUB_QUANTITY             = 'SUB_QUANTITY'
 // export const ADD_QUANTITY             = 'ADD_QUANTITY'
 // export const ADD_SHIPPING             = 'ADD_SHIPPING'
 // export const SUB_SHIPPING             = 'SUB_SHIPPING'
-// export const LOAD_CART                = 'LOAD_CART'
-// export const LOAD_SHOP                = 'LOAD_SHOP'
+ export const LOAD_CART                = 'LOAD_CART';
+ export const LOAD_SHOP                = 'LOAD_SHOP';
 // 
 // export const CONNECT_START            = 'CONNECT_START';
 // export const CONNECT_SUCCESS          = 'CONNECT_SUCCESS';

@@ -3,50 +3,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './Rating.module.css';
 import PropTypes from 'prop-types';
 
-const Rating = (props) => {
-    let rating;
-    const star_border = <FontAwesomeIcon className={classes.starBorder} icon="fa fa-star" />;
+const Rating = ({rating}) => {
+    let ratingArray;
+    //const  = <FontAwesomeIcon className={classes.starBorder} icon="fa fa-star" />;
     const star        = <FontAwesomeIcon icon="fa-solid fa-star" />;
     const star_half   = <FontAwesomeIcon icon="fa-solid fa-star-half" />;
 
-    const key = props.rating;
-    console.log('rating ', key);
+    //console.log('rating ', rating);
 
     switch (true) {
-        case key ==5 : rating = [star,star,star,star,star];
+        case (rating  == 5  )                   : ratingArray = [star,star,star,star,star];
             break;
-        case key>=4.5 && key<5 : rating = [star,star,star,star,star_half];
+        case( rating >=4.5 && rating <5)        : ratingArray = [star,star,star,star,star_half];
             break;
-        case key>=4 && key<4.5 : rating = [star,star,star,star,star_border];
+        case (rating >=4   && rating <4.5   )   : ratingArray = [star,star,star,star];
             break;
-        case key>=3.5 && key<4 : rating = [star,star,star,star_half,star_border];
+        case (rating >=3.5 && rating <4  )      : ratingArray = [star,star,star,star_half];
             break;
-        case key>=3 && key<3.5 : rating = [star,star,star,star_border,star_border];
+        case (rating >=3   && rating <3.5  )    : ratingArray = [star,star,star,];
             break;
-        case key>=2.5 && key<3: rating = [star,star,star_half,star_border,star_border];
+        case (rating >=2.5 && rating <3   )     : ratingArray = [star,star,star_half];
             break;
-        case key>=2 && key<=2.5: rating = [star,star,star_border,star_border,star_border];
+        case (rating >=2   && rating <=2.5   )  : ratingArray = [star,star];
             break;
-        case key>=1.5 && key<2 : rating = [star,star_half,star_border,star_border,star_border];
+        case (rating >=1.5 && rating <2  )      : ratingArray = [star,star_half];
             break;
-        case key>=1 && key<1.5 : rating = [star,star_border,star_border,star_border,star_border];
+        case (rating >=1   && rating <1.5  )    : ratingArray = [star];
             break;
-        case key>=.5 && key<1 : rating = [star_half,star_border,star_border,star_border,star_border];
+        case (rating >=.5  && rating <1   )     : ratingArray = [star_half];
             break;
-        case key>=0 && key<.5 : rating = [star_border,star_border,star_border,star_border,star_border];
+        case (rating >=0   && rating <.5   )    : ratingArray = [];
             break;
-        default: rating = [star_border,star_border,star_border,star_border,star_border];
+        default: ratingArray = [];
     }
 
 
   return (
-    <div className={classes.Rating}>{rating}</div>
+    <div className={classes.Rating} key={rating}>{rating}</div>
   );
 };
 
 
 Rating.propTypes = {
-    rating: PropTypes.number
+    rating: PropTypes.number,
+    key: PropTypes.string,
 };
 
 export default Rating;

@@ -40,7 +40,7 @@ export const getProducts = () => {
  * Get product from database
 *******************************************/
 export const getProductSuccess = (product) => {
-  console.log('getProductSuccess = ', product);
+  //console.log('getProductSuccess = ', product);
   return {
       type:  actionTypes.GET_PRODUCT_SUCCESS,
       product
@@ -58,31 +58,52 @@ export const getProductStart = () => {
   };
 };
 export const getProduct = (id) => {
-
-  console.log('id = ', id);
   return dispatch => {
       dispatch(getProductStart());
-      const url = '/api/getProduct/'+id;
-      console.log('url = ',url);
       axios.get( '/api/getProduct/'+id)
       .then( result => {
-          const product = result.data.data;
-          console.log('product = ', product);
-          dispatch(getProductSuccess(product));
+          dispatch(getProductSuccess(result.data.data));
       })
       .catch( error => {
-          console.log("getProduct error = "+JSON.stringify(error));
           dispatch(getProductFail(error));
       });
   };
 };
 
+/*******************************************
+ * Get screen size
+*******************************************/
 export const resize = () => {
   const width = window.innerWidth;
   // const height = window.innerHeight;
-  console.log(width); 
+  // console.log(width); 
   return {
     type: actionTypes.RESIZE,
     width
+  };
+};
+
+/*******************************************
+ * Get screen size
+*******************************************/
+// add cart action
+export const addToCart= (id)=>{
+  return{
+      type: actionTypes.ADD_TO_CART,
+      id
+  };
+};
+
+export const loadCart = ( values ) => {
+  // local storage
+  return{
+      type: actionTypes.LOAD_CART,
+  };
+};
+
+export const loadShop = ( values ) => {
+  return{
+      type: actionTypes.LOAD_SHOP,
+      values
   };
 };

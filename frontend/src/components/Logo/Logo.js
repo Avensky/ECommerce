@@ -10,7 +10,7 @@ const Logo = (props) => (
 );
 
 Logo.propTypes={
-    height: PropTypes.number
+    height: PropTypes.string
 };
 
 export default Logo;

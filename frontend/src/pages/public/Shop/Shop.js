@@ -80,15 +80,17 @@ const Shop = props => {
     };
 
 
-    useEffect(()=>{
-        console.log('useeffect');
-        const getProducts = async () => props.getProducts();
-        //if (!props.products){
-        if (props.products.length === 0){
-            getProducts();
-        }
-        console.log('products: ', props.products);
-    },[props.products]);
+//    useEffect(()=>{
+//        console.log('useeffect');
+//        const getProducts = async () => props.getProducts();
+//        //if (!props.products){
+//    
+//        if (props.products.length === 0){
+//            getProducts();
+//        }
+//        console.log('products: ', props.products);
+//    
+//    },[props.products]);
 
     
 
@@ -136,7 +138,7 @@ const Shop = props => {
     </div>);
 
 
-    console.log(props.isAuth);
+//    console.log(props.isAuth);
     let newitem;
     // if (props.isAuth){
     //     props.isAuth.role === 'admin' 
@@ -247,4 +249,4 @@ Shop.propTypes = {
     getProducts: PropTypes.func
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(Shop);
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

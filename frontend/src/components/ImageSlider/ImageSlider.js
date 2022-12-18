@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ImageSlider = ({ collection }) => {
   const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
-  console.log('imagedata = ', collection);
+  //console.log('imagedata = ', collection);
   const myCollection = [
     {
         label: "First Image",
@@ -50,7 +50,7 @@ const ImageSlider = ({ collection }) => {
     >●</div>;
   });
 
-  console.log('dots = ', dots);
+//  console.log('dots = ', dots);
 
   return (
     <div className={classes.ImageSlider}>

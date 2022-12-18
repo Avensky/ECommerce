@@ -20,7 +20,6 @@ import PropTypes from 'prop-types';
 
 const Product = props => {
     const id = useParams().id;
-    const [item, setItem]   = useState(null);
     const [purchasing, setPurchasing] = useState(false);
     const [index, setActiveStep] = useState(0);
 
@@ -32,8 +31,7 @@ const Product = props => {
     
     const handleClick           = (id) => {//props.addToCart(id); 
     };
-    const addToCart             = (id) => {//props.addToCart(id);
-    };
+    const addToCart             = (id) => {props.addToCart(props.product._id);};
     const subtractQuantity      = (id) => {//props.subtractQuantity(id);
     };
     const purchaseHandler       = ()   => {setPurchasing(true);};
@@ -41,26 +39,27 @@ const Product = props => {
     const viewCartHandler       = ()   => {
         //history.push('/cart');
     };
+    const getProduct            = (id)   => props.getProduct(id);
+    console.log('product = ', props.product);
 
     useEffect(()=>{
-        const getProduct = () => props.getProduct(id);
-
         //get product if not loaded
-        !props.product ? getProduct():null;
-        
-        //If Product exists reload
-        console.log('My product = ', props.product);
-
-        if (props.product){
-            props.product._id !== id ? getProduct(props.product._id) : null;
+        if ( !props.product){ 
+            getProduct(id);
+            console.log('get product');
         };
         
-        //set Item
-        setItem(props.product);
+        if (props.product){
+            //If Product exists reload
+            console.log('check product in memory= ', props.product);
+            if (props.product._id !== id){
+                getProduct(props.product._id);
+            };    
+        };
 
     },[props.product]);
 
-    console.log('My product = ', props.product);
+//    console.log('My product = ', props.product);
 
     let orderSummary = null;
     // if (props.addedItems) {
@@ -79,7 +78,7 @@ const Product = props => {
     
     
     
-    if ( item ) {
+    if ( props.loading ) {
         details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
     }
     
@@ -87,8 +86,8 @@ const Product = props => {
     
     
     let width = window.innerWidth;
-    console.log('width = ',width);
-    console.log('size = ',props.width);
+//    console.log('width = ',width);
+//    console.log('size = ',props.width);
     // Product Details
 
     // if (props.loading) {
@@ -102,13 +101,10 @@ const Product = props => {
                 {props.product ? props.product.name : ''}
             </div>
             <div className={classes.Rating}>
-                {props.product 
-                    ? <>
-                    <Rating rating={props.product.rating}/> 
-                    ({props.product.reviewCount || 0})
-                    </>
-                    : ''}
+                <Rating rating={props.product.rating} id= {props.product._id}/>
+                 ({props.product.reviewCount || 0})
             </div>
+
         </div>
         <div className={classes.ProductDetails}>
             <div className={classes.ImageWrapper}>
@@ -134,7 +130,7 @@ const Product = props => {
             </div>
         </div>
     </div>;
-        if ((props.width >= 1025)||(width > 1025)){ 
+        if ((props.width >= 1025)||(width >= 1025)){ 
             details = <div className={classes.Content}>
                 <div className={classes.ImageWrapper}>
                     <ImageGallery collection={props.product.imageData} alt={props.product.name} />
@@ -150,7 +146,7 @@ const Product = props => {
                         <div className={classes.Rating}>
                             {props.product 
                                 ? <>
-                                <Rating rating={props.product.rating}/> 
+                                <Rating rating={props.product.rating} id = {props.product._id}/> 
                                 ({props.product.reviewCount || 0})
                                 </>
                                 : ''}
@@ -159,7 +155,7 @@ const Product = props => {
                     
                     <div className={classes.DetailsWrapper}>
                         <div className={classes.Options}>
-
+        
                         </div>
                         <div className={classes.PriceWrapper}>
                             <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
@@ -184,12 +180,12 @@ const Product = props => {
 
 let reviews= [
     {
-        key: 'lskjd;lfkasd',
+        _id: 'lskjd;lfkasd',
         title: 'Great Gift!',
         username: 'poly',
         rating: 3.5,
         date: 'November 30th 2022',
-        item: 'be yourself',
+        // item: 'be yourself',
         review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     }
 ];
@@ -197,7 +193,8 @@ let reviews= [
         reviews = reviews.map((review)=>{
             return (
                 <Review 
-                    key         = {review._id}
+                    key         ={review._id}
+                    _id         = {review._id}
                     title       = {review.title}
                     username    = {review.username}
                     rating      = {review.rating}
@@ -213,7 +210,7 @@ let reviews= [
     props.totalItems > 0
         ? checkout = purchaseHandler
         : checkout = null;
-    console.log('My product = ', props.product);
+//    console.log('My product = ', props.product);
 
 
     useLayoutEffect(() => {
@@ -269,8 +266,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getProduct : (id) => {dispatch( actions.getProduct(id));},
-        resize     : ()   => {dispatch(actions.resize());}
-//        addToCart: ( id ) => { dispatch( actions.addToCart( id ) ); },
+        resize     : ()   => {dispatch(actions.resize());},
+        addToCart: ( id ) => { dispatch( actions.addToCart( id ) ); },
 //        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id));}
     };
 };
@@ -293,4 +290,4 @@ Product.propTypes = {
     loading     : PropTypes.bool
 };
 
-export default connect (mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

@@ -5,11 +5,12 @@ import Rating from '../../../../components/Rating/Rating';
 
 const Review = props => {
     let review = (
-        <div className={classes.ReviewContianer}>
+        <div className={classes.ReviewContianer} key={props._id}>
 
 
             <div className={classes.rating}>
-                <Rating rating={props.rating} />
+                <Rating 
+                    rating={props.rating} />
             </div>
 
             <div className={classes.title}>
@@ -37,9 +38,9 @@ Review.propTypes = {
     rating: PropTypes.number,
     username: PropTypes.string,
     date: PropTypes.string,
-    item: PropTypes.object,
     review: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    _id: PropTypes.string,
 };
 
 export default Review;

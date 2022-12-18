@@ -16,6 +16,7 @@ const Home = (props) => {
 
 //    let shop = props.shop.filter(item => item.featured === '1')
     let shop = props.products.filter(item => item.featured === '1');
+    
     let featured = shop.map( item => {
         return( 
             <Item
@@ -38,15 +39,15 @@ const Home = (props) => {
         );
     });
 
-    useEffect(()=>{
-        console.log('useeffect');
-        const getProducts = async () => props.getProducts();
-        //if (!props.products){
-        if (props.products.length === 0){
-            getProducts();
-        }
-        console.log('products: ', props.products);
-    },[props.products]);
+//    useEffect(()=>{
+//        console.log('useeffect');
+//        const getProducts = async () => props.getProducts();
+//        //if (!props.products){
+//        if (props.products.length === 0){
+//            getProducts();
+//        }
+//        console.log('products: ', props.products);
+//    },[props.products]);
 
     return(
     <div className={classes.Home}>
@@ -98,7 +99,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 //        addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
-        getProducts            : ()     =>{ dispatch(actions.getProducts());},
+//        getProducts            : ()     =>{ dispatch(actions.getProducts());},
 //        loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
 //        loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
 //        getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},

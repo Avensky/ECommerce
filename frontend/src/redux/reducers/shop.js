@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../../utility/utility';
+import { updateObject, findItem, updateArray, getTotalPrice, getTotalItems, copyArray } from '../../utility/utility';
 
 const initialState = {
     products    : [],
@@ -9,14 +9,14 @@ const initialState = {
     width       : null,
 //    posted      : false,
 //    itemById    : [],
-//    addedItems  : [],
-//    shop        : [],
-//    total       : 0.00,
-//    totalItems  : 0,
-//    totalPrice  : 0,
-//    orderby     : null,
-//    cartLoaded  : false,
-//    shopLoaded  : true
+    addedItems  : [],
+    shop        : [],
+    total       : 0.00,
+    totalItems  : 0,
+    totalPrice  : 0,
+    orderby     : null,
+    cartLoaded  : false,
+    shopLoaded  : true,
 };
 
 // const newItemStart = (state, action) => {
@@ -30,7 +30,7 @@ const initialState = {
 //     const newItem = updateObject(action.itemData, { id: action.itemId })
 //     return updateObject(state, {
 //         loading: false,
-// //        items: state.items.concat( newItem ) 
+// //        items: state.products.concat( newItem ) 
 //     })}
 // 
 // const getItemByIdStart = (state, action) => {
@@ -115,51 +115,102 @@ const getProductFail = (state, action) => {
 };
     
 const getProductSuccess = (state, action) => {
-    console.log('getProductSuccess = ',action.product);
+    //console.log('getProductSuccess = ',action.product);
     return updateObject( state, {
         product: action.product,
         loading: false
     });
 };
+ 
+ const addToCart = ( state, action ) => {
+    // define where to search
+    const products= copyArray(state.products);
+    console.log('products = ', products);
+     
+    // get item that matches this id
+    let addThisItem = findItem(products, action.id);
+    console.log('addThisItem = ', addThisItem);
 
-// const addToCart = ( state, action ) => {
-//     // Find item in db
-//     let addedItem = state.items.find(item=> item._id === action.id)
-//     // Find item in cart
-//     let existed_item 
-//     if (state.addedItems){
-//         existed_item = state.addedItems.find(item=> action.id === item._id)
-//     }
-//    let stringMyAddedItems, total, totalItems, shop, addedItems
-//     if (existed_item) {
-//         if (existed_item.amount < addedItem.quantity){
-//             existed_item.amount += 1
-//         }
-//         addedItems  = state.addedItems.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
-//         shop        = state.shop.map( obj => [existed_item].find(item => item._id === obj._id) || obj)
-//         //make cart a string and store in local space
-//         stringMyAddedItems = JSON.stringify(addedItems)
-//         localStorage.setItem("addedItems", stringMyAddedItems)
-//         total = addedItems.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
-//         totalItems = addedItems.reduce((a, b) => a + b.amount, 0)
-//     } else {
-//         addedItem.amount = 1
-//         shop = state.shop.map( obj => [addedItem].find(item => item._id === obj._id) || obj)
-//         addedItems = [...state.addedItems, addedItem]
-//         //make cart a string and store in local space
-//         stringMyAddedItems = JSON.stringify(addedItems)
-//         localStorage.setItem("addedItems", stringMyAddedItems)
-//         total = addedItems.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
-//         totalItems = addedItems.reduce((a, b) => a + b.amount, 0)
-//     } 
-//     return{
-//         ...state,
-//         addedItems  : addedItems,
-//         total       : total,
-//         totalItems  : totalItems,
-//         shop        : shop
-//     }
-// }
+    // Search for item in cart
+    let existed_item;
+    const currentAddedItems = copyArray(state.addedItems);
+    console.log('currentAddedItems = ', currentAddedItems);
+
+    //const currentShop = [...state.shop];
+    //console.log('currentShop = ', currentShop);
+
+    if (currentAddedItems){
+        existed_item = findItem(currentAddedItems, action.id);
+        console.log('existed_item ', existed_item);
+    }
+
+   let stringMyAddedItems, total, totalItems, shop, addedItems;
+    if (existed_item) {
+        console.log('existed_item.amount ', existed_item.amount);
+        console.log('existed_item.quantity ', existed_item.quantity);
+
+        //check if item stock is less than the current amount in cart 
+        if (existed_item.amount < addThisItem.quantity){
+            //only add item to cart if stock allows it
+            existed_item.amount += 1;
+        }
+
+        //replace 
+        addedItems  = updateArray(currentAddedItems, existed_item);
+        console.log('addedItems = ', addedItems);
+
+        //make cart a string and store in local space
+        stringMyAddedItems = JSON.stringify(addedItems);
+        localStorage.setItem("addedItems", stringMyAddedItems);
+
+        //calculate total
+        total = getTotalPrice(addedItems);
+        console.log('total = $', total);
+
+        //count total items in cart
+        totalItems = getTotalItems(addedItems);
+        console.log('total items = ', totalItems);
+    } else {    
+        //set this new item amount to 1 in the cart
+        addThisItem.amount = 1;
+        console.log('addThisItem first item in cart = ', addThisItem);
+
+        // rebuild shop to include new item
+
+        //shop = currentShop.map( obj => addThisItem.find(item => item._id === obj._id) || obj);
+        //console.log('shop', shop);
+
+
+        //add item to cart
+        addedItems = [...currentAddedItems, addThisItem];
+        console.log('addedItems = ', addedItems);
+
+        //make cart a string and store in local space
+        stringMyAddedItems = JSON.stringify(addedItems);
+
+
+        //save cart in browser
+        localStorage.setItem("addedItems", stringMyAddedItems);
+
+        //calculate total
+        total = getTotalPrice(addedItems);
+        console.log('total price = $', total);
+        
+        //count total items in cart
+        totalItems = getTotalItems(addedItems);
+        console.log('total items = ', totalItems);
+    } 
+    
+    console.log('addToCart finish');
+
+    return{      
+        ...state,
+        addedItems  : addedItems,
+        total       : total,
+        totalItems  : totalItems,
+        //shop        : shop
+     };
+ };
 
 //const removeItem = ( state, action ) => {
 //    let existed_item        = state.addedItems.find(item=> action.id === item._id)
@@ -180,21 +231,7 @@ const getProductSuccess = (state, action) => {
 //    }
 //}
 //
-//const addQuantity = ( state, action ) => {
-//    let addedItem = state.addedItems.find(item=> item.id === action.id)
-//    addedItem.quantity += 1 
-//    let newTotal = state.total + addedItem.price
-//    let new_items = state.addedItems.map(obj => [addedItem].find(o => o.id === obj.id) || obj)
-//    //store in local storage
-//    let stringNewItems= JSON.stringify(new_items)
-//    localStorage.setItem("addedItems", stringNewItems)
-//    return{
-//        ...state,
-//        addedItems: new_items,
-//        total: newTotal,
-//        totalItems: state.totalItems + 1
-//    }
-//}
+
 //const subQuantity = ( state, action ) => {
 //    let existed_item = state.addedItems.find(item=> item._id === action.id)
 //    let stringMyAddedItems, total, shop, addedItems
@@ -252,109 +289,108 @@ const getProductSuccess = (state, action) => {
 //    }
 //}
 //
-//const loadCart = ( state, action ) => {
-//    let stringLocalAddedItems = localStorage.getItem("addedItems")
-//    let addedItems = []
-//    let items = state.items
-//    let shop, totalItems, total
+const loadCart = ( state, action ) => {
+//    let stringLocalAddedItems = localStorage.getItem("addedItems");
+//    let addedItems = [];
+//    let items = [...state.products];
+//    let shop, totalItems, total;
 //
 //    if (stringLocalAddedItems){
-//        let localAddedItems = JSON.parse(stringLocalAddedItems)
-//        addedItems = localAddedItems
-//    }
+//        let localAddedItems = JSON.parse(stringLocalAddedItems);
+//        addedItems = localAddedItems;
+//    };
 //
 //    if (items.length>0 && state.orderby==='Lowest price') {
 //        if(addedItems.length>0){
-//            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
+//            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; });
 //        } else {
-//            shop = items.sort( function ( a, b ) { return a.price - b.price; })
-//        }
-//        console.log('loadCart Lowest price = ',shop)
-//    }
+//            shop = items.sort( function ( a, b ) { return a.price - b.price; });
+//        };
+//        console.log('loadCart Lowest price = ',shop);
+//    };
 //    if (items.length>0 && state.orderby==='Highest price') {
 //        if(addedItems.length>0){
-//            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+//            shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; });
 //        } else {
-//            shop = items.sort( function ( a, b ) { return b.price - a.price; })
-//        }
-//        console.log('loadCart Highest price = ',shop)
+//            shop = items.sort( function ( a, b ) { return b.price - a.price; });
+//        };
+//        console.log('loadCart Highest price = ',shop);
 //    }
 //    else {
-//        shop = items
-//        console.log('loadCart = ',shop)
-//    }
+//        shop = items;
+//        console.log('loadCart = ',shop);
+//    };
 //    
-//    totalItems=addedItems.reduce((a, b) => a + b.amount, 0)
+//    totalItems=addedItems.reduce((a, b) => a + b.amount, 0);
 //    total = addedItems.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
-//    return {
+    return {
 //        ...state,
 //        addedItems  : addedItems,
 //        totalItems  : totalItems,
 //        total       : total,
 //        shop        : shop,
 //        cartLoaded  : true
-//    }
-//}
-//
-//const loadShop = (state, action) => {
-//    let items       = state.items
-//    let shop        = state.shop
-//    let addedItems  = state.addedItems
-//    let orderby     = action.values
-//    console.log('loadShop orderby= ' + JSON.stringify(orderby))
+    };
+};
+
+const loadShop = (state, action) => {
+//    let items       = state.products;
+//    let shop        = state.shop;
+//    let addedItems  = state.addedItems;
+//    let orderby     = action.values;
+//    console.log('loadShop orderby= ' + JSON.stringify(orderby));
 //    //let orderby = state.orderby
-//    console.log('loadShop state orderby= ' +JSON.stringify(state.orderby))
+//    console.log('loadShop state orderby= ' +JSON.stringify(state.orderby));
 //    if (!orderby && state.orderby) {
-//        orderby = state.orderby
+//        orderby = state.orderby;
 //    }
 //    if (orderby) {
 //        if (orderby.value==='Lowest price') {
-//            console.log('LoadShop lowest price')
+//            console.log('LoadShop lowest price');
 //            if(addedItems.length>0){
-//                console.log('addedItems.length>0'+JSON.stringify(items))
-//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; })
+//                console.log('addedItems.length>0'+JSON.stringify(items));
+//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return a.price - b.price; });
 //            } else {
-//                console.log('else'+items)
-//                shop = items.map( item => item).sort( function ( a, b ) { return a.price - b.price; })
-//            }
-//        }
+//                console.log('else'+items);
+//                shop = items.map( item => item).sort( function ( a, b ) { return a.price - b.price; });
+//            };
+//        };
 //        if (orderby.value ==='Highest price') {
-//            console.log('LoadShop Highest price')
+//            console.log('LoadShop Highest price');
 //            if(addedItems.length>0){
-//                console.log('addedItems.length>0'+items)
-//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; })
+//                console.log('addedItems.length>0'+items);
+//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.price - a.price; });
 //            } else {
-//                console.log('else'+items)
-//                shop = items.map( item => item).sort( function ( a, b ) { return b.price - a.price; })
-//            }
-//        }
+//                console.log('else'+items);
+//                shop = items.map( item => item).sort( function ( a, b ) { return b.price - a.price; });
+//            };
+//        };
 //        if (orderby.value ==='Most recent') {
-//            console.log('date loadShop')
+//            console.log('date loadShop');
 //            if(addedItems.length>0){
-//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.date - a.date; })
+//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.date - a.date; });
 //            } else {
-//                shop = items.sort( function ( a, b ) { return b.date - a.date; })
-//            }
-//        }
+//                shop = items.sort( function ( a, b ) { return b.date - a.date; });
+//            };
+//        };
 //        if (orderby.value ==='Most Popular') {
-//            console.log('sold loadShop')
+//            console.log('sold loadShop');
 //            if(addedItems.length>0){
-//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.sold - a.sold; })
+//                shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj).sort( function ( a, b ) { return b.sold - a.sold; });
 //            } else {
-//                shop = items.sort( function ( a, b ) { return b.sold - a.sold; })
+//                shop = items.sort( function ( a, b ) { return b.sold - a.sold; });
 //            }
-//        }
+//        };
+//    } else {
+//        shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj);
+//        console.log('loadShop = ',shop);
 //    }
-//    else {
-//        shop = items.map( obj => addedItems.find(item => item._id === obj._id) || obj)
-//        console.log('loadShop = ',shop)
-//    }
-//    return updateObject (state, {
+    return updateObject (state, {
 //        orderby: orderby,
 //        shop: shop,
 //        shopLoaded  : true
-//    })
-//}
+    });
+};
 
 // const orderBy = (state, action) => {
 //     //let shop=state.shop.sort( function ( a, b ) { return b.price - a.price; } );
@@ -418,24 +454,25 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.GET_PRODUCTS_FAIL             : return getProductsFail(state, action);
         case actionTypes.GET_PRODUCTS_START            : return getProductsStart(state, action);
   
-        case actionTypes.GET_PRODUCT_SUCCESS          : return getProductSuccess(state, action);
-        case actionTypes.GET_PRODUCT_FAIL             : return getProductFail(state, action);
-        case actionTypes.GET_PRODUCT_START            : return getProductStart(state, action);
+        case actionTypes.GET_PRODUCT_SUCCESS           : return getProductSuccess(state, action);
+        case actionTypes.GET_PRODUCT_FAIL              : return getProductFail(state, action);
+        case actionTypes.GET_PRODUCT_START             : return getProductStart(state, action);
   
-//        case actionTypes.ADD_TO_CART                : return addToCart(state, action);
+        case actionTypes.ADD_TO_CART                   : return addToCart(state, action);
+
 //        case actionTypes.REMOVE_ITEM                : return removeItem(state, action);
 //        case actionTypes.ADD_QUANTITY               : return addQuantity(state, action);
 //        case actionTypes.SUB_QUANTITY               : return subQuantity(state, action);
 //        case actionTypes.ADD_SHIPPING               : return addShipping(state, action);
 //        case actionTypes.SUB_SHIPPING               : return subShipping(state, action); 
-//        case actionTypes.LOAD_CART                  : return loadCart(state, action);
-//        case actionTypes.LOAD_SHOP                  : return loadShop(state, action);
+        case actionTypes.LOAD_CART                     : return loadCart(state, action);
+        case actionTypes.LOAD_SHOP                     : return loadShop(state, action);
 //        case actionTypes.ORDER_BY                   : return orderBy(state, action);
 //        case actionTypes.CHECKOUT_START             : return checkoutStart(state, action);
 //        case actionTypes.CHECKOUT_FAIL              : return checkoutFail(state, action);
 //        case actionTypes.CHECKOUT_SUCCESS           : return checkoutSuccess(state, action);
  
-        case actionTypes.RESIZE                       : return resize(state, action);
+        case actionTypes.RESIZE                        : return resize(state, action);
 
         default: return state;
     }

@@ -15,14 +15,14 @@ export const updateArray = (currentArray, updatedItem) => {
     return currentArray.map( obj => [updatedItem].find(item => item._id === obj._id) || obj);
 };
 
-//multiply item.price by amount in cart, then add each total
+//multiply item.price by orderAmt in cart, then add each total
 export const getTotalPrice = (cart) => {
-    return cart.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
+    return cart.map(item => item.price*item.orderAmt).reduce((prev, curr) => prev + curr, 0);
 };
 
 //get totalNumber of items
 export const getTotalItems = (cart) => {
-    return cart.reduce((a, b) => a + b.amount, 0);
+    return cart.reduce((a, b) => a + b.orderAmt, 0);
 };
 
 //Copy array
@@ -30,12 +30,13 @@ export const copyArray = (array) =>{
     return JSON.parse(JSON.stringify(array));
 };
 
-//
+//stringify and store cart session in browser
 export const storeLocally = ( arrayName, array ) => {
     let arrayString = JSON.stringify(array);
     localStorage.setItem(arrayName, arrayString);
 };
 
+//remove Item from array
 export const removeItem  = ( array, id )=>{
-    return array.filter(item=>item._id !== id)
-}
+    return array.filter(item=>item._id !== id);
+};

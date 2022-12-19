@@ -11,14 +11,13 @@ const initialState = {
     width       : null,
 //    posted      : false,
 //    itemById    : [],
-    addedItems  : [],
-    shop        : [],
-    total       : 0.00,
+    cart        : [],
+//    shop        : [],
     totalItems  : 0,
     totalPrice  : 0,
-    orderby     : null,
-    cartLoaded  : false,
-    shopLoaded  : true,
+//    orderby     : null,
+//    cartLoaded  : false,
+//    shopLoaded  : true,
 };
 
 // const newItemStart = (state, action) => {
@@ -131,133 +130,88 @@ const getProductSuccess = (state, action) => {
 
 
  const addToCart = ( state, action ) => {
-    // define where to search
+    //get products
     const products= copyArray(state.products);
     console.log('products = ', products);
-     
-    // get item that matches this id
-    let addThisItem = findItem(products, action.id);
-    console.log('addThisItem = ', addThisItem);
 
-    // Search for item in cart
-    let cartItem;
-    const currentAddedItems = copyArray(state.addedItems);
-    console.log('currentAddedItems = ', currentAddedItems);
+    //get product data
+    const product = findItem(products, action.id);
+    console.log('product = ', product);
 
-    //const currentShop = [...state.shop];
-    //console.log('currentShop = ', currentShop);
+    //get cart
+    const cart = copyArray(state.cart);
+    console.log('cart = ', cart);
 
-    if (currentAddedItems){
-        cartItem = findItem(currentAddedItems, action.id);
-        console.log('cartItem ', cartItem);
+    //search for item in cart
+    let cartItem = findItem(cart, action.id);
+    console.log('cartItem: ', cartItem);
+
+    let updatedCart;
+
+    if (cartItem) {
+        //if stock allows add to order
+        if (cartItem.orderAmt < product.stock){
+            console.log('cartItem.orderAmt ', cartItem.orderAmt);
+            console.log('product.stock ', product.stock);
+            cartItem.orderAmt +=1;
+            updatedCart = updateArray(cart, cartItem);
+            console.log('updatedCart = ', updatedCart);            
+        } else {
+            updatedCart = cart;
+        }
+    }
+    
+    //if no such item in cart copy original
+    if (!cartItem) {
+        cartItem = {...product};
+        console.log('cartItem: ', cartItem);
+        cartItem.orderAmt = 1;
+        updatedCart = [...cart, cartItem];
+        console.log('updatedCart = ', updatedCart);
     }
 
-   let total, totalItems, shop, addedItems;
-    if (cartItem) {
-        console.log('cartItem.amount ', cartItem.amount);
-        console.log('cartItem.quantity ', cartItem.quantity);
-
-        //check if item stock is less than the current amount in cart 
-        if (cartItem.amount < addThisItem.quantity){
-            //only add item to cart if stock allows it
-            cartItem.amount += 1;
-        }
-
-        //replace 
-        addedItems  = updateArray(currentAddedItems, cartItem);
-        console.log('addedItems = ', addedItems);
-
-        //make cart a string and store in local space
-        stringMyAddedItems = JSON.stringify(addedItems);
-        localStorage.setItem("addedItems", stringMyAddedItems);
-
-        //calculate total
-        total = getTotalPrice(addedItems);
-        console.log('total = $', total);
-
-        //count total items in cart
-        totalItems = getTotalItems(addedItems);
-        console.log('total items = ', totalItems);
-    } else {    
-        //set this new item amount to 1 in the cart
-        addThisItem.amount = 1;
-        console.log('addThisItem first item in cart = ', addThisItem);
-
-        // rebuild shop to include new item
-        //shop = currentShop.map( obj => addThisItem.find(item => item._id === obj._id) || obj);
-        //console.log('shop', shop);
-
-        //add item to cart
-        addedItems = [...currentAddedItems, addThisItem];
-        console.log('addedItems = ', addedItems);
-
-        //make cart a string and store in local space
-        stringMyAddedItems = JSON.stringify(addedItems);
-        //save cart in browser
-        localStorage.setItem("addedItems", stringMyAddedItems);
-        //calculate total
-        total = getTotalPrice(addedItems);
-        console.log('total price = $', total);
-        
-        //count total items in cart
-        totalItems = getTotalItems(addedItems);
-        console.log('total items = ', totalItems);
-    } 
-    
-    console.log('addToCart finish');
+    storeLocally('cart', updatedCart);
+    const totalPrice = getTotalPrice(updatedCart);
+    console.log('total = $', totalPrice);
+    const totalItems = getTotalItems(updatedCart);
+    console.log('total items = ', totalItems);
 
     return{      
         ...state,
-        addedItems  : addedItems,
-        total       : total,
+        cart        : updatedCart,
+        totalPrice  : totalPrice,
         totalItems  : totalItems,
         //shop        : shop
      };
  };
 
-const subQuantity = ( state, action ) => {
-    const cart = copyArray(state.addedItems);
+const subtractFromCart = ( state, action ) => {
+    const cart = copyArray(state.cart);
     let cartItem = findItem(cart, action.id);
-    let total, shop, addedItems;
+    let updatedCart;
     //if the qt == 0 then it should be removed
-    if (cartItem && (cartItem.amount > 1) ){
+    if (cartItem && (cartItem.orderAmt > 1) ){
         cartItem.amount -= 1;
-        addedItems  = updateArray(cart, cartItem);
-        //shop        = state.shop.map( obj => [cartItem].find(item => item._id === obj._id) || obj)
-        total       = getTotalPrice(addedItems);
-        //state.total - cartItem.price
-        //store in local storage
-        storeLocally('cart',addedItems)
-        return{
-            ...state,
-            addedItems  : addedItems,
-            total       : total,        
-            totalItems  : state.totalItems -1,
-            shop        : shop
-        }
+        updatedCart = updateArray(cart, cartItem);
+    } else {
+        updatedCart = removeItem(cart, action.id);
     }
+    storeLocally('cart', updatedCart);
+    const totalPrice = getTotalPrice(updatedCart);
+    const totalItems = getTotalItems(updatedCart);
 
-    if (cartItem && (cartItem.amount === 1)){
-        cartItem.amount -= 1
-        addedItems  = removeItem(cart, action.id);
-//        shop        = state.shop.map( obj => [cartItem].find(item => item._id === obj._id) || obj)
-        total       = getTotalPrice(addedItems);
-        storeLocally('cart', addedItems);
+    return{
+        ...state,
+        cart        : updatedCart,
+        totalPrice  : totalPrice,
+        totalItems  : totalItems,
+//        shop        : shop
+    };
+};
 
-        return{
-            ...state,
-            addedItems  : addedItems,
-            total       : total,
-           totalItems  : state.totalItems -1,
-            shop        : shop
-        }
-    }
-    else {
-        return{
-            ...state,
-        }
-    }
-}
+
+
+
 //const addShipping = ( state, action ) => {
 //    return  { 
 //        state,
@@ -442,10 +396,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.GET_PRODUCT_START             : return getProductStart(state, action);
   
         case actionTypes.ADD_TO_CART                   : return addToCart(state, action);
+        case actionTypes.SUBTRACT_FROM_CART            : return subtractFromCart(state, action);
 
 //        case actionTypes.REMOVE_ITEM                : return removeItem(state, action);
 //        case actionTypes.ADD_QUANTITY               : return addQuantity(state, action);
-//        case actionTypes.SUB_QUANTITY               : return subQuantity(state, action);
 //        case actionTypes.ADD_SHIPPING               : return addShipping(state, action);
 //        case actionTypes.SUB_SHIPPING               : return subShipping(state, action); 
         case actionTypes.LOAD_CART                     : return loadCart(state, action);

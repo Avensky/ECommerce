@@ -94,6 +94,13 @@ export const addToCart= (id)=>{
   };
 };
 
+export const subtractFromCart= (id)=>{
+  return{
+      type: actionTypes.SUBTRACT_FROM_CART,
+      id
+  };
+};
+
 export const loadCart = ( values ) => {
   // local storage
   return{

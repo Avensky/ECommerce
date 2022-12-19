@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 //import { Route, Switch } from 'react-router-dom';
 //import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from './Product.module.css';
@@ -53,7 +53,7 @@ const Product = props => {
             //If Product exists reload
             console.log('check product in memory= ', props.product);
             if (props.product._id !== id){
-                getProduct(props.product._id);
+                getProduct(id);
             };    
         };
 
@@ -226,7 +226,7 @@ let reviews= [
                 {/* {orderSummary} */}
             </Modal>
             <div className='PageTitle'>
-                <a href='/shop'>Shop</a>
+                <NavLink to='/shop'>Shop</NavLink>
             </div>
                 
             {/* <CheckoutHeader

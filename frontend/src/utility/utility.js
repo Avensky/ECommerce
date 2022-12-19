@@ -29,3 +29,13 @@ export const getTotalItems = (cart) => {
 export const copyArray = (array) =>{
     return JSON.parse(JSON.stringify(array));
 };
+
+//
+export const storeLocally = ( arrayName, array ) => {
+    let arrayString = JSON.stringify(array);
+    localStorage.setItem(arrayName, arrayString);
+};
+
+export const removeItem  = ( array, id )=>{
+    return array.filter(item=>item._id !== id)
+}

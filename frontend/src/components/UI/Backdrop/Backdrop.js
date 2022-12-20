@@ -5,6 +5,7 @@ const backdrop = (props) => (
     props.show ? <div 
         className={classes.Backdrop}
         onClick={props.clicked}
+        style={{marginTop:props.marginTop}}
     ></div> : null
 );
 

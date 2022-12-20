@@ -28,7 +28,7 @@ const  App = (props) => {
 //    if ( props.products){
 //        console.log('Use effect loadCart');
 //        loadCart();
-//        if (props.products.length>0 && props.addedItems.length>0){
+//        if (props.products.length>0 && props.cart.length>0){
 //          console.log('Use effect loadShop items orderby');
 //          loadShop(props.orderby);
 //      };
@@ -38,7 +38,7 @@ const  App = (props) => {
 //  
 //  useEffect(() => {
 //    if ( props.products){
-//      if (props.products.length>0 && props.addedItems.length>0){
+//      if (props.products.length>0 && props.cart.length>0){
 //          console.log('Use effect2 load shop items orderby');
 //          loadShop(props.orderby);
 //      }
@@ -51,7 +51,7 @@ const  App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation totalItems={props.totalItems}/>
+        <Navigation totalItems={props.totalItems} cart={props.cart}/>
         <Routes>
           {/* pages */}
           <Route path="/"                   element={<Home/>}/>
@@ -66,7 +66,7 @@ const  App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    addedItems       : state.shop.addedItems,
+    cart       : state.shop.cart,
     products         : state.shop.products,
     shop             : state.shop.shop,
 //    isAuth           : state.auth.payload,
@@ -90,7 +90,7 @@ App.propTypes = {
   loadShop: PropTypes.func,
   cartLoaded: PropTypes.bool,
   products: PropTypes.array,
-  addedItems  : PropTypes.array,
+  cart  : PropTypes.array,
   total       : PropTypes.number,
   orderby:PropTypes.func,
   shopLoaded: PropTypes.func,

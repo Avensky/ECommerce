@@ -1,0 +1,105 @@
+.Sidebar {
+    padding-top: 51px;
+    position: fixed;
+    min-height: 230px;
+    /* max-height: 70%; */
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+    padding: 0vh 5vw 2vh;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+    text-align: left;
+    display: flex;
+    width: 100%;
+    /* overflow-y: auto; */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1025px;
+    /* flex: 1 */
+}
+.LogoWrapper {
+    box-sizing: border-box;
+    padding: 25px;
+}
+
+
+.Open {
+    transform: translateY(51px);
+}
+
+.Close {
+    transform: translateY(-100%);
+}
+
+
+.heading {
+    text-transform: uppercase;
+    margin: 1vh 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.title {
+    font-weight: 900;
+    font-size: 1.3em;
+}
+.x {
+    /* font-weight: 900; */
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+.item {
+    display: flex;
+    width: 100%;
+}
+
+.image {
+    padding: 1vh 25px 1vh 10px;
+}
+.image img {
+    width: 100px;
+}
+
+.details {
+    margin: auto 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+button {
+    width: 48%;
+    padding: 2vh 0;
+}
+
+.checkout {
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+}
+
+.cartWrapper{
+    /* height: 100%; */
+    /* box-sizing: border-box; */
+}
+
+/* For tablet */
+@media only screen and (min-width: 600px) {
+}
+
+/* Desktop */
+@media only screen and (min-width: 1025px) {
+    .Sidebar {
+        justify-content: flex-end;
+    }    
+    
+} 

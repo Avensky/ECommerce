@@ -27,6 +27,16 @@
   align-items: center;
 }
 
+/* use this to get rid of active styling on nav item */
+.none {
+  display: flex;
+  flex-direction: row !important;
+  border-bottom: 1px solid transparent !important;
+}
+.none:hover {
+  border-bottom: 1px solid #afe4f7 !important;
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   .PageTitle {

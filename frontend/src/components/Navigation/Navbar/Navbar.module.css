@@ -8,7 +8,7 @@
     background-color: rgb(4, 0, 10);
     padding: 0 2vw;
     box-sizing: border-box;
-    z-index: 90;
+    z-index: 150;
     color: white; 
     white-space: nowrap;
     border-bottom: 1px solid #afe4f7;
@@ -79,10 +79,25 @@ ul {
 /* Hide desktop */
 .Desktop {display: none}
 
+.Cart {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.Cart:hover {
+    /* border-bottom: 1px solid #afe4f7; */
+}
+
 .TotalItems {
-    height: 100%;
-    padding: 1vh .75vw 1vh;
     font-size: 1.3em;
+    margin-right: .5vw;
+    padding: .75vh 0 1vh;
+}
+
+svg {
+    cursor: pointer;
 }
 
 /* For tablet */

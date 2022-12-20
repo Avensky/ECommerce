@@ -26,10 +26,10 @@ const Navbar = ( props ) => {
                     <NavItem to="/authentication" exact='true'>
                         <FontAwesomeIcon icon="fa-solid fa-user" />
                     </NavItem>
-                    <NavItem to="/cart" exact='true' className='flex'>
-                        <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+                    <div className={classes.Cart} onClick={props.cartbarToggleClicked}>
                         <div className={classes.TotalItems}>{props.totalItems}</div>
-                    </NavItem>
+                        <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+                    </div>
                 </div>
 
             </div>
@@ -68,7 +68,9 @@ const Navbar = ( props ) => {
                     <NavItem to="/search" exact='true'>
                         <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
                     </NavItem>
-                    <NavItem to="/cart" exact='true'>
+
+                    <NavItem exact='true' onClick={props.cartbarToggleClicked} className='none'>
+                        <div className={classes.TotalItems}>{props.totalItems}</div>
                         <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
                     </NavItem>
                 </div>
@@ -79,6 +81,7 @@ const Navbar = ( props ) => {
 
 Navbar.propTypes = {
     sidebarToggleClicked : PropTypes.func,
+    cartbarToggleClicked : PropTypes.func,
     isLogged : PropTypes.any,
     totalItems: PropTypes.number
 };

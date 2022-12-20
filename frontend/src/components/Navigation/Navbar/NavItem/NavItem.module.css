@@ -19,7 +19,9 @@
     color: white;
     border-bottom: 1px solid transparent;
 }
-
+.none {
+    border-bottom: 1px solid transparent;
+}
 .Fit {
     height: fit-content;
 }

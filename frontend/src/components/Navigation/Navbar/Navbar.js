@@ -26,8 +26,9 @@ const Navbar = ( props ) => {
                     <NavItem to="/authentication" exact='true'>
                         <FontAwesomeIcon icon="fa-solid fa-user" />
                     </NavItem>
-                    <NavItem to="/cart" exact='true'>
+                    <NavItem to="/cart" exact='true' className='flex'>
                         <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
+                        <div className={classes.TotalItems}>{props.totalItems}</div>
                     </NavItem>
                 </div>
 
@@ -78,7 +79,8 @@ const Navbar = ( props ) => {
 
 Navbar.propTypes = {
     sidebarToggleClicked : PropTypes.func,
-    isLogged : PropTypes.any
+    isLogged : PropTypes.any,
+    totalItems: PropTypes.number
 };
 
 export default Navbar;

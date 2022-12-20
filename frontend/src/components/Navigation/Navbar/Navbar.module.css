@@ -79,6 +79,12 @@ ul {
 /* Hide desktop */
 .Desktop {display: none}
 
+.TotalItems {
+    height: 100%;
+    padding: 1vh .75vw 1vh;
+    font-size: 1.3em;
+}
+
 /* For tablet */
 @media only screen and (min-width: 600px) {
     .Desktop {

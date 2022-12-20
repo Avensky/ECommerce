@@ -1,6 +1,6 @@
 .NavItem {
     height: 100%;
-    margin: 0 1vw;
+    margin: auto 1vw;
     padding: 5px 0;
     box-sizing: border-box;
 }
@@ -13,6 +13,7 @@
     justify-content: center; 
     width: 100%;
     padding: 0 .5vw;
+    margin: auto 0;
     box-sizing: border-box;
     text-decoration: none;
     color: white;

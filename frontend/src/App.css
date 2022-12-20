@@ -21,6 +21,12 @@
   color: black
 }
 
+.flex {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
   .PageTitle {

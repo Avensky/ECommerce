@@ -51,7 +51,7 @@ const  App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation />
+        <Navigation totalItems={props.totalItems}/>
         <Routes>
           {/* pages */}
           <Route path="/"                   element={<Home/>}/>
@@ -94,6 +94,7 @@ App.propTypes = {
   total       : PropTypes.number,
   orderby:PropTypes.func,
   shopLoaded: PropTypes.func,
+  totalItems: PropTypes.number
 };
 
 export default connect(mapStateToProps, mapDispatchToProps) (App);

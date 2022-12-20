@@ -16,14 +16,14 @@ const Navbar = ( props ) => {
                 <div className={classes.NavItems}>
                     <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
                 </div>
-                <div className={classes.NavItems}>
+                <div className={classes.NavItems} onClick={props.closeCartbar}>
                     <NavLink to="/home" exact='true' className={classes.LogoWrapper}>
                             <Logo height='80%' />
                             <div className={classes.LogoText}>ECOMMERCE</div>
                     </NavLink >
                 </div>
                 <div className={classes.NavItems}>
-                    <NavItem to="/authentication" exact='true'>
+                    <NavItem to="/authentication" exact='true' onClick={props.closeCartbar}>
                         <FontAwesomeIcon icon="fa-solid fa-user" />
                     </NavItem>
                     <div className={classes.Cart} onClick={props.cartbarToggleClicked}>
@@ -35,7 +35,7 @@ const Navbar = ( props ) => {
             </div>
             {/* Desktop Navbar */}                             
             <div className={[classes.Navbar, classes.Desktop].join(' ')}>
-                <div className={classes.NavItems}>
+                <div className={classes.NavItems} onClick={props.closeCartbar}>
                     <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
                     <NavLink to="/home"     exact='true'>
                         <div className={classes.LogoWrapper}>
@@ -43,12 +43,12 @@ const Navbar = ( props ) => {
                             <div className={classes.LogoText}>ECOMMERCE</div>    
                         </div>
                     </NavLink >
-                    <NavItem to="/shop"     exact='true'>Shop</NavItem>
-                    <NavItem to="/about"    exact='true'>About</NavItem>
-                    <NavItem to="/recipes"  exact='true'>Recipes</NavItem>
+                    <NavItem to="/shop"     exact='true' onClick={props.closeCartbar}>Shop</NavItem>
+                    <NavItem to="/about"    exact='true' onClick={props.closeCartbar}>About</NavItem>
+                    <NavItem to="/recipes"  exact='true' onClick={props.closeCartbar}>Recipes</NavItem>
                 </div>
                 <div className={classes.NavItems}>
-                    <NavItem to="/support" exact='true'>Support</NavItem>
+                    <NavItem to="/support" exact='true' onClick={props.closeCartbar}>Support</NavItem>
                     {/* {props.isLogged != null 
                         ? <NavItem to="/profile"          >Profile</NavItem> 
                         : null}
@@ -60,12 +60,12 @@ const Navbar = ( props ) => {
                         ? <NavItem to="/profile"          >Profile</NavItem> 
                         : null} */}
                     {!props.isLogged
-                        ? <NavItem to="/authentication" exact='true'>
+                        ? <NavItem to="/authentication" exact='true' onClick={props.closeCartbar}>
                             <FontAwesomeIcon icon="fa-solid fa-user"/>
                         </NavItem>
                         : <div className={classes.NavItem}><a  href="/api/logout">Logout</a></div>}
                 
-                    <NavItem to="/search" exact='true'>
+                    <NavItem to="/search" exact='true' onClick={props.closeCartbar}>
                         <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
                     </NavItem>
 
@@ -82,8 +82,9 @@ const Navbar = ( props ) => {
 Navbar.propTypes = {
     sidebarToggleClicked : PropTypes.func,
     cartbarToggleClicked : PropTypes.func,
-    isLogged : PropTypes.any,
-    totalItems: PropTypes.number
+    closeCartbar         : PropTypes.func,
+    isLogged             : PropTypes.any,
+    totalItems           : PropTypes.number
 };
 
 export default Navbar;

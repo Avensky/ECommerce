@@ -27,6 +27,7 @@ const Navigation = (props) => {
             //isLogged                = {props.isLoggedIn}
             sidebarToggleClicked    = {sidebarToggleHandler} 
             cartbarToggleClicked    = {cartbarToggleHandler}
+            closeCartbar            = {closeCartbarHandler}
             totalItems              = {props.totalItems}
         />
         <Sidebar 

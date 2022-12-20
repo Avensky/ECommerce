@@ -30,13 +30,26 @@ export const copyArray = (array) =>{
     return JSON.parse(JSON.stringify(array));
 };
 
+//remove Item from array
+export const removeItem  = ( array, id )=>{
+    return array.filter(item=>item._id !== id);
+};
+
 //stringify and store cart session in browser
 export const storeLocally = ( arrayName, array ) => {
     let arrayString = JSON.stringify(array);
     localStorage.setItem(arrayName, arrayString);
 };
 
-//remove Item from array
-export const removeItem  = ( array, id )=>{
-    return array.filter(item=>item._id !== id);
+export const getLocalStorage = async () => {
+    console.log(' getLocalStorage');
+    let arrayString = localStorage.getItem('cart');
+    console.log('arrayString', arrayString);
+    let array = [];
+    if(arrayString){
+        array = JSON.parse(arrayString);      
+    };
+
+    console.log('load cart', array);
+    return array;
 };

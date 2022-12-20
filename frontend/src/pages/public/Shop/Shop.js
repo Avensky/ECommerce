@@ -150,10 +150,6 @@ const Shop = props => {
 
     return(
         <div className={['page-wrapper', classes.Shop].join(' ')}>
-            <Modal show={purchasing} modalClosed={purchaseCancelHandler}> 
-                {orderSummary}
-            </Modal>
-
             {/* Title */}
             <div className={classes.ShopTitle}>SHOP ALL</div>
 

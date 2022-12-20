@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, Shop, Product } from './pages';
+import { Home, Shop, Product, Cart } from './pages';
 //import Navbar from './components/Navigation/Navbar/Navbar';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
@@ -11,8 +11,8 @@ import * as actions from './redux/actions/index';
 const  App = (props) => {
 
   const getProducts = () => { props.getProducts();};
-  const loadCart = () => { props.loadCart(); };
-  const loadShop = (orderby) => { props.loadShop(orderby); };
+  const loadCart    = async() => { await props.loadCart(); };
+  const loadShop    = (orderby) => { props.loadShop(orderby); };
 
   console.log('products = ', props.products);
   //Get Producs
@@ -22,6 +22,11 @@ const  App = (props) => {
         console.log('get products');
     };
   }, []);
+
+  useEffect(()=>{
+    console.log('load cart');
+    loadCart();
+  },[]);
 
 //
 //  useEffect(() => {
@@ -57,7 +62,8 @@ const  App = (props) => {
           <Route path="/"                   element={<Home/>}/>
           <Route path="/home"               element={<Home/>}/>
           <Route path="/shop"               element={<Shop />}/>
-          <Route path="/product/:id" exact  element={<Product />} />
+          <Route path="/product/:id"  exact element={<Product />} />
+          <Route path="/cart"         exact element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>

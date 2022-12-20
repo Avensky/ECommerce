@@ -1,8 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, findItem, updateArray, getTotalPrice, getTotalItems, copyArray,
-removeItem } from '../../utility/utility';
-import { storeLocally } from '../../utility/utility';
-
+removeItem, getLocalStorage, storeLocally} from '../../utility/utility';
 const initialState = {
     products    : [],
     loading     : false,
@@ -227,6 +225,16 @@ const subtractFromCart = ( state, action ) => {
 //}
 //
 const loadCart = ( state, action ) => {
+    // get cart from local storage
+    console.log(' getLocalStorage');
+    let arrayString = localStorage.getItem('cart');
+    console.log('arrayString', arrayString);
+    let array = [];
+    if(arrayString){
+        array = JSON.parse(arrayString);      
+    };
+
+    console.log('load cart', array);
 //    let stringLocalAddedItems = localStorage.getItem("addedItems");
 //    let addedItems = [];
 //    let items = [...state.products];
@@ -260,13 +268,16 @@ const loadCart = ( state, action ) => {
 //    
 //    totalItems=addedItems.reduce((a, b) => a + b.amount, 0);
 //    total = addedItems.map(item => item.price*item.amount).reduce((prev, curr) => prev + curr, 0);
+    
+    const totalItems = getTotalItems(array);
+    const totalPrice = getTotalPrice(array);
     return {
-//        ...state,
-//        addedItems  : addedItems,
-//        totalItems  : totalItems,
-//        total       : total,
+        ...state,
 //        shop        : shop,
-//        cartLoaded  : true
+//        cartLoaded  : true,
+        totalItems: totalItems,
+        totalPrice: totalPrice,
+        cart: array
     };
 };
 

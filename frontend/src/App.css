@@ -37,9 +37,18 @@
   border-bottom: 1px solid #afe4f7 !important;
 }
 
+/* Generic Page styles */
+.page-title {
+  font-weight: 900;
+  font-size: 3em;
+  margin: 1vh 0;
+  text-transform: uppercase;
+}
+
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
-  .PageTitle {
+  .page-title {
       margin: 3vh 0;
   }
 }

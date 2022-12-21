@@ -164,7 +164,7 @@ const Product = props => {
                             <div>In Stock: {props.product.stock || 0}</div>
                             <div>Sold: {props.product.sold || 0}</div>
                         </div>
-                        <button className={classes.Button} onClick={addToCart}>
+                        <button type='button' className={classes.Button} onClick={addToCart}>
                             Add to cart
                         </button>
                         <div className={classes.Desc}>

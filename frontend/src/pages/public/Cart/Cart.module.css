@@ -171,9 +171,6 @@
     font-size: 1.5em;
     font-weight: 900;
     cursor: pointer;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
 }
 
 @media only screen and (min-width: 600px) {

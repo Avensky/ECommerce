@@ -161,12 +161,12 @@ const Product = props => {
                             <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
                         </div>
                         <div className={classes.Availability}>
-                            <div>In Stock: {props.product.quantity || 0}</div>
+                            <div>In Stock: {props.product.stock || 0}</div>
                             <div>Sold: {props.product.sold || 0}</div>
                         </div>
-                        <div className={classes.Button} onClick={addToCart}>
+                        <button className={classes.Button} onClick={addToCart}>
                             Add to cart
-                        </div>
+                        </button>
                         <div className={classes.Desc}>
                             {props.product.desc}
                         </div>

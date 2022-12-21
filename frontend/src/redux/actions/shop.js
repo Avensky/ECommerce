@@ -101,6 +101,13 @@ export const subtractFromCart= (id)=>{
   };
 };
 
+export const removeFromCart = id => {
+  return{
+    type: actionTypes.REMOVE_FROM_CART,
+    id
+  };
+};
+
 export const loadCart = ( values ) => {
   // local storage
   return{

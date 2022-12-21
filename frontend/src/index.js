@@ -18,7 +18,9 @@ import {
   faStar,
   faStarHalf,
   faStarHalfStroke,
-  
+  faTrashCan,
+  faMinus,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fab, faCheckSquare, faCoffee, faUser,
@@ -30,8 +32,10 @@ faBars,
 faStar,
 faStarHalf,
 faStarHalfStroke,
-
-  );
+faTrashCan,
+faPlus,
+faMinus
+);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 //  <React.StrictMode>

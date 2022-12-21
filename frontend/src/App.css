@@ -7,7 +7,8 @@
 }
 
 .page-wrapper {
-  padding-top: 51px;
+  margin: 0;
+  padding: 51px 4vw 0;
 }
 
 .PageTitle {
@@ -48,6 +49,9 @@
 
 @media only screen and (min-width: 600px) {
   /* For tablets: */
+  .page-wrapper{
+    margin: 0 5vw;
+  }
   .page-title {
       margin: 3vh 0;
   }

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, findItem, updateArray, getTotalPrice, getTotalItems, copyArray,
 removeItem, getLocalStorage, storeLocally} from '../../utility/utility';
+
 const initialState = {
     products    : [],
     loading     : false,
@@ -189,7 +190,7 @@ const subtractFromCart = ( state, action ) => {
     let updatedCart;
     //if the qt == 0 then it should be removed
     if (cartItem && (cartItem.orderAmt > 1) ){
-        cartItem.amount -= 1;
+        cartItem.orderAmt -= 1;
         updatedCart = updateArray(cart, cartItem);
     } else {
         updatedCart = removeItem(cart, action.id);
@@ -207,7 +208,22 @@ const subtractFromCart = ( state, action ) => {
     };
 };
 
+const removeFromCart = (state, action) => {
+    const cart = copyArray(state.cart);
+    let updatedCart = removeItem(cart, action.id);
 
+    storeLocally('cart', updatedCart);
+    const totalPrice = getTotalPrice(updatedCart);
+    const totalItems = getTotalItems(updatedCart);
+
+    return {
+        ...state,
+        cart: updatedCart,
+        totalPrice : totalPrice,
+        totalItems: totalItems,
+
+    };
+};
 
 
 //const addShipping = ( state, action ) => {
@@ -408,7 +424,7 @@ const reducer = ( state = initialState, action ) => {
   
         case actionTypes.ADD_TO_CART                   : return addToCart(state, action);
         case actionTypes.SUBTRACT_FROM_CART            : return subtractFromCart(state, action);
-
+        case actionTypes.REMOVE_FROM_CART              : return removeFromCart(state, action);
 //        case actionTypes.REMOVE_ITEM                : return removeItem(state, action);
 //        case actionTypes.ADD_QUANTITY               : return addQuantity(state, action);
 //        case actionTypes.ADD_SHIPPING               : return addShipping(state, action);

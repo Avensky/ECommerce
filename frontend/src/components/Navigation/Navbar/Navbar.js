@@ -17,7 +17,7 @@ const Navbar = ( props ) => {
                     <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
                 </div>
                 <div className={classes.NavItems} onClick={props.closeCartbar}>
-                    <NavLink to="/home" exact='true' className={classes.LogoWrapper}>
+                    <NavLink to="/shop" exact='true' className={classes.LogoWrapper}>
                             <Logo height='80%' />
                             <div className={classes.LogoText}>ECOMMERCE</div>
                     </NavLink >
@@ -27,7 +27,7 @@ const Navbar = ( props ) => {
                         <FontAwesomeIcon icon="fa-solid fa-user" />
                     </NavItem>
                     <div className={classes.Cart} onClick={props.cartbarToggleClicked}>
-                        <div className={classes.TotalItems}>{props.totalItems}</div>
+                        <div className={classes.TotalItems}>{props.totalItems>0 ? props.totalItems: null}</div>
                         <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
                     </div>
                 </div>
@@ -70,7 +70,7 @@ const Navbar = ( props ) => {
                     </NavItem>
 
                     <NavItem exact='true' onClick={props.cartbarToggleClicked} className='none'>
-                        <div className={classes.TotalItems}>{props.totalItems}</div>
+                        <div className={classes.TotalItems}>{props.totalItems > 0 ? props.totalItems: null}</div>
                         <FontAwesomeIcon icon="fa-solid fa-cart-shopping" />
                     </NavItem>
                 </div>

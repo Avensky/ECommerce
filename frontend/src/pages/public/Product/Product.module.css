@@ -78,11 +78,12 @@
   padding: 1vh 1vw;
   font-weight: 600;
   cursor: pointer;
-  -moz-user-select: none;
+  width: 100%;
+  /* -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .Button:hover{

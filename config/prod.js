@@ -7,7 +7,7 @@ module.exports = {
     //stripe stuffs
     webhookSecret           : process.env.ENDPOINT_SECRET,
     stripePublishableKey    : process.env.STRIPE_PUBLISHABLE_KEY,
-    stripeSecretKey         : process.env.STRIPE_SECRET_KEY,
+    stripeSecretKey         : `${process.env.STRIPE_SECRET_KEY}`,
     taxRates                : process.env.TAX_RATES,
     checkoutSuccessUrl      : "https://www.avensky.com/home",
     checkoutCancelUrl       : "https://www.avensky.com/cart",

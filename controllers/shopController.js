@@ -62,7 +62,7 @@ exports.createSession = async (req, res) => {
         : null;
   
     const orderObj = ordersController.createOrder(session, userid)
-
+    console.log('orderObj= ');
     orderObj.save((err)=>{
         if(err){
         //console.log(err);
@@ -70,7 +70,7 @@ exports.createSession = async (req, res) => {
         }
         else
         //res.send('order data saved successfully!');
-        res.json({ id: session.id });
+        res.status(200);
     });
 };
 

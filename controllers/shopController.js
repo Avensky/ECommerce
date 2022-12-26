@@ -61,8 +61,13 @@ exports.createSession = async (req, res) => {
         ? userid = req.body.userid
         : null;
   
-    const orderObj = ordersController.createOrder(session, userid)
-    console.log('orderObj= ');
+    const orderObj = new Orders({
+        sessionid                     : session.id,
+        userid                        : userid || null,
+        date                          : new Date(),
+        payment_status                : "unpaid"  
+      });
+    console.log('orderObj= ', orderObj);
     orderObj.save((err)=>{
         if(err){
         console.log('err',err);

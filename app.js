@@ -2,7 +2,7 @@
 const express = require('express');
 // const cors                = require("cors");
 const app = express();
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 // set up cors to allow us to accept requests from our client
 // app.use(cors());
 // app.options('*', cors());
@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
 	bodyParser.json({
-		verify: (req, res, buf) => { req.rawBody = buf.toString() }
+		verify: (req, res, buf) => { req.rawBody = buf.toString(); }
 	})
 );
 

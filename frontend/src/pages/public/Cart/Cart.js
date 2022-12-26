@@ -1,26 +1,94 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from './Cart.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../../../redux/actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Modal from '../../../components/UI/Modal/Modal';
+import keys from '../../../config/keys';
+import { loadStripe }from '@stripe/stripe-js';
+
+console.log('stipe key', keys.stripePublishableKey);
+let stripePromise = loadStripe(keys.stripePublishableKey);
+
+const checkout = async (cart, user, event) => {
+
+    console.log('checkout start');        // Get Stripe.js instance
+    const stripe = await stripePromise;
+    console.log('stripePromise');
+    let line_items = cart.map( item => {
+        let data = {
+            price       : item.priceid,
+            quantity    : item.orderAmt,
+        //    tax_rates   : keys.taxRates
+        };
+         console.log('data = '+JSON.stringify(data));
+        return data;
+    });
+    
+    let body; 
+    user 
+    ? body = JSON.stringify({items: line_items,userid: user['_id']})
+    : body = JSON.stringify({items: line_items});
+
+    console.log('body = ', body);
+    // Call your backend to create the Checkout Session
+    const response = await fetch('/api/checkout', { 
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        //make sure to serialize your JSON body
+        body
+    });
+
+    const session = await response.json();
+    console.log(session);
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({sessionId: session.id,});
+
+    if (result.error) {
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `result.error.message`.
+    console.log(result.error.message);
+    }
+};
 
 const Cart = (props) => {
     // define functions
-    const addToCart = async id => await props.addToCart(id);
-    const subtractFromCart = async id => await props.subtractFromCart(id);
-    const removeFromCart = async id => await props.removeFromCart(id);
+    const [modal, setModal] = useState(false);
+    const [id, setId]       = useState('');
+
+    const showModal     = (id) => {
+        setModal(true);
+        setId(id);
+    };  
+    const hideModal     = () => {
+        setModal(false);
+        setId('');
+    };
+
+    const addToCart         = async id => await props.addToCart(id);
+    const subtractFromCart  = async id => await props.subtractFromCart(id);
+    const removeFromCart    = async() => {
+        console.log('id = ',id);
+        hideModal();
+        await props.removeFromCart(id);
+    };
 
     let cart = <p>Cart is empty. So sad</p>;
     if (props.cart.length>0) {
         cart = props.cart.map(item => {
-            console.log('item._id', item._id);
+            //console.log('item._id', item._id);
             return <div key={item._id} className={classes.Item}>
                 {/* Item Data */}
                 <div className={classes.ItemData} >
                     {/* Remove Item*/}
-                    <div className={classes.Remove} onClick={()=>removeFromCart(item._id)}>
+                    <div className={classes.Remove} onClick={()=>showModal(item._id)}>
                         <FontAwesomeIcon icon='fa-solid fa-trash-can' />
                     </div>
 
@@ -87,7 +155,7 @@ const Cart = (props) => {
                 <div className={classes.TotalLabel}>TOTAL(USD)</div>
                 <div className={classes.Total}>${props.totalPrice}</div>
             </div>
-            <div className={classes.Checkout} >
+            <div className={classes.Checkout} onClick={()=>checkout(props.cart)}>
                 CHECKOUT
             </div>
         </div>
@@ -95,6 +163,15 @@ const Cart = (props) => {
     : null;
   return (
     <div className={['page-wrapper', classes.Cart].join(' ')}>
+        <Modal show={modal} modalClosed={hideModal}>
+            <div className={classes.Modal}>
+                <h1>Are you sure you want to delete this item?</h1>
+                <div className={classes.buttonsWrapper}>
+                    <div className={[classes.Button, classes.RemoveButton].join(' ')} onClick={id=>removeFromCart(id)}>OK</div>
+                    <div className={[classes.Button, classes.CancelButton].join(' ')} onClick={hideModal}>CANCEL</div>
+                </div>
+            </div>
+        </Modal>
         <div className='page-title'>Cart</div>
         <div className={classes.CartWrapper}>
             {cart}

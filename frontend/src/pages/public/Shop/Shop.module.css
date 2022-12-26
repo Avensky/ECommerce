@@ -21,7 +21,7 @@
 .ShopNav {
     width: 100%;
     display: flex;
-    justify-content: stretch;
+    /* justify-content: stretch; */
     align-items: center;
     flex-wrap: wrap;
 }
@@ -36,6 +36,8 @@
     height: 100%;
     width: 100%;
     color: black;
+    width: 48%;
+    margin: .5% .5%;
 }
 
 .ShopNavLink:hover {
@@ -80,8 +82,6 @@
     }
     
     .ShopNavLink {
-        width: 48%;
-        margin: .5% .5%;
     }
     .Shop{
         margin: 0 5vw;

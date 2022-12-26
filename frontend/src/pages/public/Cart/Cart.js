@@ -12,53 +12,54 @@ import { loadStripe }from '@stripe/stripe-js';
 console.log('stipe key', keys.stripePublishableKey);
 let stripePromise = loadStripe(keys.stripePublishableKey);
 
-const checkout = async (cart, user, event) => {
-
-    console.log('checkout start');        // Get Stripe.js instance
-    const stripe = await stripePromise;
-    console.log('stripePromise');
-    let line_items = cart.map( item => {
-        let data = {
-            price       : item.priceid,
-            quantity    : item.orderAmt,
-        //    tax_rates   : keys.taxRates
-        };
-         console.log('data = '+JSON.stringify(data));
-        return data;
-    });
-    
-    let body; 
-    user 
-    ? body = JSON.stringify({items: line_items,userid: user['_id']})
-    : body = JSON.stringify({items: line_items});
-
-    console.log('body = ', body);
-    // Call your backend to create the Checkout Session
-    const response = await fetch('/api/checkout', { 
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-        //make sure to serialize your JSON body
-        body
-    });
-
-    const session = await response.json();
-    console.log(session);
-    // When the customer clicks on the button, redirect them to Checkout.
-    const result = await stripe.redirectToCheckout({sessionId: session.id,});
-
-    if (result.error) {
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `result.error.message`.
-    console.log(result.error.message);
-    }
-};
 
 const Cart = (props) => {
+    const checkout = async (cart, user, event) => {
+
+        console.log('checkout start');        // Get Stripe.js instance
+        const stripe = await stripePromise;
+        console.log('stripePromise');
+        let line_items = cart.map( item => {
+            let data = {
+                price       : item.priceid,
+                quantity    : item.orderAmt,
+                tax_rates   : [keys.taxRates]
+            };
+            console.log('data = '+JSON.stringify(data));
+            return data;
+        });
+        
+        let body; 
+        user 
+        ? body = JSON.stringify({items: line_items,userid: user['_id']})
+        : body = JSON.stringify({items: line_items});
+
+        console.log('body = ', body);
+        // Call your backend to create the Checkout Session
+        const response = await fetch('/api/checkout', { 
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            //make sure to serialize your JSON body
+            body
+        });
+
+        const session = await response.json();
+        console.log(session);
+        // When the customer clicks on the button, redirect them to Checkout.
+        const result = await stripe.redirectToCheckout({sessionId: session.id,});
+
+        if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer
+        // using `result.error.message`.
+        console.log(result.error.message);
+        }
+    };
+
     // define functions
     const [modal, setModal] = useState(false);
     const [id, setId]       = useState('');

@@ -71,7 +71,7 @@ exports.createSession = async (req, res) => {
         else{
         //res.send('order data saved successfully!');
         console.log('order data saved successfully!');
-        res.status(200);}
+        return res.status(200);}
     });
 };
 

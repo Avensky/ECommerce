@@ -23,7 +23,7 @@ const Cart = (props) => {
             let data = {
                 price       : item.priceid,
                 quantity    : item.orderAmt,
-                tax_rates   : [keys.taxRates]
+                //tax_rates   : [keys.taxRates]
             };
             console.log('data = '+JSON.stringify(data));
             return data;

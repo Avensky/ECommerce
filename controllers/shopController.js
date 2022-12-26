@@ -65,12 +65,13 @@ exports.createSession = async (req, res) => {
     console.log('orderObj= ');
     orderObj.save((err)=>{
         if(err){
-        //console.log(err);
+        console.log('err',err);
         res.status(500).json('Unable to save order data!, ', err);
         }
-        else
+        else{
         //res.send('order data saved successfully!');
-        res.status(200);
+        console.log('order data saved successfully!');
+        res.status(200);}
     });
 };
 

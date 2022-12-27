@@ -13,58 +13,9 @@ import { loadStripe }       from '@stripe/stripe-js';
 import keys                 from '../../../config/keys';
 import PropTypes            from 'prop-types';
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-console.log('stipe key');
-let stripePromise = loadStripe(keys.stripePublishableKey);
-
 const Shop = props => { 
     // Set default sort type
     const [sortType, setSortType] = useState('Featured');
-
-    const purchaseContinueHandler = async (addedItems, isAuth, event) => {
-        console.log('checkout start');        // Get Stripe.js instance
-        const stripe = await stripePromise;
-        console.log('stripePromise');   
-        let line_items = addedItems.map( item => {
-            let data = {
-                price       : item.priceid,
-                quantity    : item.amount,
-                tax_rates   : [keys.taxRates]
-            };
-             console.log('data = '+JSON.stringify(data));
-            return data;
-        });
-        
-        let body; 
-        isAuth 
-        ? body = JSON.stringify({items: line_items,userid: isAuth['_id']})
-        : body = JSON.stringify({items: line_items});
-        // Call your backend to create the Checkout Session
-        const response = await fetch('/api/checkout', { 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-    
-            //make sure to serialize your JSON body
-            body
-        });
-    
-        const session = await response.json();
-        console.log(session);
-        // When the customer clicks on the button, redirect them to Checkout.
-        const result = await stripe.redirectToCheckout({sessionId: session.id,});
-    
-        if (result.error) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer
-        // using `result.error.message`.
-        console.log(result.error.message);
-        }
-    };
-    
     const [purchasing, setPurchasing] = useState(false);
     //const history = useHistory()
 

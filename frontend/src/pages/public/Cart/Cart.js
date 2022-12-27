@@ -9,16 +9,17 @@ import Modal from '../../../components/UI/Modal/Modal';
 import keys from '../../../config/keys';
 import { loadStripe }from '@stripe/stripe-js';
 
-console.log('stipe key', keys.stripePublishableKey);
+console.log('stripe pub key', keys.stripePublishableKey);
 let stripePromise = loadStripe(keys.stripePublishableKey);
 
 
 const Cart = (props) => {
     const checkout = async (cart, user, event) => {
 
-        console.log('checkout start');        // Get Stripe.js instance
+        //console.log('checkout start');        
+        // Get Stripe.js instance
         const stripe = await stripePromise;
-        console.log('stripePromise');
+        console.log('stripePromise = ',stripe);
         let line_items = cart.map( item => {
             let data = {
                 price       : item.priceid,

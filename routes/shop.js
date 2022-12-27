@@ -15,13 +15,56 @@ module.exports = function(app) {
   app.get('/api/getProduct/:id',  shopController.getProduct);
 
 // step 1: checkout
-app.post('/api/checkout', shopController.createSession);
+app.post('/api/checkout', async (req, res) => {
+  console.log('req.body', req.body);
+  // let body = req.body;
+
+  console.log('checkout body = ', req.body);
+  console.log('checkout items = ', req.body.items);
+
+  const session = await stripe.checkout.sessions.create({
+      billing_address_collection: 'auto',
+      shipping_address_collection: {
+          allowed_countries: ['US'],
+      },
+      payment_method_types: ['card'],
+      line_items: req.body.items,
+      mode: 'payment',
+      success_url: keys.checkoutSuccessUrl,
+      cancel_url: keys.checkoutCancelUrl,
+  });
+
+  let userid;
+  req.body.userid
+      ? userid = req.body.userid
+      : null;
+
+  const orderObj = new Orders({
+      sessionid                     : session.id,
+      userid                        : userid || null,
+      date                          : new Date(),
+      payment_status                : "unpaid"  
+    });
+  console.log('orderObj= ', orderObj);
+  orderObj.save((err)=>{
+      if(err){
+      console.log('err',err);
+      res.status(500).json('Unable to save order data!, ', err);
+      }
+      else{
+      //res.send('order data saved successfully!');
+      console.log('order data saved successfully!');
+      return res.status(200).json({ id: session.id });
+    }
+  });
+});
 
 //app.post('/webhook', bodyParser.raw({type: 'application/json'}), (req, res) => {
 app.post('/webhook', (req, res) => {
     // choco install stripe-cli
     // stripe listen --forward-to localhost:5000/webhook
     // stripe listen --forward-to 192.168.1.19:5000/webhook
+    // stripe listen --forward-to 192.168.100.17:5000/webhook
     const payload = req.rawBody;
     const sig = req.headers['stripe-signature'];
     let event;

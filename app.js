@@ -1,6 +1,6 @@
 //setup 
 const express = require('express');
-const cors = require("cors");
+//const cors = require("cors");
 const app = express();
 const bodyParser = require('body-parser');
 // set up cors to allow us to accept requests from our client
@@ -16,8 +16,8 @@ app.use(
 );
 
 // set up cors to allow us to accept requests from our client
-app.use(cors());
-app.options('*', cors());
+//app.use(cors());
+//app.options('*', cors());
 
 //dev packages
 if (process.env.NODE_ENV !== 'production') {

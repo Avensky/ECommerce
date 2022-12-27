@@ -13,7 +13,7 @@ const stripePublishableKey = JSON.stringify(keys.stripePublishableKey);
 console.log('stripe pub key', stripePublishableKey);
 console.log('stripe pub key', keys.stripePublishableKey);
 console.log('stripe pub key', `${process.env.STRIPE_PUBLISHABLE_KEY}`);
-let stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
+let stripePromise = loadStripe(keys.stripePublishableKey);
 
 
 const Cart = (props) => {

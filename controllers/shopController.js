@@ -84,7 +84,7 @@ exports.updateSession = async(req, res, session) => {
     // TODO: fill me in
     //console.log("Creating order", session);
     const sessionRetrieve = await stripe.checkout.sessions.retrieve(
-    session.id, { expand: ['line_items'],},
+        session.id, { expand: ['line_items'],},
     );
     console.log("sessionRetrieve ", sessionRetrieve);
     //console.log("sessionRetrieve line_items", sessionRetrieve.line_items);

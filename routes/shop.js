@@ -49,12 +49,14 @@ app.post('/api/checkout', async (req, res) => {
   orderObj.save((err)=>{
       if(err){
       console.log('err',err);
-      res.status(500).json('Unable to save order data!, ', err);
+      //res.status(500).json('Unable to save order data!, ', err);
+      res.send('Unable to save order data!');
       }
       else{
       //res.send('order data saved successfully!');
-      console.log('order data saved successfully!');
-      return res.status(200).json({ id: session.id });
+      //console.log('order data saved successfully!');
+      //return res.status(200).json({ id: session.id });
+      res.json({ id: session.id });
     }
   });
 });

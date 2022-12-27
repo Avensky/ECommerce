@@ -10,7 +10,6 @@ import keys from '../../../config/keys';
 import { loadStripe }from '@stripe/stripe-js';
 
 console.log('stipe key', keys.stripePublishableKey);
-console.log('stipe key', process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 let stripePromise = loadStripe(keys.stripePublishableKey);
 
 const Cart = props => {
@@ -19,7 +18,7 @@ const Cart = props => {
         //console.log('checkout start');        
         // Get Stripe.js instance
         const stripe = await stripePromise;
-        console.log('stripePromise = ',stripe);
+        //console.log('stripePromise = ',stripe);
         let line_items = cart.map( item => {
             let data = {
                 price       : item.priceid,

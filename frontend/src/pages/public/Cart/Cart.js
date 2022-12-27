@@ -9,7 +9,8 @@ import Modal from '../../../components/UI/Modal/Modal';
 import keys from '../../../config/keys';
 import { loadStripe }from '@stripe/stripe-js';
 
-console.log('stipe key');
+console.log('stipe key', keys.stripePublishableKey);
+console.log('stipe key', process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 let stripePromise = loadStripe(keys.stripePublishableKey);
 
 const Cart = props => {

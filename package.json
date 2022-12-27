@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cypress run",
     "server": "nodemon server.js",
-    "frontend": "npm run start --prefix ./frontend",
+    "frontend": "npm run start:staging --prefix ./frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "lint": "eslint --fix ./*.js"
   },

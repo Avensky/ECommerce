@@ -9,8 +9,10 @@ import Modal from '../../../components/UI/Modal/Modal';
 import keys from '../../../config/keys';
 import { loadStripe }from '@stripe/stripe-js';
 
+const stripePublishableKey = keys.stripePublishableKey.toString();
+console.log('stripe pub key', stripePublishableKey);
 console.log('stripe pub key', keys.stripePublishableKey);
-let stripePromise = loadStripe(keys.stripePublishableKey);
+let stripePromise = loadStripe(stripePublishableKey);
 
 
 const Cart = (props) => {

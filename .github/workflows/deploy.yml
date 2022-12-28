@@ -102,7 +102,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: frontend/node_modules
-        key: ${{runner.os}}-frontend-${{env.cache-name}}-${{ hashFiles('frontend/package-lock.json')}}
+        key: frontend-cache-frontend-${{ hashFiles('frontend/package-lock.json')}}
 
     - name: Install Dependencies
       run: |

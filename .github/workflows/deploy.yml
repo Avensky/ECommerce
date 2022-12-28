@@ -73,7 +73,7 @@ jobs:
 
     - name: Install Dependencies
       if: steps.cache-frontend.outputs.cache-hit !='true'
-      - run: |
+      run: |
           cd frontend
           npm ci
 
@@ -86,7 +86,7 @@ jobs:
       run: echo testing...
 
   buildProd:
-    needs: frontendTesting
+    needs: frontend
     runs-on: self-hosted
     steps:
     - name: Get Code

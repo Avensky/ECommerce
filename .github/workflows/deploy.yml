@@ -1,11 +1,12 @@
 name: Continous Deployment (CD)
 
 on:
-  workflows: ["Continous Integration (CI)"]
-  #Execute the workflow once the CI workflow is completed on main branch
-  types: [completed]
-  branches:
-    -main
+  workflow_run:
+    workflows: ["Continous Integration (CI)"]
+    #Execute the workflow once the CI workflow is completed on main branch
+    types: [completed]
+    branches:
+      -main
 
 jobs: 
   backendTesting:

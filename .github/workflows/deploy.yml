@@ -1,16 +1,16 @@
-name: Continous Deployment (CD)
+name: Automated deployment
 
 on:
-  workflow_run:
-    workflows: ["Continous Integration (CI)"]
-    #Execute the workflow once the CI workflow is completed on main branch
-    types: [completed]
+  workflow_dispatch:
+  push:
+    branches:    
+      - main
+  pull_request:
     branches:
-      -main
+      - main
 
 jobs: 
   backendTesting:
-    # Define runner
     runs-on: self-hosted
 
     steps:
@@ -23,7 +23,7 @@ jobs:
         node-version: 19.2.0
 
     - name: Cache node modules
-      id: cache-npm
+      id: cache-backendTesting
       uses: actions/cache@v3
       env:
         cache-name: cache-node-modules
@@ -36,13 +36,13 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install dependencies
-      if: steps.cache-backend-nodemodules.outputs.cache != 'true'
+      if: steps.cache-backendTesting.outputs.cache-hit != 'true'
       run: npm ci
 
-    - name: Check lint formatting
+    - name: Check linting and formatting
       run: npm run lint
 
-    - name: Run tests
+    - name: Execute test cases
       run: echo testing...
 
   getFrontend:

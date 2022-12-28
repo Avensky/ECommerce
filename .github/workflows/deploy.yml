@@ -1,27 +1,52 @@
-name: Deploy
+name: Continous Deployment (CD)
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request: 
-    branches: [ main ]
+  workflows: ["Continous Integration (CI)"]
+  #Execute the workflow once the CI workflow is completed on main branch
+  types: [completed]
+  branches:
+    -main
 
 jobs: 
-  getBackend:
+  backendTesting:
+    # Define runner
     runs-on: self-hosted
+
     steps:
-    - name: Get Code
+    - name: Checkout to the repository
       uses: actions/checkout@v3
-    - name: Use Node
+
+    - name: Set up NodeJS environment
       uses: actions/setup-node@v3
       with:
         node-version: 19.2.0
-    - run: |
-        npm i
-        npm run lint
+
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{runner.os}}-backendTesting-${{ env.cache.name }}-${{ hashFiles('**/package-lock.json')}}
+        restore-keys: |
+          ${{ runner.os }}-backendTesting-${{ env.cache-name }}-
+          ${{ runner.os }}-backendTesting-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      if: steps.cache-backend-nodemodules.outputs.cache != 'true'
+      run: npm ci
+
+    - name: Check lint formatting
+      run: npm run lint
+
+    - name: Run tests
+      run: echo testing...
+
   getFrontend:
-    needs: getBackend
+    needs: backendTesting
     runs-on: self-hosted
     steps:
     - name: Get Code

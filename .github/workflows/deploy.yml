@@ -10,7 +10,7 @@ on:
       - main
 
 jobs: 
-  backendTesting:
+  backend:
     runs-on: self-hosted
 
     steps:
@@ -23,20 +23,20 @@ jobs:
         node-version: 19.2.0
 
     - name: Cache node modules
-      id: cache-backendTesting
+      id: cache-backend
       uses: actions/cache@v3
       env:
         cache-name: cache-node-modules
       with:
         path: node_modules
-        key: ${{runner.os}}-backendTesting-${{ env.cache.name }}-${{ hashFiles('**/package-lock.json')}}
+        key: ${{runner.os}}-backend-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json')}}
         restore-keys: |
-          ${{ runner.os }}-backendTesting-${{ env.cache-name }}-
-          ${{ runner.os }}-backendTesting-
+          ${{ runner.os }}-backend-${{ env.cache-name }}-
+          ${{ runner.os }}-backend-
           ${{ runner.os }}-
 
-    - name: Install dependencies
-      if: steps.cache-backendTesting.outputs.cache-hit != 'true'
+    - name: Install Dependencies
+      if: steps.cache-backend.outputs.cache-hit != 'true'
       run: npm ci
 
     - name: Check linting and formatting
@@ -45,22 +45,48 @@ jobs:
     - name: Execute test cases
       run: echo testing...
 
-  getFrontend:
-    needs: backendTesting
+  frontend:
+    needs: backend
     runs-on: self-hosted
+
     steps:
-    - name: Get Code
+    - name: Checkout to the repository
       uses: actions/checkout@v3
-    - name: Use Node
+    
+    - name: Set up NodeJS environment
       uses: actions/setup-node@v3
       with:
         node-version: 19.2.0
-    - run: |
+
+    - name: Cache node modules
+      id: cache-frontend
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: frontend/node_modules
+        key: ${{runner.os}}-frontend-${{env.cache-name}}-${{ hashFiles('**/package-lock.json')}}
+        restore-keys: |
+          ${{ runner.os }}-frontend-${{ env.cache-name }}
+          ${{ runner.os }}-frontend-
+          ${{ runner.os }}-
+
+    - name: Install Dependencies
+      if: steps.cache-frontend.outputs.cache-hit !='true'
+      - run: |
+          cd frontend
+          npm ci
+
+    - name: Check linting and formatting
+      run: |
         cd frontend
-        npm i
         npm run lint
+
+    - name: Execute test cases
+      run: echo testing...
+
   buildProd:
-    needs: getFrontend
+    needs: frontendTesting
     runs-on: self-hosted
     steps:
     - name: Get Code

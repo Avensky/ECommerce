@@ -78,7 +78,7 @@ jobs:
           npm ci
 
     - name: Check linting and formatting
-      run: |
+    - run: |
         cd frontend
         npm run lint
 
@@ -105,13 +105,12 @@ jobs:
         key: ${{runner.os}}-frontend-${{env.cache-name}}-${{ hashFiles('frontend/package-lock.json')}}
 
     - name: Install Dependencies
-      if: steps.cache-frontend.outputs.cache-hit !='true'
       run: |
           cd frontend
           npm ci
 
     - name: Create production build
-    - run: |
+      run: |
         cd frontend
         npm run build
 

@@ -98,11 +98,24 @@ jobs:
       with:
         node-version: 19.2.0
 
-    - name: Get Cached dependencies
+    - name: Cache node modules
+      id: cache-frontend
       uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
       with:
         path: frontend/node_modules
-        key: cache-frontend
+        key: ${{runner.os}}-frontend-${{env.cache-name}}-${{ hashFiles('frontend/package-lock.json')}}
+        restore-keys: |
+          ${{ runner.os }}-frontend-${{ env.cache-name }}
+          ${{ runner.os }}-frontend-
+          ${{ runner.os }}-
+
+    - name: Install Dependencies
+      if: steps.cache-frontend.outputs.cache-hit !='true'
+      run: |
+          cd frontend
+          npm ci
 
     - name: Create production build
     - run: |

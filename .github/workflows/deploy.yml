@@ -1,7 +1,6 @@
 name: Continous Deployment (CD)
 
 on:
-  workflow_dispatch:
   workflows: ["Continous Integration (CI)"]
   #Execute the workflow once the CI workflow is completed on main branch
   types: [completed]

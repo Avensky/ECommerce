@@ -1,8 +1,11 @@
 // Types should be in const to avoid typos and duplication
 
+export const CHECKOUT_FAIL            = 'CHECKOUT_FAIL';
+export const CHECKOUT_START           = 'CHECKOUT_START';
+export const CHECKOUT_SUCCESS         = 'CHECKOUT_SUCCESS';
+
 export const ADD_TO_CART              = 'ADD_TO_CART';
 export const SUBTRACT_FROM_CART       = 'SUBTRACT_FROM_CART';
-
 export const REMOVE_FROM_CART         = 'REMOVE_FROM_CART';
 
 // export const REMOVE_ITEM              = 'REMOVE_ITEM'
@@ -10,6 +13,7 @@ export const REMOVE_FROM_CART         = 'REMOVE_FROM_CART';
 // export const ADD_QUANTITY             = 'ADD_QUANTITY'
 // export const ADD_SHIPPING             = 'ADD_SHIPPING'
 // export const SUB_SHIPPING             = 'SUB_SHIPPING'
+
  export const LOAD_CART                = 'LOAD_CART';
  export const LOAD_SHOP                = 'LOAD_SHOP';
 // 
@@ -86,6 +90,32 @@ export const GET_PRODUCT_FAIL           = 'GET_PRODUCT_FAIL';
 export const GET_PRODUCT                = 'GET_PRODUCT';
 
 export const RESIZE = 'RESIZE';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // export const GET_ITEM_BY_ID_START     = 'GET_ITEM_BY_ID_START'
 // export const GET_ITEM_BY_ID_SUCCESS   = 'GET_ITEM_BY_ID_SUCCESS'
 // export const GET_ITEM_BY_ID_FAIL      = 'GET_ITEM_BY_ID_FAIL'

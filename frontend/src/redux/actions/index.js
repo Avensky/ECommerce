@@ -6,5 +6,6 @@ export {
     removeFromCart,
     loadShop,
     loadCart,
-    resize
+    resize,
+    checkout
 } from './shop';

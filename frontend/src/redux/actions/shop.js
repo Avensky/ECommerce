@@ -1,5 +1,77 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import keys from '../../config/keys';
+import { loadStripe } from '@stripe/stripe-js';
+
+// console.log('stipe key', keys.stripePublishableKey);
+let stripePromise = loadStripe(keys.stripePublishableKey);
+
+
+/*******************************************
+ * Get all products from database
+*******************************************/
+export const checkoutStart = () => {
+  return{
+    type: actionTypes.CHECKOUT_START,
+  };
+};
+export const checkoutSuccess = async (id) => {
+  // Get Stripe.js instance
+  const stripe = await stripePromise;
+  // When the customer clicks on the button, redirect them to Checkout.
+  const result = await stripe.redirectToCheckout({sessionId: id,});
+  
+  return{
+    type: actionTypes.CHECKOUT_SUCCESS,
+    //result
+  };
+};
+
+export const checkoutFail = (error) => {
+  // If `redirectToCheckout` fails due to a browser or network
+  // error, display the localized error message to your customer
+  // using `result.error.message`.
+  console.log(error);
+  return {
+    type: actionTypes.CHECKOUT_FAIL,
+    error
+  };
+};
+
+export const checkout = (cart, user, event) => {
+  let line_items = cart.map( item => {
+      let data = {
+          price       : item.priceid,
+          quantity    : item.orderAmt,
+          //tax_rates   : [keys.taxRates]
+      };
+      console.log('data = '+JSON.stringify(data));
+      return data;
+  });
+  
+  let body; 
+  user 
+    ? body = {items: line_items,userid: user['_id']}
+    : body = {items: line_items};
+
+  console.log('body = ', body);
+
+  return dispatch => {
+    dispatch(checkoutStart());
+    // Call your backend to create the Checkout Session
+    axios.post('/api/checkout', body)
+      .then( res => {
+        const session = res.data; 
+        console.log('checkout', session);
+        dispatch(checkoutSuccess(session.id));
+      })
+      .catch( err => {
+        console.log('err', err);
+        dispatch(checkoutFail(err));
+      });
+  };
+
+};
 
 /*******************************************
  * Get all products from database

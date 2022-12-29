@@ -15,10 +15,9 @@ module.exports = function(app) {
   app.get('/api/getProduct/:id',  shopController.getProduct);
 
 // step 1: checkout
-app.post('/api/checkout', async (req, res) => {
+app.post('/api/checkout', async (req, res, event) => {
   console.log('req.body', req.body);
   // let body = req.body;
-
   console.log('checkout body = ', req.body);
   console.log('checkout items = ', req.body.items);
 
@@ -45,6 +44,7 @@ app.post('/api/checkout', async (req, res) => {
       date                          : new Date(),
       payment_status                : "unpaid"  
   });
+  
   console.log('orderObj= ', orderObj);
   orderObj.save((err)=>{
       if(err){

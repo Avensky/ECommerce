@@ -396,6 +396,24 @@ const resize = (state,action) => {
 };
 
 
+const checkoutStart = (state,action) => {
+    return updateObject(state, {
+        loading : true
+    });
+};
+const checkoutFail = (state,action) => {
+    return updateObject(state, {
+        loading: false,
+        error: action.error
+    });
+};
+const checkoutSuccess = (state,action) => {
+    return updateObject(state, {
+        loading: false,
+//        message: action.message
+    });
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
 //        case actionTypes.NEW_ITEM_SUCCESS           : return newItemSuccess(state, action);
@@ -437,6 +455,10 @@ const reducer = ( state = initialState, action ) => {
 //        case actionTypes.CHECKOUT_SUCCESS           : return checkoutSuccess(state, action);
  
         case actionTypes.RESIZE                        : return resize(state, action);
+
+        case actionTypes.CHECKOUT_START                : return checkoutStart(state, action);
+        case actionTypes.CHECKOUT_FAIL                 : return checkoutFail(state, action);
+        case actionTypes.CHECKOUT_SUCCESS              : return checkoutSuccess(state, action);
 
         default: return state;
     }

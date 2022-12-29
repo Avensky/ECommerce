@@ -6,60 +6,8 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../../redux/actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from '../../../components/UI/Modal/Modal';
-import keys from '../../../config/keys';
-import { loadStripe }from '@stripe/stripe-js';
-
-console.log('stipe key', keys.stripePublishableKey);
-let stripePromise = loadStripe(keys.stripePublishableKey);
 
 const Cart = props => {
-    const checkout = async (cart, user, event) => {
-
-        //console.log('checkout start');        
-        // Get Stripe.js instance
-        const stripe = await stripePromise;
-        //console.log('stripePromise = ',stripe);
-        let line_items = cart.map( item => {
-            let data = {
-                price       : item.priceid,
-                quantity    : item.orderAmt,
-                //tax_rates   : [keys.taxRates]
-            };
-            console.log('data = '+JSON.stringify(data));
-            return data;
-        });
-        
-        let body; 
-        user 
-        ? body = JSON.stringify({items: line_items,userid: user['_id']})
-        : body = JSON.stringify({items: line_items});
-
-        console.log('body = ', body);
-        // Call your backend to create the Checkout Session
-        const response = await fetch('/api/checkout', { 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-
-            //make sure to serialize your JSON body
-            body
-        });
-
-        const session = await response.json();
-        console.log(session);
-        // When the customer clicks on the button, redirect them to Checkout.
-        const result = await stripe.redirectToCheckout({sessionId: session.id,});
-
-        if (result.error) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, display the localized error message to your customer
-        // using `result.error.message`.
-        console.log(result.error.message);
-        }
-    };
-
     // define functions
     const [modal, setModal] = useState(false);
     const [id, setId]       = useState('');
@@ -80,7 +28,8 @@ const Cart = props => {
         hideModal();
         await props.removeFromCart(id);
     };
-
+    const onCheckout          = async (cart, user) => props.onCheckout(cart, user);
+    
     let cart = <p>Cart is empty. So sad</p>;
     if (props.cart.length>0) {
         cart = props.cart.map(item => {
@@ -156,7 +105,7 @@ const Cart = props => {
                 <div className={classes.TotalLabel}>TOTAL(USD)</div>
                 <div className={classes.Total}>${props.totalPrice}</div>
             </div>
-            <div className={classes.Checkout} onClick={()=>checkout(props.cart)}>
+            <div className={classes.Checkout} onClick={()=>onCheckout(props.cart, props.user)}>
                 CHECKOUT
             </div>
         </div>
@@ -194,7 +143,8 @@ const mapDispatchToProps = dispatch => {
     return{
         addToCart           : (id) => {dispatch(actions.addToCart(id));},
         subtractFromCart    : (id) => {dispatch(actions.subtractFromCart(id));},
-        removeFromCart          : (id) => {dispatch(actions.removeFromCart(id));},
+        removeFromCart      : (id) => {dispatch(actions.removeFromCart(id));},
+        onCheckout          : (cart, user) => {dispatch(actions.checkout(cart, user));},
     };
 };
 
@@ -204,6 +154,8 @@ Cart.propTypes = {
     subtractFromCart: PropTypes.func,
     removeFromCart: PropTypes.func,
     totalPrice: PropTypes.number,
+    onCheckout: PropTypes.func,
+    user: PropTypes.any,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

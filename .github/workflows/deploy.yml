@@ -78,7 +78,7 @@ jobs:
           npm ci
 
     - name: Check linting and formatting
-    - run: |
+      run: |
         cd frontend
         npm run lint
 

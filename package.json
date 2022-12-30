@@ -18,7 +18,8 @@
     "mongoose": "^6.8.0",
     "nodemailer": "^6.8.0",
     "pug": "^3.0.2",
-    "stripe": "^11.5.0"
+    "stripe": "^11.5.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.47.1",

@@ -12,7 +12,8 @@ const  App = (props) => {
 
   const getProducts = () => { props.getProducts();};
   const loadCart    = async() => { await props.loadCart(); };
-  const loadShop    = (orderby) => { props.loadShop(orderby); };
+  // const loadShop    = (orderby) => { props.loadShop(orderby); };
+  const checkout    = () => { props.checkout(props.cart); };
 
   console.log('products = ', props.products);
   //Get Producs
@@ -56,7 +57,7 @@ const  App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation totalItems={props.totalItems} cart={props.cart}/>
+        <Navigation totalItems={props.totalItems} cart={props.cart} checkout={checkout}/>
         <Routes>
           {/* pages */}
           <Route path="/"                   element={<Home/>}/>
@@ -86,7 +87,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getProducts         : () =>{ dispatch(actions.getProducts());},
     loadCart            : () =>{ dispatch(actions.loadCart());},
-    loadShop            : () =>{ dispatch(actions.loadShop());}
+    loadShop            : () =>{ dispatch(actions.loadShop());},
+    checkout            : (cart, user) =>{ dispatch(actions.checkout(cart, user));},
   };
 };
 
@@ -100,7 +102,8 @@ App.propTypes = {
   total       : PropTypes.number,
   orderby:PropTypes.func,
   shopLoaded: PropTypes.func,
-  totalItems: PropTypes.number
+  totalItems: PropTypes.number,
+  checkout: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps) (App);

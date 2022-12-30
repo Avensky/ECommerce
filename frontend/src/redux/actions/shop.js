@@ -39,6 +39,7 @@ export const checkoutFail = (error) => {
 };
 
 export const checkout = (cart, user, event) => {
+  console.log('cart ', cart);
   let line_items = cart.map( item => {
       let data = {
           price       : item.priceid,

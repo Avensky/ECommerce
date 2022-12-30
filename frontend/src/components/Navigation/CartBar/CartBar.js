@@ -36,7 +36,7 @@ const CartBar = (props) => {
                     {cart}
                 </div>
                 <div className={classes.buttons}>
-                    <button className={[classes.button, classes.checkout].join(' ')}>Checkout</button>
+                    <button className={[classes.button, classes.checkout].join(' ')} onClick={props.checkout}>Checkout</button>
                     <NavLink className={[classes.button].join(' ')} to='/cart' onClick={props.closed}>
                         <button className={classes.viewCart}>View Cart</button>
                     </NavLink>
@@ -52,6 +52,7 @@ CartBar.propTypes = {
     closed: PropTypes.func,
     marginTop: PropTypes.string,
     cart: PropTypes.array,
+    checkout: PropTypes.func,
 };
 
 export default CartBar;

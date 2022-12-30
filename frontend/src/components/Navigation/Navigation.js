@@ -40,6 +40,7 @@ const Navigation = (props) => {
             closed = {closeCartbarHandler}
             marginTop = "51px"
             cart = {props.cart}
+            checkout = {props.checkout}
         />
     </div>
   );
@@ -47,7 +48,8 @@ const Navigation = (props) => {
 
 Navigation.propTypes = {
   totalItems : PropTypes.number,
-  cart: PropTypes.array
+  cart: PropTypes.array,
+  checkout: PropTypes.func,
 };
 
 export default Navigation;

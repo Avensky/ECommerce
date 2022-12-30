@@ -2,13 +2,13 @@
   "name": "ecommerce",
   "version": "1.0.0",
   "description": "Ecommerce template with admin dashboard with react and node",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "cypress run",
-    "server": "nodemon server.js",
+    "server": "nodemon server.ts",
     "frontend": "npm run start:staging --prefix ./frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "lint": "eslint --fix ./*.js"
+    "lint": "eslint --fix ./*.ts"
   },
   "author": "",
   "license": "ISC",
@@ -21,9 +21,12 @@
     "stripe": "^11.5.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "concurrently": "^7.6.0",
     "eslint": "^8.29.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.4"
   }
 }

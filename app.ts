@@ -1,8 +1,9 @@
-//setup 
-const express = require('express');
-//const cors = require("cors");
-const app = express();
+//setup
+const exp = require('express');
+const app = exp();
 const bodyParser = require('body-parser');
+
+//const cors = require("cors");
 // set up cors to allow us to accept requests from our client
 // app.use(cors());
 // app.options('*', cors());
@@ -11,7 +12,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
 	bodyParser.json({
-		verify: (req, res, buf) => { req.rawBody = buf.toString(); }
+		verify: (req:any, res:any, buf:any) => { req.rawBody = buf.toString(); }
 	})
 );
 
@@ -32,6 +33,6 @@ require('./models/products');
 require('./models/orders');
 
 // routes
-require('./routes/shop.js')(app);
+require('./routes/shop.ts')(app);
 
 module.exports = app;

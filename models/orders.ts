@@ -104,3 +104,4 @@ const ordersSchema = new mongoose.Schema({
 // create the model for users and expose it to our app
 //const Orders = mongoose.model("Orders", ordersSchema);
 module.exports =  mongoose.model("Orders", ordersSchema);
+export{}

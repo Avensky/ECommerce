@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "test": "cypress run",
-    "server": "nodemon server.ts",
+    "server": "nodemon --exec ts-node server.ts",
     "frontend": "npm run start:staging --prefix ./frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "lint": "eslint --fix ./*.ts"

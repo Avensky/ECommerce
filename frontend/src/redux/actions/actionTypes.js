@@ -1,5 +1,10 @@
 // Types should be in const to avoid typos and duplication
 
+/********************************************************
+*********************************************************
+* SHOP 
+*********************************************************
+********************************************************/
 export const CHECKOUT_FAIL            = 'CHECKOUT_FAIL';
 export const CHECKOUT_START           = 'CHECKOUT_START';
 export const CHECKOUT_SUCCESS         = 'CHECKOUT_SUCCESS';
@@ -16,31 +21,95 @@ export const REMOVE_FROM_CART         = 'REMOVE_FROM_CART';
 
  export const LOAD_CART                = 'LOAD_CART';
  export const LOAD_SHOP                = 'LOAD_SHOP';
-// 
-// export const CONNECT_START            = 'CONNECT_START';
-// export const CONNECT_SUCCESS          = 'CONNECT_SUCCESS';
-// export const CONNECT_FAIL             = 'CONNECT_FAIL';
-// export const CONNECT_LOGOUT           = 'CONNECT_LOGOUT';
-// 
-// export const FETCH_USER_START         = 'FETCH_USER_START'
-// export const FETCH_USER_SUCCESS       = 'FETCH_USER_SUCCESS'
-// export const FETCH_USER_FAIL          = 'FETCH_USER_FAIL'
-// export const FETCH_USER               = 'FETCH_USER'
-// 
-// export const FETCH_USERS_START        = 'FETCH_USERS_START'
-// export const FETCH_USERS_SUCCESS      = 'FETCH_USERS_SUCCESS'
-// export const FETCH_USERS_FAIL         = 'FETCH_USERS_FAIL'
-// export const FETCH_USERS              = 'FETCH_USERS'
-// 
-// export const GET_USER_START           = 'GET_USER_START'
-// export const GET_USER_SUCCESS         = 'GET_USER_SUCCESS'
-// export const GET_USER_FAIL            = 'GET_USER_FAIL'
-// export const GET_USER                 = 'GET_USER'
-// 
-// export const SIGNUP_START             = 'SIGNUP_START'
-// export const SIGNUP_SUCCESS           = 'SIGNUP_SUCCESS'
-// export const SIGNUP_FAIL              = 'SIGNUP_FAIL'
-// export const SIGNUP                   = 'SIGNUP'
+
+// Get all products
+export const GET_PRODUCTS_START          = 'GET_PRODUCTS_START';
+export const GET_PRODUCTS_SUCCESS        = 'GET_PRODUCTS_SUCCESS';
+export const GET_PRODUCTS_FAIL           = 'GET_PRODUCTS_FAIL';
+export const GET_PRODUCTS                = 'GET_PRODUCTS';
+
+//Get Product 
+export const GET_PRODUCT_START          = 'GET_PRODUCT_START';
+export const GET_PRODUCT_SUCCESS        = 'GET_PRODUCT_SUCCESS';
+export const GET_PRODUCT_FAIL           = 'GET_PRODUCT_FAIL';
+export const GET_PRODUCT                = 'GET_PRODUCT';
+
+export const RESIZE = 'RESIZE';
+
+
+/********************************************************
+*********************************************************
+* AUTH
+*********************************************************
+********************************************************/
+
+export const CONNECT_START            = 'CONNECT_START';
+export const CONNECT_SUCCESS          = 'CONNECT_SUCCESS';
+export const CONNECT_FAIL             = 'CONNECT_FAIL';
+export const CONNECT_LOGOUT           = 'CONNECT_LOGOUT';
+
+export const GET_USER_START           = 'GET_USER_START';
+export const GET_USER_SUCCESS         = 'GET_USER_SUCCESS';
+export const GET_USER_FAIL            = 'GET_USER_FAIL';
+export const GET_USER                 = 'GET_USER';
+
+export const GET_USERS_START           = 'GET_USERS_START';
+export const GET_USERS_SUCCESS         = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAIL            = 'GET_USERS_FAIL';
+export const GET_USERS                 = 'GET_USERS';
+
+export const SIGNUP_START             = 'SIGNUP_START';
+export const SIGNUP_SUCCESS           = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAIL              = 'SIGNUP_FAIL';
+export const SIGNUP                   = 'SIGNUP';
+
+export const LOGIN_START              = 'LOGIN_START';
+export const LOGIN_SUCCESS            = 'LOGIN_SUCCESS';
+export const LOGIN_FAIL               = 'LOGIN_FAIL';
+export const LOGOUT                   = 'LOGOUT';
+export const SET_LOGIN_REDIRECT_PATH  = 'SET_LOGIN_REDIRECT_PATH';
+
+export const AUTH_START               = 'AUTH_START';
+export const AUTH_SUCCESS             = 'AUTH_SUCCESS';
+export const AUTH_FAIL                = 'AUTH_FAIL';
+export const AUTH_LOGOUT              = 'AUTH_LOGOUT';
+
+export const FB_AUTH_START            = 'FB_AUTH_START';
+export const FB_AUTH_SUCCESS          = 'FB_AUTH_SUCCESS';
+export const FB_AUTH_FAIL             = 'FB_AUTH_FAIL';
+export const FB_AUTH_LOGOUT           = 'FB_AUTH_LOGOUT';
+
+export const NEW_ADDRESS_START        = 'NEW_ADDRESS_START';
+export const NEW_ADDRESS_SUCCESS      = 'NEW_ADDRESS_SUCCESS';
+export const NEW_ADDRESS_FAIL         = 'NEW_ADDRESS_FAIL';
+export const NEW_ADDRESS              = 'NEW_ADDRESS';
+
+
+export const SET_AUTH_REDIRECT_PATH   = 'SET_AUTH_REDIRECT_PATH';
+export const SET_CONTACTS             = 'SET_CONTACTS';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 
 // export const NEW_CHARACTER_START      = 'NEW_CHARACTER_START'
 // export const NEW_CHARACTER_SUCCESS    = 'NEW_CHARACTER_SUCCESS'
@@ -77,19 +146,6 @@ export const REMOVE_FROM_CART         = 'REMOVE_FROM_CART';
 // export const NEW_ITEM                 = 'NEW_ITEM'
 // 
 
-// Get all products
-export const GET_PRODUCTS_START          = 'GET_PRODUCTS_START';
-export const GET_PRODUCTS_SUCCESS        = 'GET_PRODUCTS_SUCCESS';
-export const GET_PRODUCTS_FAIL           = 'GET_PRODUCTS_FAIL';
-export const GET_PRODUCTS                = 'GET_PRODUCTS';
-
-//Get Product 
-export const GET_PRODUCT_START          = 'GET_PRODUCT_START';
-export const GET_PRODUCT_SUCCESS        = 'GET_PRODUCT_SUCCESS';
-export const GET_PRODUCT_FAIL           = 'GET_PRODUCT_FAIL';
-export const GET_PRODUCT                = 'GET_PRODUCT';
-
-export const RESIZE = 'RESIZE';
 
 
 
@@ -171,30 +227,6 @@ export const RESIZE = 'RESIZE';
 // export const UPDATE_FAQ_FAIL          = 'UPDATE_FAQ_FAIL'
 // export const UPDATE_FAQ               = 'UPDATE_FAQ'
 // 
-// export const LOGIN_START              = 'LOGIN_START'
-// export const LOGIN_SUCCESS            = 'LOGIN_SUCCESS'
-// export const LOGIN_FAIL               = 'LOGIN_FAIL'
-// export const LOGOUT                   = 'LOGOUT'
-// export const SET_LOGIN_REDIRECT_PATH  = 'SET_LOGIN_REDIRECT_PATH'
-// 
-// export const AUTH_START               = 'AUTH_START';
-// export const AUTH_SUCCESS             = 'AUTH_SUCCESS';
-// export const AUTH_FAIL                = 'AUTH_FAIL';
-// export const AUTH_LOGOUT              = 'AUTH_LOGOUT';
-// 
-// export const FB_AUTH_START            = 'FB_AUTH_START';
-// export const FB_AUTH_SUCCESS          = 'FB_AUTH_SUCCESS';
-// export const FB_AUTH_FAIL             = 'FB_AUTH_FAIL';
-// export const FB_AUTH_LOGOUT           = 'FB_AUTH_LOGOUT';
-// 
-// export const NEW_ADDRESS_START        = 'NEW_ADDRESS_START';
-// export const NEW_ADDRESS_SUCCESS      = 'NEW_ADDRESS_SUCCESS';
-// export const NEW_ADDRESS_FAIL         = 'NEW_ADDRESS_FAIL';
-// export const NEW_ADDRESS              = 'NEW_ADDRESS';
-// 
-// 
-// export const SET_AUTH_REDIRECT_PATH   = 'SET_AUTH_REDIRECT_PATH';
-// export const SET_CONTACTS             = 'SET_CONTACTS';
 // 
 // export const CHECKOUT                 = 'CHECKOUT';
 // export const CHECKOUT_START           = 'CHECKOUT_START';

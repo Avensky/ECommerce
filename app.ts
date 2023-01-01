@@ -1,12 +1,14 @@
 //setup
-const exp = require('express');
-const app = exp();
-const bodyParser = require('body-parser');
+const express 	    = require('express');
+const app 			= express();
+const bodyParser 	= require('body-parser');
+const session       = require('express-session')
+const passport      = require('passport')
+const cors 			= require("cors");
 
-//const cors = require("cors");
 // set up cors to allow us to accept requests from our client
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 // get information from html forms raw
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,8 +33,23 @@ if (process.env.NODE_ENV !== 'production') {
 // models
 require('./models/products');
 require('./models/orders');
+require('./models/users');
+require('./controllers/passport')(passport); // pass passport for configuration
+
+app.use(session({ 
+	secret: 'keyboardcat',   // session secret
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		maxAge: 30*24*60*60*1000
+	}
+  })); 
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
 
 // routes
 require('./routes/shop.ts')(app);
+require('./routes/auth.ts')(app, passport);
 
 module.exports = app;

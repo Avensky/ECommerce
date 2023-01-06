@@ -7,6 +7,8 @@
 }
 
 .page-wrapper {
+  min-height: 100vh;
+  box-sizing: border-box;
   margin: 0;
   padding: 51px 4vw 0;
 }

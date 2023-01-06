@@ -48,7 +48,10 @@ userSchema.methods.validPassword = function(password:string) {
 };
 
 // create the model for users and expose it to our app
-//module.exports = mongoose.model('User', userSchema);
-mongoose.model('Users', userSchema);
+//module.exports = mongoose.model('Users', userSchema);
+//mongoose.model('Users', userSchema);
+const Users = mongoose.model("Users", userSchema);
+module.exports = Users;
+
 export{}
 

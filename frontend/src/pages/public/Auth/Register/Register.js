@@ -8,47 +8,23 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
 import PropTypes from 'prop-types';
+import AuthNav from '../AuthNav/AuthNav';
+import SocialAuth from '../SocialAuth/SocialAuth';
 
 const Register = props => {
-    const [auth, setAuth] = useState('login');
-    console.log('auth',auth);
-    const [token, setToken] = useState(props.match.params.token);
-    console.log('token',token);
-
     const [passwordComfirmShown, setPasswordComfirmShown] = useState(false);    
     const togglePasswordComfirmVisiblity = () => {setPasswordComfirmShown(passwordComfirmShown ? false : true);};
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {setPasswordShown(passwordShown ? false : true);};
 
-    useEffect(() => {
-        console.log('ping');
-        if (props.match.params.token){
-            setAuth('reset-password');
-        } else {
-            setAuth('login');
-        };
-    },[props.match.params]);
-
-    const registerToggleHandler = () => {setAuth('register');};
-
     const submitHandler = ( values, submitProps ) => {
         //console.log('Form data', values)
-        //console.log('submitProps', submitProps)
-        props.onAuth( values, auth, token);
+        //console.log('submitProps', submitProps`)
+        const auth ='register';
+        props.onAuth( values, auth);
         submitProps.setSubmitting(false);
         submitProps.resetForm();
     };
-
-    useEffect(()=> {
-        const fetchData = async () => {props.onFetchUser();};
-        if ( !props.fetchedUser){fetchData();};
-        }, [props.fetchedUser, props.authRedirectPath]);
-
-    // let act = 'login';
-    // if (!auth) {
-    //     act = 'signup'
-    // }
-    // const [formValues, setFormValues] = useState(null)
 
     let initialValues, validationSchema, selected, unselected, form, button, authSelector, socialAuth, loader;
 
@@ -73,18 +49,7 @@ validationSchema = Yup.object({
         .oneOf([Yup.ref("password")], "Passwords  must match")
         .required("Password confirm is required!")
 });
-selected = classes.AuthToggle;
-unselected = [classes.AuthToggle, classes.AuthSelected].join(' ');
-authSelector = <div className={classes.AuthNav}>
-    <NavLink to = '/login'         className={selected}>
-    <h1 className="pointer"><span className="fa fa-sign-in" /> Login</h1>
-    </NavLink>
-    <button 
-        onClick={registerToggleHandler}
-        className={unselected}
-    ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
-    </button>   
-</div>;
+
 props.loading || props.submitted && props.userLoading
     ? form = <Spinner />
     : form = <>
@@ -124,33 +89,35 @@ if ( props.token ) {
 };
 
 return(
-    <div className={[classes.Card, classes.Auth].join(' ')}>
-        <NavLink to='/home'>
-            <Logo height='8vh'/>
-        </NavLink>
-        {authSelector}
-        <br />
-        <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={submitHandler}
-            enableReinitialize> 
-            { formik => 
-            <Form>
-                {message}
-                {form}
-                <br />
-                <button  
-                    className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
-                    type='submit'
-                    disabled={!formik.isValid || formik.isSubmitting }
-                >
-                    {button}
-                </button>
-            </Form>}
-        </Formik>
-        {socialAuth}
-        </div> 
+    <div className='page-wrapper'>
+        <div className={classes.Auth} >
+            <NavLink to='/home'>
+                <Logo height='8vh'/>
+            </NavLink>
+            <AuthNav style='register'/>
+            <br />
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={submitHandler}
+                enableReinitialize> 
+                { formik => 
+                <Form>
+                    {message}
+                    {form}
+                    <br />
+                    <button  
+                        className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
+                        type='submit'
+                        disabled={!formik.isValid || formik.isSubmitting }
+                    >
+                        {button}
+                    </button>
+                </Form>}
+            </Formik>
+            <SocialAuth />
+        </div>
+    </div> 
     );
 };
 
@@ -169,10 +136,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUser             : ()                    => dispatch(),
-        onAuth                  : (values, auth, token) => dispatch(),
-        onFbAuth                : ()                    => dispatch(),
-        onSetAuthRedirectPath   : ()                    => dispatch(),
+//        onFetchUser             : ()                    => dispatch(),
+        onAuth                  : (values, auth, token) => dispatch(actions.auth(values,auth,token)),
+//        onFbAuth                : ()                    => dispatch(),
+//        onSetAuthRedirectPath   : ()                    => dispatch(),
     };
 };
 

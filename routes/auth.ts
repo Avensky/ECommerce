@@ -27,6 +27,24 @@ module.exports  = function(app:any, passport:any) {
             });
         })(req, res, next);
     });
+    // =====================================
+    // REGISTER ============================
+    // =====================================
+         // process the signup form
+         app.post('/api/signup', function(req:any, res:any, next:any) {
+             passport.authenticate('local-signup', function(err:any, user:any, info:any) {
+                console.log('err',err);
+                console.log('user',user);
+                console.log('next',next);
+               if (err) { return next(err); }
+               if (!user) { return res.send(info); }
+               req.logIn(user, function(err:any) {
+                 if (err) { return next(err); }
+                 // return res.redirect('/profile/' + user.username);
+                 return res.send(200)
+               });
+             })(req, res, next);
+         });
 
     // =============================================================================
     // getUser ==================================================================
@@ -113,21 +131,7 @@ module.exports  = function(app:any, passport:any) {
 //             })(req, res, next);
 //         })
 // 
-//         // =====================================
-//         // REGISTER ============================
-//         // =====================================
-//             // process the signup form
-//             app.post('/api/signup', function(req:any, res:any, next:any) {
-//                 passport.authenticate('local-signup', function(err:any, user:any, info:any) {
-//                   if (err) { return next(err); }
-//                   if (!user) { return res.send(info); }
-//                   req.logIn(user, function(err:any) {
-//                     if (err) { return next(err); }
-//                     // return res.redirect('/profile/' + user.username);
-//                     return res.send(200)
-//                   });
-//                 })(req, res, next);
-//             });
+
 // 
 //         // =====================================
 //         // =====================================

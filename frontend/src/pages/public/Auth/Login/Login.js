@@ -6,49 +6,22 @@ import Spinner from '../../../../components/UI/Spinner/Spinner';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import AuthNav from '../AuthNav/AuthNav';
 
 const Login = props => {
-    const [auth, setAuth] = useState('login');
-    console.log('auth',auth);
-    const [token, setToken] = useState(props.match.params.token);
-    console.log('token',token);
-
-    const [passwordComfirmShown, setPasswordComfirmShown] = useState(false);    
-    const togglePasswordComfirmVisiblity = () => {setPasswordComfirmShown(passwordComfirmShown ? false : true);};
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {setPasswordShown(passwordShown ? false : true);};
-
-    useEffect(() => {
-        console.log('ping');
-        if (props.match.params.token){
-            setAuth('reset-password');
-        } else {
-            setAuth('login');
-        };
-    },[props.match.params]);
-
-    const loginToggleHandler    = () => {setAuth('login');};
 
     const submitHandler = ( values, submitProps ) => {
         //console.log('Form data', values)
         //console.log('submitProps', submitProps)
-        props.onAuth( values, auth, token);
+        const auth='login';
+        props.onAuth( values, auth);
         submitProps.setSubmitting(false);
         submitProps.resetForm();
     };
-
-    useEffect(()=> {
-        const fetchData = async () => {props.onFetchUser();};
-        if ( !props.fetchedUser){fetchData();};
-        }, [props.fetchedUser, props.authRedirectPath]);
-
-    // let act = 'login';
-    // if (!auth) {
-    //     act = 'signup'
-    // }
-    // const [formValues, setFormValues] = useState(null)
 
     let initialValues, validationSchema, selected, unselected, form, button, authSelector, socialAuth, loader;
 
@@ -66,20 +39,6 @@ const Login = props => {
                     .required("Required!")
             });
 
-            selected = [classes.AuthToggle, classes.AuthSelected].join(' ');
-            unselected = classes.AuthToggle;
-            authSelector = <div className={classes.AuthNav}>
-                <button 
-                    onClick={loginToggleHandler}
-                    className={selected}
-                ><h1 className="pointer"><span className="fa fa-sign-in pointer" /> Login</h1>
-                </button>
-                <NavLink 
-                    to = '/register'
-                    className={unselected}
-                ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
-                </NavLink>   
-            </div>;
             props.loading
                 ? form = <Spinner />
                 : form = <>
@@ -132,32 +91,35 @@ const Login = props => {
     };
 
     return(
-        <div className={[classes.Card, classes.Auth].join(' ')}>
-            <NavLink to='/home'>
-                <Logo height='8vh'/>
-            </NavLink>
-            {authSelector}
-            <br />
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={submitHandler}
-                enableReinitialize> 
-                { formik => 
-                <Form>
-                    {message}
-                    {form}
-                    <br />
-                    <button  
-                        className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
-                        type='submit'
-                        disabled={!formik.isValid || formik.isSubmitting }
-                    >
-                        {button}
-                    </button>
-                </Form>}
-            </Formik>
-            {socialAuth}
+        <div className='page-wrapper'>
+            <div className={classes.Auth}>
+                <NavLink to='/home'>
+                    <Logo height='8vh'/>
+                </NavLink>
+                <AuthNav style='login'/>
+                <br />
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={submitHandler}
+                    enableReinitialize> 
+                    { formik => 
+                    <Form>
+                        {message}
+                        {form}
+                        <br />
+                        <button  
+                            className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
+                            type='submit'
+                            disabled={!formik.isValid || formik.isSubmitting }
+                        >
+                            {button}
+                        </button>
+                    </Form>}
+                </Formik>
+                {socialAuth}
+                
+            </div>
         </div> 
     );
 };
@@ -177,10 +139,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUser             : ()                    => dispatch(),
-        onAuth                  : (values, auth, token) => dispatch(),
-        onFbAuth                : ()                    => dispatch(),
-        onSetAuthRedirectPath   : ()                    => dispatch(),
+        //onFetchUser             : ()                    => dispatch(),
+        onAuth                  : (values, auth, token) => dispatch(actions.auth(values,auth,token )),
+        //onFbAuth                : ()                    => dispatch(),
+        //onSetAuthRedirectPath   : ()                    => dispatch(),
     };
 };
 

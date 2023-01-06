@@ -50,3 +50,5 @@ const productsSchema = new mongoose.Schema({
 // create the model and export it
 const Product = mongoose.model("Products", productsSchema);
 module.exports = Product;
+
+export{};

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, Shop, Product, Cart, Auth, Login, Register, ForgotPassword, ResetPassword } from './pages';
+import { Home, Shop, Product, Cart, Login, Register, ForgotPassword, ResetPassword } from './pages';
 //import Navbar from './components/Navigation/Navbar/Navbar';
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
@@ -64,8 +64,7 @@ const  App = (props) => {
       <BrowserRouter>
         <Navigation totalItems={props.totalItems} cart={props.cart} checkout={checkout}/>
         <Routes>
-          {/* pages */}
-          <Route path="/authentication"             element={<Auth/>} />
+          {/* authentication */}
           <Route path="/login"                      element={<Login/>} />
           <Route path="/register"                   element={<Register/>} />
           <Route path="/forgotPassword"             element={<ForgotPassword/>} />

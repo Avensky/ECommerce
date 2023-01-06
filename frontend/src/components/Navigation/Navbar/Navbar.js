@@ -23,7 +23,7 @@ const Navbar = ( props ) => {
                     </NavLink >
                 </div>
                 <div className={classes.NavItems}>
-                    <NavItem to="/authentication" exact='true' onClick={props.closeCartbar}>
+                    <NavItem to="/login" exact='true' onClick={props.closeCartbar}>
                         <FontAwesomeIcon icon="fa-solid fa-user" />
                     </NavItem>
                     <div className={classes.Cart} onClick={props.cartbarToggleClicked}>

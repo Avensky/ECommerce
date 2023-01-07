@@ -53,11 +53,17 @@ module.exports  = function(app:any, passport:any) {
         console.log('req', req.user)
         if (req.user){
             console.log('req.user', req.user)
-            res.status(200).json({data:req.user});
+            res.status(200).json({
+                data:req.user,
+                message:'User found'
+            });
             next();
             return
         } else {
-            res.status(401).send('Not authorized');
+            res.status(401).json({
+                user: null,
+                message:'Not authorized'
+            });
         }
     });
 

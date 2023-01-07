@@ -63,6 +63,33 @@
     text-decoration: none;
     border-bottom: 1px solid transparent;   
 }
+.NavItemWrapper {
+    height: 100%;
+    margin: auto 1vw;
+    padding: 5px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.NavItem{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    padding: 0 .5vw;
+    margin: auto 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px solid transparent;
+}
+
+.NavItem:hover,
+.NavItem.active {
+    border-bottom: 1px solid #afe4f7;
+}
 
 /* Clear default styles */
 ul {

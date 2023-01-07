@@ -49,17 +49,27 @@ module.exports  = function(app:any, passport:any) {
     // =============================================================================
     // getUser ==================================================================
     // =============================================================================
-	app.get('/api/getUser', async (req:any, res:any, next:any) => {
-//        console.log('req', req)
+	app.get('/api/getUser', async (req:any, res:any, next:any)      => {
+        console.log('req', req.user)
         if (req.user){
             console.log('req.user', req.user)
-            res.status(200).json(req.user);
+            res.status(200).json({data:req.user});
             next();
             return
         } else {
             res.status(401).send('Not authorized');
         }
     });
+
+// =====================================
+// LOGOUT ==============================
+// =====================================
+app.get('/api/logout', function(req:any, res:any, next:any) {
+    req.logout(function(err:any) {
+        if (err) { return next(err); }
+        res.status(200).json({message:'logout successful'})
+      });
+});
 
 
 
@@ -105,13 +115,7 @@ module.exports  = function(app:any, passport:any) {
 //         res.status(200).send("api pong!");
 // 	});
 // 
-//     // =====================================
-//     // LOGOUT ==============================
-//     // =====================================
-//     app.get('/api/logout', function(req:any, res:any) {
-//         req.logout();
-//         res.redirect('/login');
-//     });
+
 //     
 //     // =============================================================================
 //     // AUTHENTICATION ==============================================================

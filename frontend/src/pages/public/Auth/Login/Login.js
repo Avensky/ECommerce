@@ -6,7 +6,7 @@ import Spinner from '../../../../components/UI/Spinner/Spinner';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthNav from '../AuthNav/AuthNav';
 
@@ -92,6 +92,7 @@ const Login = props => {
 
     return(
         <div className='page-wrapper'>
+            {props.user?  <Navigate to='/'/>:null}
             <div className={classes.Auth}>
                 <NavLink to='/home'>
                     <Logo height='8vh'/>
@@ -130,7 +131,7 @@ const mapStateToProps = state => {
         userLoading         : state.auth.userLoading,
         submitted           : state.auth.submitted,
         error               : state.auth.error,
-        isLoggedIn          : state.auth.user,
+        user          : state.auth.user,
         isAuthenticated     : state.auth.payload,
         authRedirectPath    : state.auth.authRedirectPath,
         token               : state.auth.token
@@ -156,7 +157,7 @@ Login.propTypes = {
     submitted : PropTypes.any,
     userLoading : PropTypes.any,
     token : PropTypes.any,
-    isAuthenticated : PropTypes.any,
+    user : PropTypes.any,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(Login);

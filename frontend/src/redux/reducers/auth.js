@@ -10,6 +10,7 @@ const initialState = {
     payload: null,
     users: null,
     user: null,
+    message:null,
     authRedirectPath: '/',
     submitted: false,
     addressData: null,
@@ -126,6 +127,29 @@ const getUserFail = (state, action) => {
     });
 };
 
+const logoutStart = (state, action) => {
+    console.log('loutout Start');
+    return updateObject(state, {
+        error: null,
+    });
+};
+
+const logoutSuccess = (state, action) => {
+    console.log('logoutmessage ', action.message);
+    return updateObject(state, {
+        message: action.message,
+        user:null, 
+        error: null,
+        loading: false,
+    });
+};
+const logoutFail = (state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        loading: false,
+    });
+};
+
 
 
 
@@ -199,6 +223,10 @@ const reducer = ( state = initialState, action ) => {
        case actionTypes.AUTH_START             : return authStart(state, action);
        case actionTypes.AUTH_SUCCESS           : return authSuccess(state, action);
        case actionTypes.AUTH_FAIL              : return authFail(state, action);
+
+       case actionTypes.LOGOUT_START             : return logoutStart(state, action);
+       case actionTypes.LOGOUT_SUCCESS           : return logoutSuccess(state, action);
+       case actionTypes.LOGOUT_FAIL              : return logoutFail(state, action);
 //       case actionTypes.AUTH_LOGOUT            : return authLogout(state, action);
 //       case actionTypes.SET_AUTH_REDIRECT_PATH : return setAuthRedirectPath(state,action);
 //       case actionTypes.CONNECT_START          : return connectStart(state, action);

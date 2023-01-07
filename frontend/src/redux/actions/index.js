@@ -12,5 +12,6 @@ export {
 
 export {
     auth,
-    getUser
+    getUser,
+    logout
 } from './auth';

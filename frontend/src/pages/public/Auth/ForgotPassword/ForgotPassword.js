@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import classes from './ForgotPassword.module.css';
 import * as actions from '../../../../redux/actions/index';
 import Spinner from '../../../../components/UI/Spinner/Spinner';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
@@ -63,6 +63,7 @@ const ForgotPassword = props => {
 
     return(
         <div className='page-wrapper'>
+            {props.user?  <Navigate to='/'/>:null}
             <div className={classes.Auth}>
                 <NavLink to='/home'>
                     <Logo height='8vh'/>
@@ -104,7 +105,7 @@ const mapStateToProps = state => {
 //        userLoading         : state.auth.userLoading,
 //        submitted           : state.auth.submitted,
 //        error               : state.auth.error,
-//        isLoggedIn          : state.auth.user,
+        user          : state.auth.user,
 //        isAuthenticated     : state.auth.payload,
 //        authRedirectPath    : state.auth.authRedirectPath,
         token               : state.auth.token
@@ -130,7 +131,7 @@ ForgotPassword.propTypes = {
     submitted : PropTypes.bool,
     userLoading : PropTypes.bool,
     token : PropTypes.string,
-//    isAuthenticated : PropTypes.any,
+    user : PropTypes.any,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(ForgotPassword);

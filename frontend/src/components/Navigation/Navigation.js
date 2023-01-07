@@ -24,14 +24,15 @@ const Navigation = (props) => {
     return (
     <div>
         <Navbar 
-            //isLogged                = {props.isLoggedIn}
+            user                    = {props.user}
+            logout                  = {props.logout} 
             sidebarToggleClicked    = {sidebarToggleHandler} 
             cartbarToggleClicked    = {cartbarToggleHandler}
             closeCartbar            = {closeCartbarHandler}
             totalItems              = {props.totalItems}
         />
         <Sidebar 
-            //isLogged                = {props.isLoggedIn}
+            user                    = {props.user}
             open                    = {showSidebar} 
             closed                  = {closeSidebarHandler} 
         />
@@ -50,6 +51,8 @@ Navigation.propTypes = {
   totalItems : PropTypes.number,
   cart: PropTypes.array,
   checkout: PropTypes.func,
+  user: PropTypes.any,
+  logout:PropTypes.func,
 };
 
 export default Navigation;

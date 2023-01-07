@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import classes from './ResetPassword.module.css';
 import * as actions from '../../../../redux/actions/index';
 import Spinner from '../../../../components/UI/Spinner/Spinner';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
@@ -117,33 +117,35 @@ const ResetPassword = props => {
     };
 
     return(
-        <div className={[classes.Card, classes.Auth].join(' ')}>
-            <NavLink to='/home'>
-                <Logo height='8vh'/>
-            </NavLink>
-            {authSelector}
-            <h2>Create a new password!</h2>
-            <br />
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={submitHandler}
-                enableReinitialize> 
-                { formik => 
-                <Form>
-                    {message}
-                    {form}
-                    <br />
-                    <button  
-                        className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
-                        type='submit'
-                        disabled={!formik.isValid || formik.isSubmitting }
-                    >
-                        {button}
-                    </button>
-                </Form>}
-            </Formik>
-            {socialAuth}
+        <div className='page-wrapper'>
+            <div className={classes.Auth}>
+                <NavLink to='/home'>
+                    <Logo height='8vh'/>
+                </NavLink>
+                {authSelector}
+                <h2>Create a new password!</h2>
+                <br />
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={submitHandler}
+                    enableReinitialize> 
+                    { formik => 
+                    <Form>
+                        {message}
+                        {form}
+                        <br />
+                        <button  
+                            className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
+                            type='submit'
+                            disabled={!formik.isValid || formik.isSubmitting }
+                        >
+                            {button}
+                        </button>
+                    </Form>}
+                </Formik>
+                {socialAuth}
+            </div>
         </div> 
     );
 };
@@ -180,7 +182,7 @@ ResetPassword.propTypes = {
     submitted : PropTypes.any,
     userLoading : PropTypes.any,
     token : PropTypes.any,
-    isAuthenticated : PropTypes.any,
+    user : PropTypes.any,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(ResetPassword);

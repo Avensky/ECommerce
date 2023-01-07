@@ -143,16 +143,40 @@ export const getUser = () => {
 
 
 
+export const logoutStart = () => {
+    return {
+        type: actionTypes.LOGOUT_START
+    };
+};
 
-// export const logout = () => {
-//     axios.get('/api/logout');
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('expirationDate');
-//     localStorage.removeItem('userId');
-//     return {
-//         type: actionTypes.LOGOUT
-//     };
-// };
+export const logoutSuccess = (message) => {
+    console.log('getUserSuccess ', );
+    return {
+        type: actionTypes.LOGOUT_SUCCESS,
+        message
+    };
+};
+
+export const logoutFail = (error) => {
+    return {
+        type: actionTypes.LOGOUT_FAIL,
+        error: error
+    };
+};
+export const logout = () => {
+    return dispatch => {
+        dispatch(logoutStart());
+        axios.get('/api/logout')
+            .then( result => {
+                console.log('result ',result);
+                const data = result.data;
+                dispatch(logoutSuccess(data));
+            })
+            .catch( error => {
+                dispatch(logoutFail(error));
+            });
+    };
+};
 // 
 // 
 // export const checkLoginTimeout = (expirationTime) => {

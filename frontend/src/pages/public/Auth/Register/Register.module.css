@@ -82,14 +82,14 @@
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .Auth {
-        margin: 6vh 20vw 6vh;
+        /* margin: 6vh 20vw 6vh; */
     }
 }
 
 @media only screen and (min-width: 1025px) {
     /* For desktop: */
     .Auth {
-        margin: auto 30vw;
+        /* margin: auto 30vw; */
       
     }
 }

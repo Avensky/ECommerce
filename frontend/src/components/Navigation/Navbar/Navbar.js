@@ -49,21 +49,16 @@ const Navbar = ( props ) => {
                 </div>
                 <div className={classes.NavItems}>
                     <NavItem to="/support" exact='true' onClick={props.closeCartbar}>Support</NavItem>
-                    {/* {props.isLogged != null 
-                        ? <NavItem to="/profile"          >Profile</NavItem> 
+                    {props.user != null 
+                        ? <NavItem to="/profile">Profile</NavItem> 
                         : null}
-                    {props.isLogged != null 
-                        ? <NavItem to="/orders"          >Orders</NavItem> 
-                        : null}
-
-                    {props.isLogged != null 
-                        ? <NavItem to="/profile"          >Profile</NavItem> 
-                        : null} */}
-                    {!props.isLogged
+                    {!props.user
                         ? <NavItem to="/login" exact='true' onClick={props.closeCartbar}>
                             <FontAwesomeIcon icon="fa-solid fa-user"/>
                         </NavItem>
-                        : <div className={classes.NavItem}><a  href="/api/logout">Logout</a></div>}
+                        : <div className={classes.NavItemWrapper} onClick={props.logout}>
+                            <div className={classes.NavItem}>Logout</div>
+                        </div>}
                 
                     <NavItem to="/search" exact='true' onClick={props.closeCartbar}>
                         <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
@@ -83,8 +78,9 @@ Navbar.propTypes = {
     sidebarToggleClicked : PropTypes.func,
     cartbarToggleClicked : PropTypes.func,
     closeCartbar         : PropTypes.func,
-    isLogged             : PropTypes.any,
-    totalItems           : PropTypes.number
+    user                 : PropTypes.any,
+    totalItems           : PropTypes.number,
+    logout               : PropTypes.func
 };
 
 export default Navbar;

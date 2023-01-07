@@ -15,6 +15,7 @@ const  App = (props) => {
   // const loadShop    = (orderby) => { props.loadShop(orderby); };
   const checkout    = () => { props.checkout(props.cart); };
   const getUser = async () => { props.getUser(); };
+  const logout = async () => { props.logout(); };
 
   console.log('products = ', props.products);
   //Get Producs
@@ -62,7 +63,8 @@ const  App = (props) => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation totalItems={props.totalItems} cart={props.cart} checkout={checkout}/>
+        <Navigation totalItems={props.totalItems} cart={props.cart} checkout={checkout}
+        user={props.user} logout={logout}/>
         <Routes>
           {/* authentication */}
           <Route path="/login"                      element={<Login/>} />
@@ -88,7 +90,7 @@ const mapStateToProps = (state) => {
     cart       : state.shop.cart,
     products         : state.shop.products,
     shop             : state.shop.shop,
-    user           : state.auth.payload,
+    user             : state.auth.user,
     totalItems       : state.shop.totalItems,
     orderby          : state.shop.orderby,
     cartLoaded       : state.shop.cartLoaded
@@ -102,6 +104,7 @@ const mapDispatchToProps = (dispatch) => {
     loadCart            : () =>{ dispatch(actions.loadCart());},
     loadShop            : () =>{ dispatch(actions.loadShop());},
     checkout            : (cart, user) =>{ dispatch(actions.checkout(cart, user));},
+    logout              : () =>{dispatch(actions.logout());},
   };
 };
 
@@ -119,6 +122,7 @@ App.propTypes = {
   checkout: PropTypes.func,
   user: PropTypes.object,
   getUser: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps) (App);

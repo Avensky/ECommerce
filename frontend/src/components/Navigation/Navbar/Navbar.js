@@ -60,7 +60,7 @@ const Navbar = ( props ) => {
                         ? <NavItem to="/profile"          >Profile</NavItem> 
                         : null} */}
                     {!props.isLogged
-                        ? <NavItem to="/authentication" exact='true' onClick={props.closeCartbar}>
+                        ? <NavItem to="/login" exact='true' onClick={props.closeCartbar}>
                             <FontAwesomeIcon icon="fa-solid fa-user"/>
                         </NavItem>
                         : <div className={classes.NavItem}><a  href="/api/logout">Logout</a></div>}

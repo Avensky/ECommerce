@@ -70,11 +70,11 @@ export const getUserStart = () => {
     };
 };
 
-export const getUserSuccess = (user) => {
-    console.log('getUserSuccess ',user );
+export const getUserSuccess = (data) => {
+    console.log('getUserSuccess ',data );
     return {
         type: actionTypes.GET_USER_SUCCESS,
-        user: user
+        data
     };
 };
 
@@ -90,9 +90,9 @@ export const getUser = () => {
         dispatch(getUserStart());
         axios.get('/api/getUser')
         .then( result => {
-            console.log('result ',result);
-            const user = result.data;
-            dispatch(getUserSuccess(user));
+            console.log('result ',result.data);
+            const data = result.data;
+            dispatch(getUserSuccess(data));
         })
         .catch( error => {
             dispatch(getUserFail(error));

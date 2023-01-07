@@ -111,9 +111,10 @@ const getUserStart = (state, action) => {
 };
 
 const getUserSuccess = (state, action) => {
-    console.log('user', action.user);
+    console.log('data', action.data);
     return updateObject(state, {
-        user: action.user,
+        user: action.data.user,
+        message: action.data.message,
         error: null,
         loading: false,
         userLoading: false

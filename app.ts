@@ -34,22 +34,24 @@ if (process.env.NODE_ENV !== 'production') {
 require('./models/products');
 require('./models/orders');
 require('./models/users');
+
 require('./controllers/passport')(passport); // pass passport for configuration
 
 app.use(session({ 
-	secret: 'keyboardcat',   // session secret
+	secret: 'keyboard cat',   // session secret
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
+		secure: true,
 		maxAge: 30*24*60*60*1000
 	}
   })); 
-app.use(passport.initialize());
+//app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 
 // routes
 require('./routes/shop.ts')(app);
-require('./routes/auth.ts')(app, passport);
+require('./routes/auth.ts')(app,passport);
 
 module.exports = app;

@@ -9,7 +9,9 @@ import PropTypes from 'prop-types';
 import * as actions from './redux/actions/index';
 
 const  App = (props) => {
-
+  const keys = require('./config/keys'); 
+  console.log('proxy',keys.proxyTarget);
+  
   const getProducts = () => { props.getProducts();};
   const loadCart    = async() => { await props.loadCart(); };
   // const loadShop    = (orderby) => { props.loadShop(orderby); };

@@ -31,12 +31,12 @@ const AuthNav = (props) => {
         <NavLink 
             to='/login'
             className={login}
-        ><h1 className="pointer"><span className="fa fa-sign-in pointer" /> Login</h1>
+        ><h1 className="pointer"><span className="fa fa-sign-in pointer" /> LOGIN</h1>
         </NavLink>
         <NavLink 
             to='/register'
             className={register}
-        ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
+        ><h1 className="pointer"><span className="fa fa-user" /> REGISTER</h1>
         </NavLink>   
     </div>
   );

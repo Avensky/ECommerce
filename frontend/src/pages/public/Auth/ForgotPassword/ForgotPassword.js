@@ -8,6 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
 import PropTypes from 'prop-types';
+import AuthNav from '../AuthNav/AuthNav';
 
 const ForgotPassword = props => {
     const submitHandler = ( values, submitProps ) => {
@@ -32,16 +33,6 @@ const ForgotPassword = props => {
                     .email("Invalid email format")
                     .required("Required!")
             });
-            selected = [classes.AuthToggle, classes.AuthSelected].join(' ');
-            unselected = classes.AuthToggle;
-            authSelector = <div className={classes.AuthNav}>
-                <NavLink to='/login' className={unselected}>
-                    <h1 className="pointer"><span className="fa fa-sign-in pointer" /> Login</h1>
-                </NavLink>
-                <NavLink to = '/register' className={unselected}>
-                    <h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
-                </NavLink>   
-            </div>;
 
             props.loading || props.submitted  && props.userLoading
                 ? form = <Spinner />
@@ -68,7 +59,7 @@ const ForgotPassword = props => {
                 <NavLink to='/home'>
                     <Logo height='8vh'/>
                 </NavLink>
-                {authSelector}
+                <AuthNav />
                 <div>
                     <h2>Forgot Password</h2>
                     <p className='text-left'>Enter an email address to get a password reset  link</p>

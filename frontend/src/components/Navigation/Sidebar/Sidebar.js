@@ -24,8 +24,14 @@ const sidebar = ( props ) => {
                 <SidebarItem exact='true' to='/home' >Home</SidebarItem>
                 <SidebarItem exact='true' to='/shop'>Shop</SidebarItem>
                 <SidebarItem exact='true' to='/cart'>Cart</SidebarItem>
-                <SidebarItem exact='true' to='/login'>Login</SidebarItem>
-                <div className={classes.heading}>Admin Dashboard</div>
+                {!props.user
+                    ?   <SidebarItem exact='true' to='/login'>Login</SidebarItem>
+                    : <div className={classes.SidebarItemWrapper} onClick={props.logout}>
+                        <div className={classes.SidebarItem}>Logout</div>
+                    </div>
+                }
+
+                {/* <div className={classes.heading}>Admin Dashboard</div>
                 <SidebarItem exact='true' to='/ecommerce'>ECommerce</SidebarItem>
                 <SidebarItem exact='true' to='/pages'>Pages</SidebarItem>
                 <SidebarItem exact='true' to='/orders'>Orders</SidebarItem>
@@ -43,7 +49,7 @@ const sidebar = ( props ) => {
                 <SidebarItem exact='true' to='/finacial'>Financial</SidebarItem>
                 <SidebarItem exact='true' to='/color-mapping'>Color-Mapping</SidebarItem>
                 <SidebarItem exact='true' to='/pyramid'>pyramid</SidebarItem>
-                <SidebarItem exact='true' to='/stacked'>Stacked</SidebarItem>
+                <SidebarItem exact='true' to='/stacked'>Stacked</SidebarItem> */}
             </div>
         </>
     );

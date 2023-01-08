@@ -3,40 +3,6 @@ import axios from 'axios';
 // const axios = require('axios-proxy-fix');
 import * as actionTypes from './actionTypes';
 
-export const auth = (values, auth, token) => {
-    console.log('values = '+JSON.stringify(values));
-    //console.log('authLogin = '+authLogin);
-    return dispatch => {
-        dispatch(authStart());
-        let url;
-        switch (auth) {
-            case auth='login':
-                url = '/api/login';
-                break;
-            case auth='register':
-                url = '/api/signup';
-                break;
-            case auth='forgot-password':
-                url = '/api/forgotPassword';
-                break;
-            case auth='reset-password':
-                url = ('/api/resetPassword/'+token);
-                console.log('url',url);
-                break;
-            default : url = '/api/login';
-        };
-        let method;
-        auth === 'reset-password'
-            ? method = axios.patch
-            : method = axios.post;
-
-        method(url, values)
-            .then(response => {dispatch(authSuccess(response.data));
-            })
-            .catch(err => {dispatch(authFail(err));});
-    };
-};
-
 
 export const authStart = () => {
     return {
@@ -44,11 +10,11 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (user) => {
-    console.log('res.data', user);
+export const authSuccess = (data) => {
+    console.log('authSuccess data', data);
     return {
         type    : actionTypes.AUTH_SUCCESS,
-        user  : user
+        data
     };
 };
 
@@ -59,8 +25,37 @@ export const authFail = (error) => {
     };
 };
 
+export const auth = (values, auth, token) => {
+    console.log('values = '+JSON.stringify(values));
+    //console.log('authLogin = '+authLogin);
+    return dispatch => {
+        dispatch(authStart());
+        let url;
+        switch (auth) {
+            case auth='login'           : url = '/api/login'; 
+                break;
+            case auth='register'        : url = '/api/signup';
+                break;
+            case auth='forgot-password' : url = '/api/forgotPassword';
+                break;
+            case auth='reset-password'  : url = ('/api/resetPassword/'+token);
+                break;
+            default : url = '/api/login';
+        };
+        let method;
+        auth === 'reset-password'
+            ? method = axios.patch
+            : method = axios.post;
 
-
+        method(url, values)
+            .then(response => {
+                console.log('result ',response.data.info);
+                const data = response.data.info;
+                dispatch(authSuccess(data));
+            })
+            .catch(err => {dispatch(authFail(err));});
+    };
+};
 
 
 
@@ -168,7 +163,7 @@ export const logout = () => {
         dispatch(logoutStart());
         axios.get('/api/logout')
             .then( result => {
-                console.log('result ',result);
+                console.log('logout ',result);
                 const data = result.data;
                 dispatch(logoutSuccess(data));
             })

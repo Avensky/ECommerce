@@ -84,8 +84,8 @@ props.loading || props.submitted && props.userLoading
 button = <div className={classes.BtnDiv}><span className={['fa fa-user'].join(' ')}></span>Sign Up</div>;
 
 let message = false;
-if ( props.token ) {
-    message = <p className='color-orange'>{props.token.message}</p>;
+if ( props.message ) {
+    message = <p className='color-orange'>{props.message}</p>;
 };
 
 return(
@@ -131,7 +131,7 @@ const mapStateToProps = state => {
         user          : state.auth.user,
         isAuthenticated     : state.auth.payload,
         authRedirectPath    : state.auth.authRedirectPath,
-        token               : state.auth.token
+        message               : state.auth.message
     };
 };
 
@@ -154,7 +154,7 @@ Register.propTypes = {
     fetchedUser : PropTypes.any,
     submitted : PropTypes.any,
     userLoading : PropTypes.any,
-    token : PropTypes.any,
+    message : PropTypes.any,
     user : PropTypes.any,
 };
 

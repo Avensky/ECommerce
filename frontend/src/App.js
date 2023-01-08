@@ -120,7 +120,7 @@ App.propTypes = {
   shopLoaded: PropTypes.func,
   totalItems: PropTypes.number,
   checkout: PropTypes.func,
-  user: PropTypes.object,
+  user: PropTypes.any,
   getUser: PropTypes.func,
   logout: PropTypes.func,
 };

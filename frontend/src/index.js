@@ -20,7 +20,9 @@ import {
   faStarHalfStroke,
   faTrashCan,
   faMinus,
-  faPlus
+  faPlus,
+  faEye,
+  faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fab, faCheckSquare, faCoffee, faUser,
@@ -34,7 +36,9 @@ faStarHalf,
 faStarHalfStroke,
 faTrashCan,
 faPlus,
-faMinus
+faMinus,
+faEye,
+faEyeSlash,
 );
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

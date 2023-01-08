@@ -47,20 +47,29 @@ module.exports         = function(passport) {
             Users.findOne({ 'local.email' :  email }, function(err:any, user:any) {
                 // if there are any errors, return the error
                 if (err) {
-                    console.log('done', done);
+                    console.log('err', err);
                     return err;
                 }
 
                 // if no user is found, return the message
                 if (!user){
-                    return done(null, false, {message: 'Oops! Email not found.'});
+                    return done(null, false, {
+                        user: null,
+                        message: 'Oops! Email not found.'
+                    });
                 }
                 if (!user.validPassword(password))
-                    return done(null, false, {message: 'Oops! Wrong password.'});
+                    return done(null, false, {
+                        user: null,
+                        message: 'Oops! Wrong password.'
+                    });
                 // all is well, return user
                 else{
                     console.log('user', user);
-                    return done(null, user);
+                    return done(null, user, {
+                        user:user,
+                        message:'Successful login'
+                    });
                 }
             });
         });
@@ -94,7 +103,9 @@ module.exports         = function(passport) {
 
                 // check to see if there's already a user with that email
                 if (existingUser) 
-                    return done(null, false, {message: 'Oops! That email is already taken.'});
+                    return done(null, false, {
+                        user: null,
+                        message: 'Oops! That email is already taken.'});
 
                 //  If we're logged in, we're connecting a new local account.
                 if(req.user) {
@@ -104,7 +115,10 @@ module.exports         = function(passport) {
                     user.save(function(err:any) {
                         if (err)
                             throw err;
-                        return done(null, user);
+                        return done(null, user, {
+                            user: user,
+                            message: 'Successfully connected account!'
+                        });
                     });
                 } 
                 //  We're not logged in, so we're creating a brand new user.
@@ -120,7 +134,10 @@ module.exports         = function(passport) {
                         if (err)
                             throw err;
 
-                        return done(null, newUser);
+                        return done(null, newUser,{
+                            user: newUser,
+                            message:'Successfully created account'
+                        });
                     });
                 }
 

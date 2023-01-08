@@ -35,6 +35,7 @@ const Navigation = (props) => {
             user                    = {props.user}
             open                    = {showSidebar} 
             closed                  = {closeSidebarHandler} 
+            logout                  = {props.logout}
         />
         <CartBar
             open = {showCartbar}

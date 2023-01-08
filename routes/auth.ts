@@ -7,49 +7,62 @@ module.exports  = function(app:any, passport:any) {
     // =============================================================================
     // LOGIN =======================================================================
     // =============================================================================
-    app.post('/api/login', function(req:any, res:any, next:any) {
+    app.post('/api/login', function(req:any, res:any,) {
         passport.authenticate('local-login', (err:any, user:any, info:any) =>{
             if (err) { 
                 console.log('err', err);
-                return next(err); 
+                return res.status(200).json({err}); 
             }
+
             if (!user) { 
-                console.log('err', info);
-                return res.send(info); 
+                console.log('info', info);
+                return res.status(200).json({info}); 
             }
+
             req.logIn(user, function(err:any) {
                 console.log('user', user);
                 if (err) { 
-                    return next(err); 
+                    return res.status(200).json({info:{
+                        user:null,
+                        message: err
+                    }})
                 }
                 //return res.redirect('/profile/' + user.username);
-                return res.sendStatus(200);
+                return res.status(200).json({info});
             });
-        })(req, res, next);
+        })(req, res);
     });
     // =====================================
     // REGISTER ============================
     // =====================================
-         // process the signup form
-         app.post('/api/signup', function(req:any, res:any, next:any) {
-             passport.authenticate('local-signup', function(err:any, user:any, info:any) {
-                console.log('err',err);
-                console.log('user',user);
-                console.log('next',next);
-               if (err) { return next(err); }
-               if (!user) { return res.send(info); }
-               req.logIn(user, function(err:any) {
-                 if (err) { return next(err); }
-                 // return res.redirect('/profile/' + user.username);
-                 return res.send(200)
-               });
+        // process the signup form
+        app.post('/api/signup', function(req:any, res:any, next:any) {
+            passport.authenticate('local-signup', function(err:any, user:any, info:any) {
+                if (err) { 
+                    console.log('err', err);
+                    return res.status(200).json({err}); }
+                if (!user) { 
+                    console.log('info', info);
+                    return res.status(200).json({info}); 
+                }
+                req.logIn(user, function(err:any) {
+                    console.log('user', user);
+                    if (err) { 
+                        return res.status(200).json({info:{
+                            user:null,
+                            message: err
+                        }})
+                    }
+                    return res.status(200).json({info});
+            });
+
              })(req, res, next);
          });
 
     // =============================================================================
     // getUser ==================================================================
     // =============================================================================
-	app.get('/api/getUser', async (req:any, res:any, next:any)      => {
+	app.get('/api/getUser', async (req:any, res:any) => {
         console.log('req', req.user)
         if (req.user){
             console.log('req.user', req.user)
@@ -57,8 +70,6 @@ module.exports  = function(app:any, passport:any) {
                 user:req.user,
                 message:'User found'
             });
-            next();
-            return
         } else {
             res.status(200).json({
                 user: null,

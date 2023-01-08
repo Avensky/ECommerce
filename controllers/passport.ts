@@ -9,7 +9,7 @@ const mongoose         = require('mongoose')
 const Users             = mongoose.model('Users')
 const keys             = require('../config/keys');
 
-module.exports         = function(passport) {
+module.exports         = function(passport:any) {
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -53,7 +53,7 @@ module.exports         = function(passport) {
         passwordField       : 'password',
         passReqToCallback   : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
-    function(req:any, email:string, password:string, done) {
+    function(req:any, email:string, password:string, done:any) {
         console.log('email', email);
         console.log('password', password);
         console.log('done', done);

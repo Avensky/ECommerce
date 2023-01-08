@@ -37,15 +37,28 @@ require('./models/users');
 
 require('./controllers/passport')(passport); // pass passport for configuration
 
+if (process.env.NODE_ENV==='production') {
+	app.use(session({ 
+		proxy: true,
+		secret: 'keyboard cat',   // session secret
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+			secure: true,
+			maxAge: 30*24*60*60*1000
+		}
+	})); 
+}else{
 app.use(session({ 
 	secret: 'keyboard cat',   // session secret
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
-		//secure: true,
 		maxAge: 30*24*60*60*1000
 	}
   })); 
+}
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

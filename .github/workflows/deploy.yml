@@ -124,7 +124,7 @@ jobs:
     runs-on: self-hosted
     steps:
     - run: |
-        pm2 stop 0
-        pm2 start 0
+        pm2 stop ECommerce
+        pm2 start ECommerce
         pm2 save
         sudo service nginx restart

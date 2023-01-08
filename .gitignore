@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
 dev.js
-dev.ts
+config/dev.ts
 .cert
 
 # production

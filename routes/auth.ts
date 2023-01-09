@@ -166,7 +166,7 @@ app.get('/api/logout', function(req:any, res:any, next:any) {
              // handle the callback after facebook has authenticated the user
              app.get('/api/facebook/callback',
                  passport.authenticate('facebook', {
-                     successRedirect : '/profile',
+                     successRedirect : '/shop',
                      failureRedirect : '/'
                  }));
 //     

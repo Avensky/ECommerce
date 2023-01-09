@@ -154,21 +154,21 @@ app.get('/api/logout', function(req:any, res:any, next:any) {
 // 
 
 // 
-//         // =====================================
-//         // =====================================
-//         // FACEBOOK ROUTES =====================
-//         // route for facebook authentication and login
-//             app.get('/api/facebook', 
-//             passport.authenticate('facebook', { 
-//                 scope : ['public_profile', 'email'] 
-//             }));
-//     
-//             // handle the callback after facebook has authenticated the user
-//             app.get('/api/facebook/callback',
-//                 passport.authenticate('facebook', {
-//                     successRedirect : '/profile',
-//                     failureRedirect : '/'
-//                 }));
+         // =====================================
+         // =====================================
+         // FACEBOOK ROUTES =====================
+         // route for facebook authentication and login
+             app.get('/api/facebook', 
+             passport.authenticate('facebook', { 
+                 scope : ['public_profile', 'email'] 
+             }));
+     
+             // handle the callback after facebook has authenticated the user
+             app.get('/api/facebook/callback',
+                 passport.authenticate('facebook', {
+                     successRedirect : '/profile',
+                     failureRedirect : '/'
+                 }));
 //     
 //         // =====================================
 //         // TWITTER ROUTES ======================

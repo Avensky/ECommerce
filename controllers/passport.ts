@@ -444,7 +444,7 @@ module.exports         = function(passport:any) {
                 user.google.token = token;
                 user.google.name  = profile.displayName;
                 user.google.email = profile.emails[0].value; // pull the first email
-                user.save(function(err) {
+                user.save(function(err:any) {
                     if (err)
                         throw err;
                     return done(null, user);

@@ -125,6 +125,6 @@ jobs:
     steps:
     - run: |
         pm2 stop ECommerce
-        pm2 start ECommerce
+        pm2 start ECommerce --update-env
         pm2 save
         sudo service nginx restart

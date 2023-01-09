@@ -219,18 +219,18 @@ app.get('/api/logout', function(req:any, res:any, next:any) {
 // 		})(req, res, next);
 // 	});
 // 
-//         // facebook -------------------------------
-//     
-//             // send to facebook to do the authentication
-//             app.get('/api/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
-//     
-//             // handle the callback after facebook has authorized the user
-//             app.get('/api/connect/facebook/callback',
-//                 passport.authorize('facebook', {
-//                     successRedirect : '/profile',
-//                     failureRedirect : '/'
-//                 }));
-//     
+         // facebook -------------------------------
+     
+             // send to facebook to do the authentication
+             app.get('/api/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+     
+             // handle the callback after facebook has authorized the user
+             app.get('/api/connect/facebook/callback',
+                 passport.authorize('facebook', {
+                     successRedirect : '/shop',
+                     failureRedirect : '/'
+                 }));
+     
 //         // twitter --------------------------------
 //     
 //             // send to twitter to do the authentication

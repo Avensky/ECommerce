@@ -22,4 +22,17 @@ module.exports = {
     sengridUsername         : process.env.SENDGRID_USERNAME,
     sengridPassword         : process.env.SENDGRID_PASSWORD,
     secretKey               : process.env.SECRET_KEY,
+
+    //GoogleAuth
+    googleClientID          : process.env.AVENSKY_GOOGLE_CLIENT_ID,
+    googleClientSecret      : process.env.AVENSKY_GOOGLE_CLIENT_SECRET,
+    googleCallbackURL       : "https://www.avensky.com/api/google/callback/",
+
+    facebookClientID        : process.env.FACEBOOK_CLIENT_ID,
+    facebookClientSecret    : process.env.FACEBOOK_CLIENT_SECRET,
+    facebookCallbackURL     : "https://www.urielzacarias.com/api/facebook/callback/",
+
+    twitterConsumerKey      : process.env.TWITTER_CONSUMER_KEY,
+    twitterConsumerSecret   : process.env.TWITTER_CONSUMER_SECRET,
+    twitterCallbackURL      : "https://www.urielzacarias.com/api/twitter/callback/",
 };

@@ -187,21 +187,21 @@ app.get('/api/logout', function(req:any, res:any, next:any) {
 //                 }));
 //     
 //     
-//         // =====================================
-//         // GOOGLE ROUTES =======================
-//         // =====================================
-//         // send to google to do the authentication
-//         // profile gets us their basic information including their name
-//         // email gets their emails
-//             app.get('/api/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-//     
-//             // the callback after google has authenticated the user
-//             app.get('/api/google/callback',
-//                 passport.authenticate('google', {
-//                     successRedirect : '/profile',
-//                     failureRedirect : '/'
-//                 }));
-//     
+// =====================================
+// GOOGLE ROUTES =======================
+// =====================================
+// send to google to do the authentication
+// profile gets us their basic information including their name
+// email gets their emails
+
+  app.get('/api/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+  // the callback after google has authenticated the user
+  app.get('/api/google/callback',
+      passport.authenticate('google', {
+              successRedirect : '/shop',
+          failureRedirect : '/'
+      }));
+
 //     // =============================================================================
 //     // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 //     // =============================================================================

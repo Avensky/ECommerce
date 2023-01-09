@@ -30,7 +30,7 @@ module.exports = {
 
     facebookClientID        : process.env.AVENSKY_FACEBOOK_CLIENT_ID,
     facebookClientSecret    : process.env.AVENSKY_FACEBOOK_CLIENT_SECRET,
-    facebookCallbackURL     : "https://www.avenksy.com/api/facebook/callback/",
+    facebookCallbackURL     : "https://www.avensky.com/api/facebook/callback/",
 
     twitterConsumerKey      : process.env.AVENSKY_TWITTER_CONSUMER_KEY,
     twitterConsumerSecret   : process.env.AVENSKY_TWITTER_CONSUMER_SECRET,

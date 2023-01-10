@@ -19,7 +19,7 @@ const Navbar = ( props ) => {
                 <div className={classes.NavItems} onClick={props.closeCartbar}>
                     <NavLink to="/shop" exact='true' className={classes.LogoWrapper}>
                             <Logo height='80%' />
-                            <div className={classes.LogoText}>ECOMMERCE</div>
+                            <div className={classes.LogoText}>AVENSKY</div>
                     </NavLink >
                 </div>
                 <div className={classes.NavItems}>
@@ -46,12 +46,14 @@ const Navbar = ( props ) => {
                     <NavLink to="/home"     exact='true'>
                         <div className={classes.LogoWrapper}>
                             <Logo height='80%' />
-                            <div className={classes.LogoText}>ECOMMERCE</div>    
+                            <div className={classes.LogoText}>AVENSKY</div>    
                         </div>
                     </NavLink >
-                    {/* <NavItem to="/shop"     exact='true' onClick={props.closeCartbar}>Shop</NavItem>
+                    <NavItem to="/shop"     exact='true' onClick={props.closeCartbar}>Shop</NavItem>
+                    {/*
                     <NavItem to="/about"    exact='true' onClick={props.closeCartbar}>About</NavItem>
-                    <NavItem to="/recipes"  exact='true' onClick={props.closeCartbar}>Recipes</NavItem> */}
+                    <NavItem to="/recipes"  exact='true' onClick={props.closeCartbar}>Recipes</NavItem> 
+                    */}
                 </div>
                 <div className={classes.NavItems}>
                     {/* <NavItem to="/support" exact='true' onClick={props.closeCartbar}>Support</NavItem>

@@ -43,7 +43,7 @@
 
 
 .Content {
-  
+  box-sizing: border-box;
 }
 
 /* Pricing */
@@ -120,6 +120,10 @@
   .ImageWrapper {
     height: 50vh;
   }
+  .Content {
+    margin: 2vh 0;
+  }
+  
 }
 
 @media only screen and (min-width: 1025px) {

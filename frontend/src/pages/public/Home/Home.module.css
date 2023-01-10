@@ -82,6 +82,11 @@
         flex-direction: row;
     }
 
+    .MissionButton {
+        margin: 2vh auto;
+        width: 400px;
+    }
+
     /* .Home {
 
     }

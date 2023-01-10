@@ -9,7 +9,13 @@ const bcrypt        = require('bcrypt');
 const userSchema    = new Schema({
 
     local            : {
-        email        : String,
+        email        : {
+            type: String, 
+            require: true, 
+            index:true, 
+            unique:true,
+            sparse:true
+        },
         password     : String,
     },
     facebook         : {

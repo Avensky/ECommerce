@@ -45,6 +45,7 @@
 .Thumbnail img {
     max-width: 100%;
     width: max-content;
+    background-size: contain;
     transition: transform .2s;
 }
 .Thumbnail img:hover {
@@ -122,6 +123,10 @@
     .Item {
         width: 50%;
         padding: 4vh 4vw;
+    }
+
+    .Thumbnail {
+        padding: 2vh 2vw;
     }
 
     /*

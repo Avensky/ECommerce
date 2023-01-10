@@ -9,13 +9,7 @@ const bcrypt        = require('bcrypt');
 const userSchema    = new Schema({
 
     local            : {
-        email        : {
-            type: String, 
-            require: true, 
-            index:true, 
-            unique:true,
-            sparse:true
-        },
+        email        : String,
         password     : String,
     },
     facebook         : {
@@ -60,4 +54,3 @@ const Users = mongoose.model("Users", userSchema);
 module.exports = Users;
 
 export{}
-

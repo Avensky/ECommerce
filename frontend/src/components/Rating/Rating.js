@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 const Rating = ({rating}) => {
     let ratingArray;
     //const  = <FontAwesomeIcon className={classes.starBorder} icon="fa fa-star" />;
-    const star        = <FontAwesomeIcon icon="fa-solid fa-star" />;
-    const star_half   = <FontAwesomeIcon icon="fa-solid fa-star-half" />;
+    const star          = <FontAwesomeIcon icon="fa-solid fa-star" />;
+    const star_half     = <FontAwesomeIcon icon="fa-regular fa-star-half-stroke" />;
+    const star_border   = <FontAwesomeIcon icon="fa-regular fa-star" />;
 
     //console.log('rating ', rating);
 
@@ -16,21 +17,21 @@ const Rating = ({rating}) => {
             break;
         case( rating >=4.5 && rating <5)        : ratingArray = [star,star,star,star,star_half];
             break;
-        case (rating >=4   && rating <4.5   )   : ratingArray = [star,star,star,star];
+        case (rating >=4   && rating <4.5   )   : ratingArray = [star,star,star,star,star_border];
             break;
-        case (rating >=3.5 && rating <4  )      : ratingArray = [star,star,star,star_half];
+        case (rating >=3.5 && rating <4  )      : ratingArray = [star,star,star,star_half,star_border];
             break;
-        case (rating >=3   && rating <3.5  )    : ratingArray = [star,star,star,];
+        case (rating >=3   && rating <3.5  )    : ratingArray = [star,star,star,star_border,star_border];
             break;
-        case (rating >=2.5 && rating <3   )     : ratingArray = [star,star,star_half];
+        case (rating >=2.5 && rating <3   )     : ratingArray = [star,star,star_half,star_border,star_border];
             break;
-        case (rating >=2   && rating <=2.5   )  : ratingArray = [star,star];
+        case (rating >=2   && rating <=2.5   )  : ratingArray = [star,star,star_border,star_border,star_border];
             break;
-        case (rating >=1.5 && rating <2  )      : ratingArray = [star,star_half];
+        case (rating >=1.5 && rating <2  )      : ratingArray = [star,star_half,star_border,star_border,star_border];
             break;
-        case (rating >=1   && rating <1.5  )    : ratingArray = [star];
+        case (rating >=1   && rating <1.5  )    : ratingArray = [star,star_border,star_border,star_border,star_border];
             break;
-        case (rating >=.5  && rating <1   )     : ratingArray = [star_half];
+        case (rating >=.5  && rating <1   )     : ratingArray = [star_half,star_border,star_border,star_border,star_border];
             break;
         case (rating >=0   && rating <.5   )    : ratingArray = [];
             break;
@@ -39,7 +40,7 @@ const Rating = ({rating}) => {
 
 
   return (
-    <div className={classes.Rating} key={rating}>{rating}</div>
+    <div className={classes.Rating} key={rating}>{ratingArray}</div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from './ItemDetails.module.css';
-
+import Rating from '../../../../../components/Rating/Rating';
 //{classes.CardThumbnail}
 
 const item = props => {
@@ -70,7 +70,7 @@ const item = props => {
             {/* Reviews */}
             <div className={classes.reviews}>
                 <div className={classes.CardRating}>
-                    <p className={classes.CardTitle}>{rating}</p>
+                    <p className={classes.CardTitle}><Rating rating={rating}/></p>
                 </div>
                 <div className={classes.CardReviews}>
                     <p className={classes.CardTitle}>Reviews({props.reviews || 0})</p>

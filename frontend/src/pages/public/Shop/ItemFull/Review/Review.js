@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './Review.module.css';
 import PropTypes from 'prop-types';
-
+import Rating
+ from '../../../../../components/Rating/Rating';
 const Review = props => {
     let rating, star_border, star,star_half, quantity;
 
@@ -12,30 +13,6 @@ const Review = props => {
     let key = props.rating;
     console.log('rating ', key);
 
-        switch (true) {
-            case key ==5 : rating = [star,star,star,star,star];
-                break;
-            case key>=4.5 && key<5 : rating = [star,star,star,star,star_half];
-                break;
-            case key>=4 && key<4.5 : rating = [star,star,star,star,star_border];
-                break;
-            case key>=3.5 && key<4 : rating = [star,star,star,star_half,star_border];
-                break;
-            case key>=3 && key<3.5 : rating = [star,star,star,star_border,star_border];
-                break;
-            case key>=2.5 && key<3: rating = [star,star,star_half,star_border,star_border];
-                break;
-            case key>=2 && key<=2.5: rating = [star,star,star_border,star_border,star_border];
-                break;
-            case key>=1.5 && key<2 : rating = [star,star_half,star_border,star_border,star_border];
-                break;
-            case key>=1 && key<1.5 : rating = [star,star_border,star_border,star_border,star_border];
-                break;
-            case key>=.5 && key<1 : rating = [star_half,star_border,star_border,star_border,star_border];
-                break;
-            case key>=0 && key<.5 : rating = [star_border,star_border,star_border,star_border,star_border];
-                break;
-        }
 
     let review = (
         <div className={classes.Reviews}>
@@ -43,7 +20,7 @@ const Review = props => {
                 <b>{props.username}</b>
             </div>
             <div className={classes.rating}>
-                <p>{rating}</p>
+                <p><Rating rating={key} /></p>
             </div>
             <div className={classes.date}>
                 <p>{props.date}</p>

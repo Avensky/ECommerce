@@ -23,16 +23,12 @@ module.exports = {
     sengridPassword         : process.env.SENDGRID_PASSWORD,
     secretKey               : process.env.SECRET_KEY,
 
-    //GoogleAuth
+    //social auth
     googleClientID          : process.env.AVENSKY_GOOGLE_CLIENT_ID,
     googleClientSecret      : process.env.AVENSKY_GOOGLE_CLIENT_SECRET,
     googleCallbackURL       : "https://www.avensky.com/api/google/callback/",
-
+    
     facebookClientID        : process.env.AVENSKY_FACEBOOK_CLIENT_ID,
     facebookClientSecret    : process.env.AVENSKY_FACEBOOK_CLIENT_SECRET,
     facebookCallbackURL     : "https://www.avensky.com/api/facebook/callback/",
-
-    twitterConsumerKey      : process.env.AVENSKY_TWITTER_CONSUMER_KEY,
-    twitterConsumerSecret   : process.env.AVENSKY_TWITTER_CONSUMER_SECRET,
-    twitterCallbackURL      : "https://www.avensky.com/api/twitter/callback/",
 };

@@ -5,7 +5,17 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import { 
+  faStar as faStarBorder,
+  faStarHalfStroke
+} from '@fortawesome/free-regular-svg-icons';
+
+import { 
+  fab, 
+  faFacebook,
+  faGooglePlus
+} from '@fortawesome/free-brands-svg-icons';
+
 import { 
   faCheckSquare, 
   faCoffee,
@@ -16,8 +26,6 @@ import {
   faHeart,
   faBars,
   faStar,
-  faStarHalf,
-  faStarHalfStroke,
   faTrashCan,
   faMinus,
   faPlus,
@@ -32,14 +40,17 @@ faMagnifyingGlass,
 faHeart,
 faBars,
 faStar,
-faStarHalf,
 faStarHalfStroke,
+faStarBorder,
 faTrashCan,
 faPlus,
 faMinus,
 faEye,
 faEyeSlash,
+faFacebook,
+faGooglePlus
 );
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 //  <React.StrictMode>

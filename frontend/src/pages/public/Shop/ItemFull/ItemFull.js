@@ -12,6 +12,7 @@ import Review from '../ItemFull/Review/Review';
 import Modal from '../../../../components/UI/Modal/Modal';
 import OrderSummary from '../../OrderSummary/OrderSummary';
 import {purchaseContinueHandler} from '../../../../utility/stripe';
+import Rating from '../../../../components/Rating/Rating';
 import PropTypes from 'prop-types';
 
 const ItemFull = props => {
@@ -92,7 +93,7 @@ const ItemFull = props => {
     item
         ? reviews = <Review 
                         username    = 'Poly'
-                        rating      = {rating}
+                        rating      = {item.rating}
                         date        = ''
                         item        = 'Bee yourself T-shirt'
                         review      = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'                    

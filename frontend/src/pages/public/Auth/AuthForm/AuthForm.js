@@ -23,7 +23,7 @@ const AuthForm = (props) => {
 
     initialValues = {
         email: '', 
-        password: ''
+        password: '',
     };
 
     validationSchema = Yup.object({

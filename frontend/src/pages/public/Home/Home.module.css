@@ -79,7 +79,7 @@
     /* For tablets: */
 
     .FeaturedContent {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     /* .Home {

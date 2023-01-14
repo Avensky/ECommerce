@@ -9,7 +9,6 @@ const passport      = require('passport');
 const cors 			= require("cors");
 const keys 			= require('./config/keys');
 
-
 // set up cors to allow us to accept requests from our client
 app.use(cors());
 app.options('*', cors());
@@ -44,19 +43,21 @@ async function main() {
 	await mongoose.connect(keys.mongoURI, { 
 		autoIndex: process.env.NODE_ENV === 'production' ? false : true,
 	});
-};
+}
 
 if
  (process.env.NODE_ENV==='production') {
 	app.set('trust proxy', 1) // trust first proxy
 	app.use(session({ 		
-		//proxy: true,
+		proxy: true,
 		secret: 'keyboardcat',   // session secret
 		saveUninitialized: false, // don't create session until something stored
 		resave: false, //don't save session if unmodified
 		secure: true, // it requires an https-enabled website
 		store: new MongoStore ({
-			mongoUrl: mongoose.connection.getClient(),
+			client: mongoose.connection.getClient(),
+			collectionName: "sessions",
+			stringify: false,
 			ttl: 14 * 24 * 60 * 60, // = 14 days. Default)
 		})
 	})); 
@@ -68,16 +69,15 @@ if
 		store: new MongoStore ({
 			client: mongoose.connection.getClient(),
 			collectionName: "sessions",
-    		stringify: false,
+			stringify: false,
 			ttl: 14 * 24 * 60 * 60, // = 14 days. Default)
 			// crypto: {secret: 'squirrel'}
 		})
 	}));
-};
+}
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
 
 // routes
 require('./routes/shop.ts')(app);

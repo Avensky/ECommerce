@@ -176,7 +176,7 @@ module.exports  = function(app:any, passport:any) {
         // 3) Send it to user's email
         try {
             //const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
-            const resetURL = `${req.protocol}://${req.hostname}:${keys.clientPort}/resetPassword/${resetToken}`;
+            const resetURL = `${req.protocol}://${req.hostname}${keys.clientPort}/resetPassword/${resetToken}`;
             console.log('resetURL', resetURL)
             console.log('user', user)
             const email = user.local.email

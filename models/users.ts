@@ -4,6 +4,7 @@
 const mongoose      = require('mongoose');
 const { Schema }    = mongoose;
 const bcrypt        = require('bcrypt');
+const crypto        = require('crypto');
 
 // define the schema for our user model
 const userSchema    = new Schema({
@@ -11,6 +12,14 @@ const userSchema    = new Schema({
     local            : {
         email        : String,
         password     : String,
+        passwordChangedAt: Date,
+        passwordResetToken: String,
+        passwordResetExpires: Date,
+        active: {
+            type: Boolean,
+            default: true,
+            select: false
+        }
     },
     facebook         : {
         id           : String,
@@ -36,6 +45,24 @@ const userSchema    = new Schema({
 //==============================================================================
 // methods =====================================================================
 //==============================================================================
+
+userSchema.methods.createPasswordResetToken = function() {
+    console.log('resetToken started');
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    //create reset token
+    this.local.passwordResetToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    
+    console.log('resetToken', resetToken);
+
+
+    //set expiration for 10 minutes
+    this.local.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  
+    return resetToken;
+  };
 
 // generating a hash
 userSchema.methods.generateHash = function(password:string) {

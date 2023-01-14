@@ -1,150 +1,45 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import classes from './ResetPassword.module.css';
 import * as actions from '../../../../redux/actions/index';
 import Spinner from '../../../../components/UI/Spinner/Spinner';
-import { NavLink, Navigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { NavLink, Navigate, useParams } from 'react-router-dom';
 import Logo from '../../../../components/Logo/Logo';
+import AuthNav from '../AuthNav/AuthNav';
+import AuthForm from '../AuthForm/AuthForm';
 import PropTypes from 'prop-types';
 
 const ResetPassword = props => {
-    const [auth, setAuth] = useState('login');
+    const auth ='reset-password';
     console.log('auth',auth);
-    const [token, setToken] = useState(props.match.params.token);
-    console.log('token',token);
 
-    const [passwordComfirmShown, setPasswordComfirmShown] = useState(false);    
-    const togglePasswordComfirmVisiblity = () => {setPasswordComfirmShown(passwordComfirmShown ? false : true);};
-    const [passwordShown, setPasswordShown] = useState(false);
-    const togglePasswordVisiblity = () => {setPasswordShown(passwordShown ? false : true);};
-    useEffect(() => {
-        console.log('ping');
-        if (props.match.params.token){
-            setAuth('reset-password');
-        } else {
-            setAuth('login');
-        };
-    },[props.match.params]);
+    const {token} = useParams();
+    console.log('page token',token);
 
-    const loginToggleHandler    = () => {setAuth('login');};
-    const registerToggleHandler = () => {setAuth('register');};
-    const forgotPasswordHandler = () => {setAuth('forgot-password');};
-    const resetPasswordHandler  = () => {setAuth('reset-password');};
+    const onAuth = (values, auth, token) => {props.onAuth(values,auth,token);};
 
-    const submitHandler = ( values, submitProps ) => {
-        //console.log('Form data', values)
-        //console.log('submitProps', submitProps)
-        props.onAuth( values, auth, token);
-        submitProps.setSubmitting(false);
-        submitProps.resetForm();
-    };
+    let form;
 
-    useEffect(()=> {
-        const fetchData = async () => {props.onFetchUser();};
-        if ( !props.fetchedUser){fetchData();};
-        }, [props.fetchedUser, props.authRedirectPath]);
-
-    // let act = 'login';
-    // if (!auth) {
-    //     act = 'signup'
-    // }
-    // const [formValues, setFormValues] = useState(null)
-
-    let initialValues, validationSchema, selected, unselected, form, button, authSelector, socialAuth, loader;
-
-            initialValues = {
-                password: '',
-                confirm_password: ''
-            };
-            validationSchema = Yup.object({
-                password: Yup.string()
-                    .min(8, "Minimum 8 characters")
-                    .max(15, "Maximum 15 characters")
-                    .required("Password is required!")  
-                    .matches(
-                        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-                    ),                       
-                confirm_password: Yup.string()
-                    .oneOf([Yup.ref("password")], "Passwords  must match")
-                    .required("Password confirm is required!")
-            });
-            selected = [classes.AuthToggle, classes.AuthSelected].join(' ');
-            unselected = classes.AuthToggle;
-            authSelector = <div className={classes.AuthNav}>
-                <NavLink 
-                    to='/login'
-                    className={unselected}
-                ><h1 className="pointer"><span className="fa fa-sign-in pointer" /> Login</h1>
-                </NavLink>
-                <NavLink 
-                    to = '/register'
-                    className={unselected}
-                ><h1 className="pointer"><span className="fa fa-user" /> Signup</h1>
-                </NavLink>   
-            </div>;
-            
-            props.loading || props.submitted && props.userLoading
-                ? form = <Spinner />
-                : form = <>
-                    <div className='flex'>
-                        <Field 
-                            type={passwordShown ? "text" : "password"}
-                            name="password" 
-                            placeholder="Password"
-                            className={classes.AuthInput}
-                        /><span className={passwordShown ? "fa fa-eye-slash" : "fa fa-eye"}  onClick={togglePasswordVisiblity} ></span>
-                    </div>
-                    <ErrorMessage className='color-orange'name="password" component="div" />
-                    <div className='flex'>
-                        <Field 
-                            type={passwordComfirmShown ? "text" : "password"}
-                            name="confirm_password" 
-                            placeholder="Confirm Password"
-                            className={classes.AuthInput}
-                        /><span className={passwordComfirmShown ? "fa fa-eye-slash" : "fa fa-eye"} onClick={togglePasswordComfirmVisiblity} ></span>
-                    </div>
-                    <ErrorMessage className='color-orange'name="confirm_password" component="div" />     
-                </>;
-            button = <div className={classes.BtnDiv}><span className={['fa fa-user'].join(' ')}></span>Reset Password</div>  ;  
-
-    let message = false;
-    if ( props.token ) {
-        message = <p className='color-orange'>{props.token.message}</p>;
-    };
+    props.loading
+        ? form = <Spinner />
+        : form = <AuthForm 
+            onAuth={onAuth} 
+            auth={auth} 
+            token={token} 
+            message={props.message} 
+            loading={props.loading}
+        />;
 
     return(
         <div className='page-wrapper'>
+            {props.user?  <Navigate to='/'/>:null}
             <div className={classes.Auth}>
-                <NavLink to='/home'>
-                    <Logo height='8vh'/>
-                </NavLink>
-                {authSelector}
+                <NavLink to='/home'><Logo height='8vh'/></NavLink>
+                <AuthNav style={auth}/>
                 <h2>Create a new password!</h2>
                 <br />
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={submitHandler}
-                    enableReinitialize> 
-                    { formik => 
-                    <Form>
-                        {message}
-                        {form}
-                        <br />
-                        <button  
-                            className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
-                            type='submit'
-                            disabled={!formik.isValid || formik.isSubmitting }
-                        >
-                            {button}
-                        </button>
-                    </Form>}
-                </Formik>
-                {socialAuth}
+                {form}
             </div>
         </div> 
     );
@@ -153,35 +48,24 @@ const ResetPassword = props => {
 const mapStateToProps = state => {
     return {
         loading             : state.auth.loading,
-        userLoading         : state.auth.userLoading,
-        submitted           : state.auth.submitted,
-        error               : state.auth.error,
-        isLoggedIn          : state.auth.user,
-        isAuthenticated     : state.auth.payload,
-        authRedirectPath    : state.auth.authRedirectPath,
-        token               : state.auth.token
+        user                : state.auth.user,
+        message             : state.auth.message
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUser             : ()                    => dispatch(),
-        onAuth                  : (values, auth, token) => dispatch(),
+        onAuth                  : (values, auth, token) => dispatch(actions.auth(values,auth,token)),
         onFbAuth                : ()                    => dispatch(),
         onSetAuthRedirectPath   : ()                    => dispatch(),
     };
 };
 
 ResetPassword.propTypes = {
-    match : PropTypes.any,
-    onAuth : PropTypes.any,
-    onFetchUser : PropTypes.any,
-    authRedirectPath : PropTypes.any,
-    loading : PropTypes.any,
-    fetchedUser : PropTypes.any,
-    submitted : PropTypes.any,
-    userLoading : PropTypes.any,
-    token : PropTypes.any,
+    onAuth : PropTypes.func,
+    loading : PropTypes.bool,
+    message : PropTypes.string,
     user : PropTypes.any,
 };
 

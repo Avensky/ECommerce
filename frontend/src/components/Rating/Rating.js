@@ -38,12 +38,10 @@ const Rating = ({rating}) => {
         default: ratingArray = [];
     }
 
-
   return (
     <div className={classes.Rating} key={rating}>{ratingArray}</div>
   );
 };
-
 
 Rating.propTypes = {
     rating: PropTypes.number,

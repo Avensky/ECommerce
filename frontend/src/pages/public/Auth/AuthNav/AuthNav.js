@@ -8,7 +8,7 @@ const AuthNav = (props) => {
 
     selected = [classes.AuthToggle, classes.AuthSelected].join(' ');
     unselected = classes.AuthToggle;
-    console.log('props style',props.style );
+    // console.log('props style',props.style );
     const k = props.style;
     switch (k){
       case 'register': {

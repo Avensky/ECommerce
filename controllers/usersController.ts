@@ -5,11 +5,11 @@ const Users=mongoose.model('Users');
 // User ==================================================================
 // =========================================================================
 exports.getUser = async (req:any, res:any) => {
-    console.log('req', req.user)
+    //console.log('req.user = ', req.user)
     if (req.user){
-        console.log('req.user', req.user)
+        //console.log('req.user = ', req.user.user)
         res.status(200).json({
-            user:req.user,
+            user:req.user.user,
             message:'User found'
         });
     } else {
@@ -38,6 +38,31 @@ exports.createUser = async(email:any,password:any,done:any) => {
         return done(null, newUser,{
             user: newUser,
             message:'Successfully created account'
+        });
+    });
+};
+
+exports.resetPassword = async(req:any,password:string,done:any) => {
+    console.log('req.user = ', req.user);
+    console.log('password = ', password);
+    // upate password
+    var user            = req.user;
+    //console.log('user',user)
+    user.local.password = user.generateHash(password);
+    //user.local.passwordConfirm = req.body.confirm_password;
+    //console.log('req.body.password',req.body.password)
+    //console.log('req.body.confirm_password',req.body.confirm_password)
+    user.local.passwordResetToken = undefined;
+    user.local.passwordResetExpires = undefined;
+
+    // save the user
+    user.save(function(err:any) {
+        if (err)
+            throw err;
+
+        return done(null, user,{
+            user: user,
+            message:'Successfully updated password!'
         });
     });
 };

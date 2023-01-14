@@ -2,9 +2,11 @@ const LocalStrategy    = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy   = require('passport-google-oauth20').Strategy;
 const mongoose         = require('mongoose');
-const Users             = mongoose.model('Users');
+const Users            = mongoose.model('Users');
 const keys             = require('../config/keys');
-const usersController = require('./usersController');
+const usersController  = require('./usersController');
+const crypto           = require('crypto');
+const Email            = require('../utils/email');
 
 module.exports         = function(passport:any) {
     // =========================================================================
@@ -45,10 +47,7 @@ module.exports         = function(passport:any) {
         process.nextTick(function() {
             Users.findOne({ 'local.email' :  email }, function(err:any, user:any) {
                 // if there are any errors, return the error
-                if (err) {
-                    console.log('err', err);
-                    return err;
-                }
+                if (err) return done(err);
 
                 // if no user is found, return the message
                 if (!user){
@@ -64,7 +63,6 @@ module.exports         = function(passport:any) {
                     });
                 // all is well, return user
                 else{
-                    console.log('user', user);
                     return done(null, user, {
                         user:user,
                         message:'Successful login'
@@ -113,75 +111,6 @@ module.exports         = function(passport:any) {
         });
 
     }));
-    
-    // =========================================================================
-    // RESET PASSWORD ==========================================================
-    // =========================================================================
-//    passport.use('reset-password', new LocalStrategy({
-//        // by default, local strategy uses username and password, we will override with email
-//        // define the parameter in req.body that passport can use as username and password
-//        usernameField : 'confirm_password',
-//        passwordField : 'password',
-//        passReqToCallback : true, // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-//    },
-//    function(req, email, password, done) {
-//        console.log("req" + req.body)
-//        // console.log('email = ' + req.body.email)
-//        // console.log('password = ' + req.body.password)
-//        // asynchronous
-//        process.nextTick(function() {
-//            // 1) Get user based on the token
-//            //console.log('resetPassword start')
-//            //console.log('req.params.token',req.params.token)
-//
-//            const hashedToken = crypto
-//            .createHash('sha256')
-//            .update(req.params.token)
-//            .digest('hex');
-//        
-//            //console.log('hashedToken',hashedToken)
-//
-//            //User.findOne({ 'local.email' :  email }, function(err, user) {
-//            User.findOne({
-//                'local.passwordResetToken': hashedToken, 
-//                'local.passwordResetExpires': {$gt: Date.now() } 
-//            }, function(err, user) {
-//                //console.log('local email = ' + user.local.email)
-//                //console.log('local password = ' + user.local.password)
-//                // if there are any errors, return the error
-//                if (err)
-//                    return done(err);
-//
-//                // if no user is found, return the message
-//                if (!user)
-//                    return done(null, false, {message: 'Oops! Token is invalid or has expired'});
-//
-//                else {
-//                    //console.log('user',user)
-//                    user.local.password = user.generateHash(req.body.password);
-//                    //user.local.passwordConfirm = req.body.confirm_password;
-//                    //console.log('req.body.password',req.body.password)
-//                    //console.log('req.body.confirm_password',req.body.confirm_password)
-//                    user.local.passwordResetToken = undefined;
-//                    user.local.passwordResetExpires = undefined;
-//                    user.save(function(err) {
-//                        if (err){
-//                            //throw err;
-//                            //console.log('user.save err',err)
-//                            return done(null, false, {message: err.message});
-//                        }
-//                        return done(null, user);
-//                    });
-//                    const url = `${req.protocol}://${req.get('host')}/authentication`;
-//                    //console.log(url);
-//                    const email = user.local.email
-//                    new Email(newUser, email, url).sendWelcome();
-//                }
-//            })
-//        });
-//
-//    }));
-//
 
     // =========================================================================
     // GOOGLE ==================================================================

@@ -1,19 +1,6 @@
 const keys 		= require('./config/keys');
-const mongoose 	= require('mongoose');
 const express 	= require('express');
 const App 		= require('./app');
-
-//connect to database
-mongoose.Promise = global.Promise;
-mongoose.set('strictQuery', false);
-mongoose.connect(keys.mongoURI, { 
-	autoIndex: process.env.NODE_ENV === 'production' ? false : true,
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-})
-	.then(() => console.log('Succesfully connected to MongoDb'))
-	.catch((err :any) => console.log('💥Failed to connect to MongoDb', err));
-module.exports = {mongoose};
 
 //serve production files
 if (process.env.NODE_ENV === 'production') {

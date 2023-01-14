@@ -1,16 +1,8 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState }  from 'react';
 import { connect }          from 'react-redux';
 import classes              from './Shop.module.css';
 import Item                 from '../../../components/Item/Item';
 import * as actions         from '../../../redux/actions/index';
-//import {useHistory}         from 'react-router-dom';
-//import CheckoutHeader       from '../Checkout/CheckoutHeader/CheckoutHeader';
-//import OrderSummary         from '../OrderSummary/OrderSummary';
-import Modal                from '../../../components/UI/Modal/Modal';
-import { loadStripe }       from '@stripe/stripe-js';
-//import Dropdown             from 'react-dropdown';
-//import NewItem              from './NewItem/NewItem';
-import keys                 from '../../../config/keys';
 import PropTypes            from 'prop-types';
 
 const Shop = props => { 
@@ -29,31 +21,6 @@ const Shop = props => {
     };
     const viewCartHandler       = ()   => {//history.push('/cart')
     };
-
-
-//    useEffect(()=>{
-//        console.log('useeffect');
-//        const getProducts = async () => props.getProducts();
-//        //if (!props.products){
-//    
-//        if (props.products.length === 0){
-//            getProducts();
-//        }
-//        console.log('products: ', props.products);
-//    
-//    },[props.products]);
-
-    
-
-    let orderSummary = null;
-    // if (props.addedItems) {
-    //     orderSummary = <OrderSummary 
-    //         items={props.addedItems}
-    //         total={props.total}
-    //         purchaseCancelled={purchaseCancelHandler}
-    //         purchaseContinued={() => purchaseContinueHandler(props.addedItems, props.isAuth)}
-    //     />;
-    // }
 
     let checkout;
     props.totalItems > 0
@@ -101,22 +68,16 @@ const Shop = props => {
 
     return(
         <div className={['page-wrapper', classes.Shop].join(' ')}>
+
             {/* Title */}
             <div className={classes.ShopTitle}>SHOP ALL</div>
 
-            {/* <CheckoutHeader
-                totalItems={props.totalItems}
-                total={props.total}
-                viewTitle='View Cart'
-                view={viewCartHandler}
-                checkout={purchaseHandler}
-                isAuth={props.isAuth}
-            /> */}
-
             {/* Shop Bar */}
             <div className={classes.ShopBar}>
+    
                 {/* Shop Nav */}
                 {shopNav}
+
                 {/* Shop Sort */}
                 {sort}
             </div>
@@ -124,6 +85,7 @@ const Shop = props => {
 
 
             {/* {newitem} */}
+
             <div className={classes.ShopContent}>
                 {/* {props.shop.map( item => { */}
                 {props.products.map( item => {
@@ -162,12 +124,6 @@ const Shop = props => {
 
 const mapStateToProps = state => {
     return {
-        // addedItems  : state.shop.addedItems,
-        // totalItems  : state.shop.totalItems,
-        // items       : state.shop.items,
-        // total       : state.shop.total,
-        // shop        : state.shop.shop,
-        // isAuth      : state.auth.payload
         products       : state.shop.products
     };
 };
@@ -175,25 +131,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getProducts            : ()     =>{ dispatch(actions.getProducts());},
-        // addToCart           : (id)   =>{ dispatch(actions.addToCart(id))},
-        // getItems            : ()     =>{ dispatch(actions.getItems())},
-        // getItemByType       : (type) =>{ dispatch(actions.getItemByType(type))},
-        // loadCart            : (cart) =>{ dispatch(actions.loadCart(cart))},
-        // loadShop            : (cart) =>{ dispatch(actions.loadShop(cart))},
         // orderBy             : (type) =>{ dispatch(actions.orderBy(type))},
-        // subtractQuantity    : (id)   =>{ dispatch(actions.subtractQuantity(id))}
     };
 };
 
 Shop.propTypes = {
     totalItems: PropTypes.number,
-    isAuth: PropTypes.any,
     getItems: PropTypes.func,
     getItemByType: PropTypes.func,
-    loadShop: PropTypes.func,
-    shop: PropTypes.array,
     products: PropTypes.array,
-    getProducts: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

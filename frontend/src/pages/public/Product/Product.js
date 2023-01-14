@@ -1,18 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
-//import { Route, Switch } from 'react-router-dom';
-//import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from './Product.module.css';
 import * as actions from '../../../redux/actions/index';
-//import Details from '../Details/Details';    
-// import {useHistory}     from 'react-router-dom';                                                         
-//import Item from './ItemDetails/ItemDetails';
-// import CheckoutHeader   from '../../Checkout/CheckoutHeader/CheckoutHeader';
 import Review from './Review/Review';
 import Modal from '../../../components/UI/Modal/Modal';
-// import OrderSummary from '../../OrderSummary/OrderSummary';
-// import {purchaseContinueHandler} from '../../../../utility/stripe';
 import Rating from '../../../components/Rating/Rating';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import ImageGallery from '../../../components/ImageGallery/ImageGallery';
@@ -58,25 +50,8 @@ const Product = props => {
         };
 
     },[props.product]);
-
-//    console.log('My product = ', props.product);
-
-    let orderSummary = null;
-    // if (props.addedItems) {
-    //     orderSummary = <OrderSummary 
-    //         items={props.addedItems}
-    //         total={props.total}
-    //         purchaseCancelled={purchaseCancelHandler}
-    //         purchaseContinued={()=>purchaseContinueHandler(props.addedItems, props.isAuth)}
-    //     />;
-    // }
-
-
-
  
     let details = <p style={{textAlign: 'center'}}>Please select an item!</p>;
-    
-    
     
     if ( props.loading ) {
         details = <p style={{ textAlign: 'center' }}>Loading...!</p>;
@@ -84,15 +59,9 @@ const Product = props => {
     
     const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
     
-    
     let width = window.innerWidth;
 //    console.log('width = ',width);
 //    console.log('size = ',props.width);
-    // Product Details
-
-    // if (props.loading) {
-    //     details=<div>Loading...</div>;
-    // };
 
     if (props.product) {
         details = <div className={classes.Content}>
@@ -210,14 +179,9 @@ let reviews= [
     props.totalItems > 0
         ? checkout = purchaseHandler
         : checkout = null;
-//    console.log('My product = ', props.product);
-
 
     useLayoutEffect(() => {
         window.addEventListener('resize', props.resize);
-    
-        // You can also use:
-        // window.onresize = myHandlerFunction;
       }, []);
 
     return(<>
@@ -228,16 +192,6 @@ let reviews= [
             <div className='PageTitle'>
                 <NavLink to='/shop'>Shop</NavLink>
             </div>
-                
-            {/* <CheckoutHeader
-                totalItems={props.totalItems}
-                total={props.total}
-                viewTitle='View Cart'
-                view={viewCartHandler}
-                checkout={checkout}
-                isAuth={props.isAuth}
-            />
-             */}
             {details}
         </div>
         <div className={classes.Reviews}>
@@ -252,14 +206,6 @@ const mapStateToProps = state => {
         product : state.shop.product,
         loading: state.shop.loading,
         width: state.shop.width
-        // items       : state.shop.items,
-        // addedItems  : state.shop.addedItems,
-        // totalItems  : state.shop.totalItems,
-        // total       : state.shop.total,
-        // shop        : state.shop.shop,
-        // isAuth      : state.auth.payload,
-        // cartLoaded  : state.shop.cartLoaded,
-        // shopLoaded  : state.shop.shopLoaded
     };
 };
 
@@ -268,7 +214,6 @@ const mapDispatchToProps = dispatch => {
         getProduct : (id) => {dispatch( actions.getProduct(id));},
         resize     : ()   => {dispatch(actions.resize());},
         addToCart: ( id ) => { dispatch( actions.addToCart( id ) ); },
-//        subtractQuantity    : (id)     =>{ dispatch(actions.subtractQuantity(id));}
     };
 };
 
@@ -277,16 +222,9 @@ Product.propTypes = {
     resize      : PropTypes.func,
     product     : PropTypes.object,
     getProduct  : PropTypes.func,
-    shop        : PropTypes.array,
-    cartLoaded  : PropTypes.array,
     addToCart   : PropTypes.func,
-    subtractQuantity: PropTypes.func,
-    addedItems  : PropTypes.array,
     total       : PropTypes.number,
-    isAuth      : PropTypes.any,
     totalItems  : PropTypes.number,
-    reviews     : PropTypes.array,
-    review      : PropTypes.string,
     loading     : PropTypes.bool
 };
 

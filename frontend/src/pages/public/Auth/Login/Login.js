@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import classes from './Login.module.css';
 import * as actions from '../../../../redux/actions/index';
@@ -11,12 +11,13 @@ import SocialAuth from '../SocialAuth/SocialAuth';
 import AuthForm from '../AuthForm/AuthForm';
 
 const Login = props => {
-    const onAuth=(values,auth,token)=>{props.onAuth(values,auth,token);};
+    const auth='login';
+    const onAuth=(values,auth)=>{props.onAuth(values,auth);};
     let form;
 
     props.loading
         ? form = <Spinner />
-        : form = <AuthForm onAuth={onAuth} message={props.message} loading={props.loading}/>;
+        : form = <AuthForm onAuth={onAuth} auth={auth} message={props.message} loading={props.loading}/>;
     return(
         <div className='page-wrapper'>
             {props.user?  <Navigate to='/'/>:null}
@@ -26,7 +27,6 @@ const Login = props => {
                 <br />
                 {form}
                 <SocialAuth /> 
-                
             </div>
         </div> 
     );

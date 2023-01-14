@@ -4,53 +4,18 @@ import classes from './ForgotPassword.module.css';
 import * as actions from '../../../../redux/actions/index';
 import Spinner from '../../../../components/UI/Spinner/Spinner';
 import { NavLink, Navigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import Logo from '../../../../components/Logo/Logo';
 import PropTypes from 'prop-types';
 import AuthNav from '../AuthNav/AuthNav';
-
+import AuthForm from '../AuthForm/AuthForm';
+import SocialAuth from '../SocialAuth/SocialAuth';
 const ForgotPassword = props => {
-    const submitHandler = ( values, submitProps ) => {
-        //console.log('Form data', values)
-        //console.log('submitProps', submitProps)
-        props.onAuth( values, auth, token);
-        submitProps.setSubmitting(false);
-        submitProps.resetForm();
-    };
-    //useEffect(()=> {
-    //    const fetchData = async () => {props.onFetchUser();};
-    //      if ( !props.fetchedUser){fetchData();}
-    //    }, [props.fetchedUser, props.authRedirectPath]);
-
-
-    let initialValues, validationSchema, selected, unselected, form, button, authSelector, socialAuth, loader;
-            initialValues = {
-                email: ''
-            };
-            validationSchema = Yup.object({
-                email: Yup.string()
-                    .email("Invalid email format")
-                    .required("Required!")
-            });
-
-            props.loading || props.submitted  && props.userLoading
-                ? form = <Spinner />
-                : form = <>
-                    <Field 
-                        type="email" 
-                        name="email" 
-                        placeholder="Email Address"
-                        className={classes.AuthInput}
-                    />
-                    <ErrorMessage className='color-orange'name="email" component="div" />
-                </>;
-            button = <div className={classes.BtnDiv}><span className={['fa fa-user'].join(' ')}></span>Forgot Password</div>;
-            
-    let message = false;
-    if ( props.token ) {
-        message = <p className='color-orange'>{props.token.message}</p>;
-    };
+    let form;
+    const auth='forgot-password';
+    const onAuth=(values,auth)=>{props.onAuth(values,auth);};
+    props.loading 
+        ? form = <Spinner />
+        : form = <AuthForm onAuth={onAuth} auth={auth} message={props.message} loading={props.loading}/>;
 
     return(
         <div className='page-wrapper'>
@@ -65,26 +30,8 @@ const ForgotPassword = props => {
                     <p className='text-left'>Enter an email address to get a password reset  link</p>
                 </div>
                 <br />
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={submitHandler}
-                    enableReinitialize> 
-                    { formik => 
-                    <Form>
-                        {message}
-                        {form}
-                        <br />
-                        <button  
-                            className={[classes.Btn, classes.AuthBtn, 'auth-btn' ].join(' ')}
-                            type='submit'
-                            disabled={!formik.isValid || formik.isSubmitting }
-                        >
-                            {button}
-                        </button>
-                    </Form>}
-                </Formik>
-                {socialAuth}
+                {form}
+                <SocialAuth />
             </div> 
         </div> 
     );
@@ -99,14 +46,13 @@ const mapStateToProps = state => {
         user          : state.auth.user,
 //        isAuthenticated     : state.auth.payload,
 //        authRedirectPath    : state.auth.authRedirectPath,
-        token               : state.auth.token
+        message               : state.auth.message
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUser             : ()                    => dispatch(),
-        onAuth                  : (values, auth, token) => dispatch(),
+        onAuth                  : (values, auth, token) => dispatch(actions.auth(values,auth,token)),
 //        onFbAuth                : ()                    => dispatch(),
 //        onSetAuthRedirectPath   : ()                    => dispatch(),
     };
@@ -123,6 +69,7 @@ ForgotPassword.propTypes = {
     userLoading : PropTypes.bool,
     token : PropTypes.string,
     user : PropTypes.any,
+    message: PropTypes.string,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps)(ForgotPassword);

@@ -44,7 +44,6 @@ const getUserStart = (state, action) => {
 const getUserSuccess = (state, action) => {
     return updateObject(state, {
         user: action.data.user,
-        message: action.data.message,
         error: null,
         loading: false,
     });

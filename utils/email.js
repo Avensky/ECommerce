@@ -8,12 +8,16 @@ module.exports    = class Email {
     this.to = email;
     //this.firstName = user.name.split(' ')[0];
     this.url = url;
-    this.from = `Team Avensky <${process.env.EMAIL_FROM}>`;
+    this.from = `Team Avensky <${keys.emailFrom}>`;
   }
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
       // Sendgrid
+
+      console.log('keys.sengridUsername ', keys.sengridUsername)
+      console.log('keys.sengridPassword ', keys.sengridPassword)
+
       return nodemailer.createTransport({
         service: 'SendGrid',
         host: 'smtp.sendgrid.net',

@@ -8,7 +8,7 @@ module.exports    = class Email {
     this.to = email;
     //this.firstName = user.name.split(' ')[0];
     this.url = url;
-    this.from = `Team UriZa86 <${process.env.EMAIL_FROM}>`;
+    this.from = `Team Avensky <${process.env.EMAIL_FROM}>`;
   }
 
   newTransport() {
@@ -16,6 +16,8 @@ module.exports    = class Email {
       // Sendgrid
       return nodemailer.createTransport({
         service: 'SendGrid',
+        host: 'smtp.sendgrid.net',
+        port: 587,
         auth: {
           user: keys.sengridUsername,
           pass: keys.sengridPassword

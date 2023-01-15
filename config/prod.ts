@@ -20,9 +20,9 @@ module.exports = {
     emailPort               : process.env.EMAIL_PORT,
     emailFrom               : process.env.EMAIL_FROM,
     
-    sengridUsername         : process.env.SENDGRID_USERNAME,
-    sengridPassword         : process.env.SENDGRID_PASSWORD,
-    secretKey               : process.env.SECRET_KEY,
+    sendgridUsername        : process.env.SENDGRID_USERNAME,
+    sendgridPassword        : process.env.SENDGRID_PASSWORD,
+    sendgridApiKey          : process.env.SENDGRID_API_KEY,
 
     //social auth
     googleClientID          : process.env.AVENSKY_GOOGLE_CLIENT_ID,

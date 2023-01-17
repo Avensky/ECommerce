@@ -25,9 +25,11 @@
     "start": "react-scripts start",
     "start:staging": "env-cmd -f .env.staging react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress run ",
     "lint": "eslint --ext js,ts,tsx src",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -48,7 +50,9 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^12.3.0",
     "eslint": "^8.29.0",
-    "eslint-plugin-react": "^7.31.11"
+    "eslint-plugin-react": "^7.31.11",
+    "typescript": "^4.9.4"
   }
 }

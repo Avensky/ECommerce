@@ -83,7 +83,9 @@ jobs:
         npm run lint
 
     - name: Execute test cases
-      run: echo testing...
+      run: |
+        cd frontend
+        npm run cypress
 
   build:
     needs: frontend

@@ -4,7 +4,6 @@
   "description": "Ecommerce template with admin dashboard with react and node",
   "main": "server.ts",
   "scripts": {
-    "test": "cypress run",
     "server": "nodemon --exec ts-node -T server.ts",
     "frontend": "npm run start:staging --prefix ./frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",

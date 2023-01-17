@@ -85,7 +85,7 @@ jobs:
     - name: Execute test cases
       run: |
         cd frontend
-        npm run cypress
+        npm run test
 
   build:
     needs: frontend

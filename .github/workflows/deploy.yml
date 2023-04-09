@@ -119,9 +119,7 @@ jobs:
     - name: Execute cypress test cases
       uses: cypress-io/github-action@v5
       with:
-        start: |
-          npm run dev
-          browser: chrome
+        browser: chrome
 
   restartServer:
     needs: build

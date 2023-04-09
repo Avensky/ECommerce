@@ -124,6 +124,7 @@ jobs:
         wait-on-timeout: 120
         command: |
           cd frontend
+          npm install cypress
           npm run test
 
   restartServer:

@@ -12,7 +12,7 @@ const sidebar = ( props ) => {
         attachedClasses = [classes.Sidebar, classes.Open];
     }
     return (
-        <>
+        <div className={classes.SidebarWrapper}>
             <Backdrop show={props.open} clicked={props.closed}/>
             <div className={attachedClasses.join(' ')} onClick={props.closed}>
                 <div className={classes.LogoWrapper}>
@@ -51,7 +51,7 @@ const sidebar = ( props ) => {
                 <SidebarItem exact='true' to='/pyramid'>pyramid</SidebarItem>
                 <SidebarItem exact='true' to='/stacked'>Stacked</SidebarItem> */}
             </div>
-        </>
+        </div>
     );
 };
 

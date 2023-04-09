@@ -14,7 +14,7 @@ const Navbar = ( props ) => {
             {/* Mobile Sidebar */}
             <div className={[classes.Navbar, classes.Mobile].join(' ')}>
                 <div className={classes.NavItems}>
-                    <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}/>
+                    <FontAwesomeIcon icon='fa-solid fa-bars' onClick={props.sidebarToggleClicked} className={classes.Bars}>Bars</FontAwesomeIcon>
                 </div>
                 <div className={classes.NavItems} onClick={props.closeCartbar}>
                     <NavLink to="/shop" exact='true' className={classes.LogoWrapper}>
@@ -24,11 +24,11 @@ const Navbar = ( props ) => {
                 </div>
                 <div className={classes.NavItems}>
                     {!props.user
-                        ? <NavItem to="/login" exact='true' onClick={props.closeCartbar}>
+                        ? <NavItem to="/login" exact='true' className='mobile-login' onClick={props.closeCartbar}>
                             <FontAwesomeIcon icon="fa-solid fa-user" />
                         </NavItem>
                         : <div className={classes.NavItemWrapper} onClick={props.logout}>
-                            <div className={classes.NavItem}>LOGOUT</div>
+                            <div className={[classes.NavItem, 'mobile-logout'].join(' ')}>LOGOUT</div>
                         </div>
                     }
                     
@@ -61,11 +61,11 @@ const Navbar = ( props ) => {
                         ? <NavItem to="/profile">Profile</NavItem> 
                         : null} */}
                     {!props.user
-                        ? <NavItem to="/login" exact='true' onClick={props.closeCartbar}>
+                        ? <NavItem to="/login" exact='true' className='desktop-login' onClick={props.closeCartbar}>
                             <FontAwesomeIcon icon="fa-solid fa-user"/>
                         </NavItem>
                         : <div className={classes.NavItemWrapper} onClick={props.logout}>
-                            <div className={classes.NavItem}>LOGOUT</div>
+                            <div className={[classes.NavItem, 'desktop-logout'].join(' ')}>LOGOUT</div>
                         </div>}
 {/*                 
                     <NavItem to="/search" exact='true' onClick={props.closeCartbar}>

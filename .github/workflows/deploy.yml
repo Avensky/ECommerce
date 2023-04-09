@@ -82,11 +82,6 @@ jobs:
         cd frontend
         npm run lint
 
-    - name: Execute test cases
-      run: |
-        cd frontend
-        npm run test
-
   build:
     needs: frontend
     runs-on: self-hosted
@@ -120,6 +115,17 @@ jobs:
       run: |
         cd frontend
         npm run build
+
+    - name: Execute cypress test cases
+      uses: cypress-io/github-action@v5
+      with:
+        build: |
+          cd frontend
+          npm run cypress:build
+        start: |
+          cd frontend
+          npm cypress:start
+          browser: chrome
 
   restartServer:
     needs: build

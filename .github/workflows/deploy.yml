@@ -119,12 +119,11 @@ jobs:
     - name: Execute cypress test cases
       uses: cypress-io/github-action@v5
       with:
-        start: npm run dev
+        start: npm run server
         wait-on: 'http://localhost:3000'
         wait-on-timeout: 120
         command: |
           cd frontend
-          npm install cypress
           npm run test
 
   restartServer:

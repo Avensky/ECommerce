@@ -105,21 +105,25 @@ jobs:
           backend-cache-backend-${{ hashFiles('package-lock.json')}}
           frontend-cache-frontend-${{ hashFiles('frontend/package-lock.json')}}
 
-    - name: Install Dependencies
-      run: |
+    # - name: Install Dependencies
+    #   run: |
+    #       npm ci
+    #       cd frontend
+    #       npm ci
+
+    # - name: Create production build
+    #   run: |
+    #     cd frontend
+    #     npm run build
+
+    - name: Execute cypress test cases
+      uses: cypress-io/github-action@v5.1.0
+      with:
+        install: |
           npm ci
           cd frontend
           npm ci
 
-    - name: Create production build
-      run: |
-        cd frontend
-        npm run build
-
-    - name: Execute cypress test cases
-      uses: actions/checkout@v3
-      uses: cypress-io/github-action@v5.1.0
-      with:
         build: |
           cd frontend
           npm run build

@@ -117,11 +117,11 @@ jobs:
         npm run build
 
     - name: Execute cypress test cases
-      uses: cypress-io/github-action@v5
+      uses: cypress-io/github-action@v3
       with:
         start: npm run server
-        wait-on: 'http://localhost:3000'
-        wait-on-timeout: 120
+        # wait-on: 'http://localhost:3000'
+        # wait-on-timeout: 120
         command: |
           cd frontend
           npm run test

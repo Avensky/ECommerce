@@ -117,14 +117,22 @@ jobs:
         npm run build
 
     - name: Execute cypress test cases
-      uses: cypress-io/github-action@v3
+      uses: actions/checkout@v3
+      uses: cypress-io/github-action@v5.1.0
       with:
-        start: npm run server
+        build: |
+          cd frontend
+          npm run build
+
+        start: |
+          npm run server
+          cd frontent
+          npm run start
         # wait-on: 'http://localhost:3000'
         # wait-on-timeout: 120
-        command: |
-          cd frontend
-          npm run test
+        # command: |
+        #   cd frontend
+        #   npm run test
 
   restartServer:
     needs: build

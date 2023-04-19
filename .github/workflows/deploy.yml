@@ -153,14 +153,14 @@ jobs:
       uses: cypress-io/github-action@v5.1.0
       with:
         start: |
-        npm ci
-        npm run lint
-        cd frontend
-        npm ci
-        npm run lint
-        npm run build
-        cd ..
-        npm run server
+          npm ci
+          npm run lint
+          cd frontend
+          npm ci
+          npm run lint
+          npm run build
+          cd ..
+          npm run server
 
       # wait-on: 'http://localhost:3000'
       # wait-on-timeout: 120

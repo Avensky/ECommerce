@@ -137,7 +137,7 @@ jobs:
 #         pm2 save
 #         sudo service nginx restart
 
-  deploy:
+  build:
     runs-on: self-hosted
 
     steps:

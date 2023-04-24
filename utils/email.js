@@ -15,16 +15,16 @@ module.exports    = class Email {
     if (process.env.NODE_ENV === 'production') {
       // Sendgrid
 
-      console.log('keys.sengridUsername ', keys.sengridUsername)
-      console.log('keys.sengridPassword ', keys.sengridPassword)
+      console.log('keys.sendgridUsername ', keys.sendgridUsername)
+      console.log('keys.sendgridPassword ', keys.sendgridPassword)
 
       return nodemailer.createTransport({
         service: 'SendGrid',
         host: 'smtp.sendgrid.net',
         port: 587,
         auth: {
-          user: keys.sengridUsername,
-          pass: keys.sengridPassword
+          user: keys.sendgridUsername,
+          pass: keys.sendgridPassword
         }
       });
     }

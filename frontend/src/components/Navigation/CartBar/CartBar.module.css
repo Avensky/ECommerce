@@ -1,7 +1,7 @@
 .CartBar {
     padding-top: 51px;
     position: fixed;
-    min-height: 230px;
+    /* min-height: 230px; */
     /* max-height: 70%; */
     left: 0;
     top: 0;
@@ -17,14 +17,16 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     /* justify-content: space-between; */
+    align-items: stretch;
 }
 .content {
     box-sizing: border-box;
     width: 100%;
     max-width: 1025px;
     height: 100%;
-    /* display: flex; */
-    /* flex-direction: column; */
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
 
 }
 .LogoWrapper {
@@ -106,6 +108,12 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+
+.disabled {
+    background-color: -internal-light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+    background-color: grey;
+    color: -internal-light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
 }
 
 /* For tablet */

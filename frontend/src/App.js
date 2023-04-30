@@ -69,11 +69,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUser             : () => { dispatch(actions.getUser());},
-    getProducts         : () =>{ dispatch(actions.getProducts());},
-    loadCart            : () =>{ dispatch(actions.loadCart());},
-    loadShop            : () =>{ dispatch(actions.loadShop());},
-    checkout            : (cart, user) =>{ dispatch(actions.checkout(cart, user));},
-    logout              : () =>{dispatch(actions.logout());},
+    getProducts         : () => { dispatch(actions.getProducts());},
+    loadCart            : () => { dispatch(actions.loadCart());},
+    loadShop            : () => { dispatch(actions.loadShop());},
+    checkout            : (cart, user) => { dispatch(actions.checkout(cart, user));},
+    logout              : () => { dispatch(actions.logout());},
   };
 };
 

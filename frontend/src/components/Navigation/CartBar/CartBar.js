@@ -36,7 +36,11 @@ const CartBar = (props) => {
                     {cart}
                 </div>
                 <div className={classes.buttons}>
-                    <button className={[classes.button, classes.checkout].join(' ')} onClick={props.checkout}>Checkout</button>
+                    <button 
+                        className={props.cart.length === 0 ? [classes.button, classes.disabled, classes.checkout].join(' ') :[classes.button, classes.checkout].join(' ')}
+                        disabled =  {props.cart.length == 0 ? true : false} 
+                        onClick={props.checkout}
+                    >Checkout</button>
                     <NavLink className={[classes.button].join(' ')} to='/cart' onClick={props.closed}>
                         <button className={classes.viewCart}>View Cart</button>
                     </NavLink>

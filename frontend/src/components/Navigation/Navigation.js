@@ -15,7 +15,8 @@ const Navigation = (props) => {
     };
     const closeSidebarHandler           = () => {setShowSidebar(false);};
 
-    const cartbarToggleHandler          = () => {
+    const cartbarToggleHandler          = (e) => {
+      e.preventDefault();
       setShowCartbar(!showCartbar);
       setShowSidebar(false);
     };
@@ -30,6 +31,8 @@ const Navigation = (props) => {
             cartbarToggleClicked    = {cartbarToggleHandler}
             closeCartbar            = {closeCartbarHandler}
             totalItems              = {props.totalItems}
+            cart = {props.cart}
+            checkout = {props.checkout}
         />
         <Sidebar 
             user                    = {props.user}

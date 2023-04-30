@@ -46,7 +46,7 @@ const  App = (props) => {
           {/* pages */}
           <Route path="/"                           element={<Home/>}/>
           <Route path="/home"                       element={<Home/>}/>
-          <Route path="/shop"                       element={<Shop />}/>
+          <Route path="/shop"                 exact element={<Shop />}/>
           <Route path="/product/:id"          exact element={<Product />} />
           <Route path="/cart"                 exact element={<Cart />} />
 

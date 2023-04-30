@@ -5,9 +5,9 @@ import classes from './CartBar.module.css';
 import { NavLink } from 'react-router-dom';
 
 const CartBar = (props) => {
-    let attachedClasses = [classes.Sidebar, classes.Close];
+    let attachedClasses = [classes.CartBar, classes.Close];
     if (props.open) {
-        attachedClasses = [classes.Sidebar, classes.Open];
+        attachedClasses = [classes.CartBar, classes.Open];
     }
     let cart = <p>Cart is empty. So sad</p>;
     if (props.cart.length>0) {

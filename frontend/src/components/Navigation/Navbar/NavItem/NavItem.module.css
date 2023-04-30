@@ -25,6 +25,15 @@
 .Fit {
     height: fit-content;
 }
+
+.dropdownButton:hover {
+    display: block;
+}
+
+.dropdownButton {
+    
+}
+
 @media only screen and (min-width: 600px) {
     .NavItem {
         margin: 0 .25vw;

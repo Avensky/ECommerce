@@ -1,4 +1,4 @@
-.Sidebar {
+.CartBar {
     padding-top: 51px;
     position: fixed;
     min-height: 230px;
@@ -16,12 +16,16 @@
     /* overflow-y: auto; */
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    /* justify-content: space-between; */
 }
 .content {
     box-sizing: border-box;
     width: 100%;
     max-width: 1025px;
-    /* flex: 1 */
+    height: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+
 }
 .LogoWrapper {
     box-sizing: border-box;
@@ -110,7 +114,7 @@
 
 /* Desktop */
 @media only screen and (min-width: 1025px) {
-    .Sidebar {
+    .CartBar {
         justify-content: flex-end;
     }    
     

@@ -44,12 +44,16 @@ const item = props => {
     return  (
     <div className={[classes.Item, props.class].join(' ')} key={props.id}>
             {/* Image */}
-            <div className={classes.Thumbnail}>
+            {props.images 
+            ? <div className={classes.Thumbnail}>
                 <Link to={props.link + '/' + props.id}>
-                    <img className={props.imgClass} src={url+props.image} 
+                    <img className={props.imgClass} src={props.images[0]} 
                     alt={props.alt}/>
                 </Link>
             </div>
+            
+            :null}
+            
 
         <div className={props.myClass}> 
             {/* Name */}
@@ -65,9 +69,13 @@ const item = props => {
             </div>
 
             {/* Price */}
+
+            {props.price ? 
             <div className={classes.Price}>
                 ${props.price.toFixed(2)}
             </div>
+            : null}
+            
 
             {/* Reviews */}
 

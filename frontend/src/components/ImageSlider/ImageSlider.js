@@ -3,22 +3,15 @@ import classes from './ImageSlider.module.css';
 import PropTypes from 'prop-types';
 
 const ImageSlider = ({ collection }) => {
-  const url = 'https://caring-vegan.s3.us-west-2.amazonaws.com/';
-  //console.log('imagedata = ', collection);
-  const myCollection = [
-    {
-        label: "First Image",
-        url: url + collection
-    },
-    {
-        label: "Second Image",
-        url: url + collection
-    },
-    {
-        label: "Third Image",
-        url: url + collection
-    },
-];
+  console.log('imagedata = ', collection);
+  let myCollection = [];
+
+  collection.map((image, index)=>{
+    myCollection.push({
+      label: `image number ${index+1}`,
+      url: image
+    });
+  });
 
   const[index, setIndex] = useState(0);
  

@@ -13,12 +13,12 @@ const CartBar = (props) => {
     if (props.cart.length>0) {
         cart = props.cart.map(item => {
             return <div key={item._id} className={classes.item}>
-                <div className={classes.image}><img src={'https://caring-vegan.s3.us-west-2.amazonaws.com/'+item.imageData}/></div>
+                <div className={classes.image}><img src={item.images[0]}/></div>
                 <div className={classes.details}>
                     <div>{item.name}</div>
                     <div>{item.desc}</div>
                     <div>Qty:{item.orderAmt}</div>
-                    <div>${item.price}</div>
+                    <div>${(item.default_price.unit_amount/100).toFixed(2)}</div>
                 </div>
             </div>;
         });

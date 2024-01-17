@@ -44,7 +44,7 @@ const Cart = props => {
 
                     {/* Image */}
                         <NavLink to={'/product/' + item._id} className={classes.ImageWrapper}>
-                            <img src={'https://caring-vegan.s3.us-west-2.amazonaws.com/'+item.imageData} alt={item.alt}/>
+                            <img src={item.images[0]} alt={item.alt}/>
                         </NavLink>
                     
                     {/* Details */}
@@ -60,7 +60,7 @@ const Cart = props => {
                 <div className={classes.Pricing}>
                     {/* Price */}
                     <div className={classes.Price}>
-                        Price ${item.price}
+                        Price ${(item.default_price.unit_amount/100).toFixed(2)}
                     </div>
 
                     {/* Quantity */}

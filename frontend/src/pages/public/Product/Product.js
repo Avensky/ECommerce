@@ -76,16 +76,25 @@ const Product = props => {
 
         </div>
         <div className={classes.ProductDetails}>
-            <div className={classes.ImageWrapper}>
-                <ImageSlider collection={props.product.imageData} alt={props.product.name} />
+            {props.product.images ? <div className={classes.ImageWrapper}>
+                <ImageSlider collection={props.product.images} alt={props.product.name} />
             </div>
+            
+            :null}
+            
+
             <div className={classes.DetailsWrapper}>
                 <div className={classes.Options}>
 
                 </div>
-                <div className={classes.PriceWrapper}>
-                    <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
+
+                {props.product.default_price.unit_amount 
+                ? <div className={classes.PriceWrapper}>
+                    <div className={classes.Price}>{` $${props.product.default_price.unit_amount.toFixed(2)}`}</div>
                 </div>
+                
+                : null}
+               
                 <div className={classes.Availability}>
                     <div>In Stock: {props.product.quantity || 0}</div>
                     <div>Sold: {props.product.sold || 0}</div>
@@ -99,10 +108,10 @@ const Product = props => {
             </div>
         </div>
     </div>;
-        if ((props.width >= 1025)||(width >= 1025)){ 
+        if ((props.width >= 1025)||(width >= 1025) && props.product.images){ 
             details = <div className={classes.Content}>
                 <div className={classes.ImageWrapper}>
-                    <ImageGallery collection={props.product.imageData} alt={props.product.name} />
+                    <ImageGallery collection={props.product.images} alt={props.product.name} />
                 </div>
                 <div className={classes.ProductDetails}>
                     
@@ -126,9 +135,13 @@ const Product = props => {
                         <div className={classes.Options}>
         
                         </div>
-                        <div className={classes.PriceWrapper}>
-                            <div className={classes.Price}>{` $${props.product.price.toFixed(2)}`}</div>
+                        {props.product.default_price.unit_amount 
+                        ? <div className={classes.PriceWrapper}>
+                            <div className={classes.Price}>{` $${props.product.default_price.unit_amount.toFixed(2)}`}</div>
                         </div>
+                        : null}
+                        
+
                         <div className={classes.Availability}>
                             <div>In Stock: {props.product.stock || 0}</div>
                             <div>Sold: {props.product.sold || 0}</div>

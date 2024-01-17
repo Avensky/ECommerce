@@ -91,7 +91,7 @@ const Shop = props => {
                 {props.products.map( item => {
                     return( 
                         <Item
-                            image               = {item.imageData}
+                            images              = {item.images}
                             key                 = {item._id}
                             id                  = {item._id}
                             alt                 = {item.title}
@@ -103,7 +103,7 @@ const Shop = props => {
                             subtractQuantity    = {() => subtractQuantity(item._id)}
                             name                = {item.name}
                             desc                = {item.desc}
-                            price               = {item.price}
+                            price               = {item.default_price.unit_amount/100}
                             quantity            = {item.amount | 0}
                             add                 = {true}
                         />

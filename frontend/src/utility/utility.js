@@ -41,10 +41,10 @@ export const storeLocally = ( arrayName, array ) => {
     localStorage.setItem(arrayName, arrayString);
 };
 
-export const getLocalStorage = async () => {
-    console.log(' getLocalStorage');
-    let arrayString = localStorage.getItem('cart');
-    console.log('arrayString', arrayString);
+export const getLocalStorage = async (name) => {
+    // console.log(' getLocalStorage');
+    let arrayString = localStorage.getItem(name);
+    // console.log('arrayString', arrayString);
     let array = [];
     if(arrayString){
         array = JSON.parse(arrayString);      
